@@ -1,0 +1,5 @@
+com/curry/dao/CustomerDaoTest.class
+com/curry/dao/MealDaoTest.class
+com/curry/plugin/WeekTest.class
+com/curry/base/BaseTest.class
+com/curry/controller/AdminControllerTest.class

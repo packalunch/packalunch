@@ -1,0 +1,5 @@
+/opt/sonic/curryari/src/test/java/com/curry/base/BaseTest.java
+/opt/sonic/curryari/src/test/java/com/curry/plugin/WeekTest.java
+/opt/sonic/curryari/src/test/java/com/curry/dao/CustomerDaoTest.java
+/opt/sonic/curryari/src/test/java/com/curry/dao/MealDaoTest.java
+/opt/sonic/curryari/src/test/java/com/curry/controller/AdminControllerTest.java
