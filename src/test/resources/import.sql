@@ -20,9 +20,9 @@
 -- );
 
 
-INSERT INTO customer (id, first_name, last_name, address, telephone) VALUES (1, 'david', 'gilmour', 'endless river st', NULL);
-INSERT INTO customer (id, first_name, last_name, address, telephone) VALUES (2, 'roger', 'waters', 'final cut st', NULL);
-INSERT INTO customer (id, first_name, last_name, address, telephone) VALUES (3, 'john', 'locke', 'enlightenment st', NULL);
+-- INSERT INTO customer (id, first_name, last_name, address, telephone) VALUES (1, 'david', 'gilmour', 'endless river st', NULL);
+-- INSERT INTO customer (id, first_name, last_name, address, telephone) VALUES (2, 'roger', 'waters', 'final cut st', NULL);
+-- INSERT INTO customer (id, first_name, last_name, address, telephone) VALUES (3, 'john', 'locke', 'enlightenment st', NULL);
 
 -- INSERT INTO meal (id, customer_id, date, quantity, rating, ordered_at) VALUES (1, 1, '2014-11-05', 1, NULL, '2014-11-01 22:27:42');
 -- INSERT INTO meal (id, customer_id, date, quantity, rating, ordered_at) VALUES (2, 2, '2014-11-06', 1, NULL, '2014-11-01 22:28:02');

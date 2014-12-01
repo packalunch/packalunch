@@ -1,6 +1,7 @@
 package com.curry.fw.dao;
 
 import com.curry.fw.model.AbstractEntity;
+import com.curry.model.Meal;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -69,4 +70,8 @@ public class AbstractDao <T extends AbstractEntity> {
         getSession().update(entity);
     }
 
+    public void saveAll(List<T> objList) {
+        for(T obj  : objList)
+            getSession().saveOrUpdate(obj);
+    }
 }

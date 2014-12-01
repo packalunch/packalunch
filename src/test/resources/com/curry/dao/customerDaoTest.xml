@@ -1,0 +1,5 @@
+<dataset>
+    <customer id="1" first_name="david" last_name="gilmour" address="endless river st" telephone="456"/>
+    <customer id="2" first_name="roger" last_name="waters" address="final cut st" telephone="456"/>
+    <customer id="3" first_name="john" last_name="locke" address="enlightenment st" telephone="456"/>
+</dataset>

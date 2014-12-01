@@ -1,5 +1,6 @@
 package com.curry.base;
 
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import org.hibernate.SessionFactory;
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -7,9 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.SessionFactoryUtils;
 import org.springframework.orm.hibernate4.SessionHolder;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
+
 /**
  * CurryWithAri
  * Created by sadra on 11/15/14.
@@ -17,6 +23,10 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:testApplicationContext.xml"})
 @TransactionConfiguration(defaultRollback=true,transactionManager="transactionManager")
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
+        DirtiesContextTestExecutionListener.class,
+        TransactionalTestExecutionListener.class,
+        DbUnitTestExecutionListener.class })
 public class BaseTest {
 
     @Test

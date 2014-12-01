@@ -18,7 +18,7 @@ import java.util.List;
 public class MealDaoImpl extends AbstractDao <Meal>
         implements MealDao {
 
-    static Logger log = Logger.getLogger(MealDaoImpl.class.getName());
+    static Logger log = Logger.getLogger(MealDaoImpl.class);
 
     public MealDaoImpl() {
         super(Meal.class);
@@ -29,60 +29,29 @@ public class MealDaoImpl extends AbstractDao <Meal>
         super.save(meal);
     }
 
-//
-//    @SuppressWarnings("unchecked")
-//    @Override
-//    public List<Meal> listByCustomer(int customerId) {
-//
-//        Query query = getSession().createQuery("FROM Meal WHERE customer_id = :customerId");
-//        query.setParameter("customerId", customerId);
-//
-//        List<Meal> customerMealList = query.list();
-//
-//        return customerMealList;
-//    }
-//
-//    @SuppressWarnings("unchecked")
-//    @Override
-//    public List <Meal> listMealFilterByRange(Date startDate, Date endDate) {
-//        Query query = getSession().createQuery("FROM Meal WHERE date between :startDate and :endDate");
-//        query.setParameter("startDate", startDate);
-//        query.setParameter("endDate", endDate);
-//
-//        List<Meal> customerMealList = query.list();
-//
-//        return customerMealList;
-//    }
-//
-//    @Override
-//    public List<Meal> listByCustomerByRange(int id, Date startDate, Date endDate) {
-//
-//        Query query = getSession().createQuery("FROM Meal WHERE customer_id = :customerId " +
-//                "AND date between :startDate and :endDate");
-//        query.setParameter("customerId", id);
-//        query.setParameter("startDate", startDate);
-//        query.setParameter("endDate", endDate);
-//
-//        log.info(startDate);
-//        log.info(endDate);
-//
-//        List<Meal> customerMealList = query.list();
-//
-//        return customerMealList;
-//    }
+    @Override
+    public void save(List<Meal> meals) {
+        super.saveAll(meals);
+    }
 
+    @Override
+    public List<Meal> listByCustomerByRange(int id, Date startDate, Date endDate) {
+        Query query = getSession().createQuery("FROM Meal WHERE customer_id = :customerId " +
+                "AND date between :startDate and :endDate");
+        query.setParameter("customerId", id);
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+
+        log.info(startDate);
+        log.info(endDate);
+
+        List<Meal> customerMealList = query.list();
+
+        return customerMealList;
+    }
 
     public void deleteMeal(Meal meal) {
         super.delete(meal);
     }
-
-//    @Override
-//    public Meal getMealByName(String name) {
-//        return (Meal) getSession().createCriteria(getType())
-//                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).add(Restrictions.eq("name", name)).uniqueResult();
-//    }
-
-
-
 
 }

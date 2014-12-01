@@ -1,6 +1,7 @@
 package com.curry.model;
 
 import com.curry.fw.model.AbstractEntity;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
  * Created by sadra on 10/30/14.
  */
 @Entity
+@Component
 @Table(name="customer")
 public class Customer extends AbstractEntity {
 
@@ -19,17 +21,6 @@ public class Customer extends AbstractEntity {
     private String last_name;
     private String address;
     private String telephone;
-
-    @OneToMany(mappedBy = "customer", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    private List <Meal> mealList = new ArrayList<Meal>();
-
-    public List <Meal> getMealList() {
-        return mealList;
-    }
-
-    public void setMealList(List<Meal> mealList) {
-        this.mealList = mealList;
-    }
 
     public String getFirst_name() {
         return first_name;
@@ -70,7 +61,8 @@ public class Customer extends AbstractEntity {
     @Override
     public String toString() {
         return "Customer{" +
-                " first_name='" + first_name + '\'' +
+                "id=" + super.getId() +
+                ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", address='" + address + '\'' +
                 ", telephone='" + telephone + '\'' +

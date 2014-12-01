@@ -23,16 +23,16 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService {
 
     static Logger log = Logger.getLogger(CustomerService.class.getName());
-    @Autowired
-    private CustomerDao customerDao;
+//    @Autowired
+//    private CustomerDao customerDao;
     @Autowired
     private MealDao mealDao;
-    @Autowired
-    private DatePlugin datePlugin;
+//    @Autowired
+//    private DatePlugin datePlugin;
 
     /**
      * always return 7 day list.
-     * @param Customer
+     * @param customer
      * @param week
      * @return
      */
@@ -44,20 +44,20 @@ public class CustomerServiceImpl implements CustomerService {
 
         log.info("startDate:"+ startDate);
         log.info("endDate:"+ endDate);
-        List <Meal> meals = customer.getMealList();// mealDao.listByCustomerByRange(customerId, startDate, endDate);
+        List <Meal> meals = mealDao.listByCustomerByRange(customer.getId(), startDate, endDate);
 
-        List <Day> dinerSchedule = week.getWeekList();
+        List <Day> weekSchedule = week.getWeekList();
 
-        for (Day day : dinerSchedule) {
+        for (Day day : weekSchedule) {
             for (Meal meal : meals) {
                 if (meal.getDate().compareTo(day.getTime()) == 0) {
                     day.setMeal(meal);
-                log.info("meal:: " + meal);
+                    log.info("meal:: " + meal);
                 }
             }
             day.setMeal(null);
             log.info("DAY::" + day.toString());
         }
-        return dinerSchedule;
+        return weekSchedule;
     }
 }

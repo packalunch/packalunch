@@ -2,6 +2,7 @@ package com.curry.model;
 
 
 import com.curry.fw.model.AbstractEntity;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -12,12 +13,14 @@ import java.util.Date;
  * Created by sadra on 11/1/14.
  */
 @Entity
+@Component
 @Table(name="meal")
 public class Meal extends AbstractEntity {
 
-    @ManyToOne
+    @ManyToOne ()
     @JoinColumn(name="customer_id", insertable=false, updatable=false)
     private Customer customer;
+
 
     private Date date;
     private int quantity;
@@ -73,7 +76,8 @@ public class Meal extends AbstractEntity {
     @Override
     public String toString() {
         return "Meal{" +
-                "id=" + id +
+                "id=" + super.getId() +
+                ", customer=" + customer +
                 ", date=" + date +
                 ", quantity=" + quantity +
                 ", rating=" + rating +
