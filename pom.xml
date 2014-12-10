@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.curry</groupId>
-	<artifactId>CurryWithAri</artifactId>
+	<artifactId>currywithari</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
@@ -201,8 +201,9 @@
 	</repositories>
 
 	<build>
-		<finalName>CurryWithAri</finalName>
+		<finalName>currywithari</finalName>
 		<plugins>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

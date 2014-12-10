@@ -61,9 +61,9 @@
 
         <c:forEach items="${users}" var="user">
             <tr>
-                <td class="name"><c:out value="${user.first_name}"/> <c:out value="${user.last_name}"/></td>
+                <td class="name"><c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/></td>
 
-                <c:forEach items="${user.dinnerSchedule}" var="meal">
+                <c:forEach items="${user.dinerSchedule}" var="meal">
                     <c:choose>
                         <c:when test="${meal == null}">
                             <td class="available"><i class="fa fa-remove"></i></td>
