@@ -14,6 +14,7 @@ public class DinnerDto {
     private String firstName;
     private String lastName;
     private List<Day> dinerSchedule;
+    private int balance;
 
     public int getId() {
         return id;
@@ -55,5 +56,13 @@ public class DinnerDto {
                 ", lastName='" + lastName + '\'' +
                 ", dinerSchedule=" + dinerSchedule +
                 '}';
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
+
+    public int getBalance() {
+        return balance;
     }
 }

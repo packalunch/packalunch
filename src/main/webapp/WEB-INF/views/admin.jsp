@@ -65,16 +65,13 @@
 
                 <c:forEach items="${user.dinerSchedule}" var="meal">
                     <c:choose>
-                        <c:when test="${meal == null}">
-                            <td class="available"><i class="fa fa-remove"></i></td>
-                        </c:when>
-                        <c:when test="${meal != null}">
+                        <c:when test="${meal.availabe}">
                             <td class="selected"><i class="fa fa-remove"></i></td>
                         </c:when>
+                        <c:otherwise>
+                            <td class="weekend"><i class="fa fa-remove"></i></td>
+                        </c:otherwise>
 
-                        <%--<c:otherwise>pizzas.--%>
-                            <%--<br />--%>
-                        <%--</c:otherwise>--%>
                     </c:choose>
 
                 </c:forEach>
@@ -88,7 +85,7 @@
 
                 <%--<td class="weekend"></td>--%>
                 <%--<td class="weekend"></td>--%>
-                <td class="total">$7.00</td>
+                <td class="total">$ ${user.balance}</td>
             </tr>
         </c:forEach>
 

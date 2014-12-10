@@ -63,6 +63,7 @@ public class CustomerServiceImpl implements CustomerService {
                 if (sdf.format(meal.getDate())
                         .equalsIgnoreCase(sdf.format(day.getDate()))) {
                     day.setMeal(meal);
+                    day.setAvailabe(true);
                     log.info("meal::: " + meal);
                 }
             }

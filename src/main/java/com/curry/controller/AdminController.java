@@ -50,30 +50,33 @@ public class AdminController {
         Week week = new Week(50);
 
         for (Customer customer : customerList) {
-            DinnerDto dinner = new DinnerDto();
+            DinnerDto diner = new DinnerDto();
 
-            dinner.setId(customer.getId());
-            dinner.setFirstName(customer.getFirst_name());
-            dinner.setLastName(customer.getLast_name());
+            diner.setId(customer.getId());
+            diner.setFirstName(customer.getFirst_name());
+            diner.setLastName(customer.getLast_name());
 
             //todo: get from service
             List<Day> dinerSchedule = customerService.getDinerSchedule(customer, week);
 
+            int balance = 0;
             for (Day day : dinerSchedule) {
+                if (day.getMeal() != null) {
+                    balance += 10;
+                }
                 System.out.println("CUSTOMER-MEAL::" + day.getMeal());
             }
 
-            dinner.setDinerSchedule(dinerSchedule);
+            diner.setBalance (balance);
+            diner.setDinerSchedule(dinerSchedule);
 
-            dinnersList.add(dinner);
+            dinnersList.add(diner);
         }
 
         for (DinnerDto dinner : dinnersList)
             System.out.println("CUSTOMER::" + dinner.getDinerSchedule());
 
         model.addAttribute("users", dinnersList);
-
-        System.out.print("HEREEEEEEEEEEEEE");
 
         return "admin";
     }
