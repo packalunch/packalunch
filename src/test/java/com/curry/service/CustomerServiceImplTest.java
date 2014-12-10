@@ -1,57 +1,52 @@
 package com.curry.service;
 
+import com.curry.base.BaseTest;
 import com.curry.model.Customer;
-import com.curry.model.Meal;
 import com.curry.plugins.date.Day;
 import com.curry.plugins.date.Week;
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-import java.util.ArrayList;
+import javax.annotation.Resource;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.*;
-//
-//@RunWith(SpringJUnit4ClassRunner.class)
-////@ContextConfiguration(value = "testApplicationContext.xml")
-//@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-//        DbUnitTestExecutionListener.class })
-public class CustomerServiceImplTest {
+import static org.junit.Assert.assertEquals;
 
-//    @Test
-//    public void testGetDinerSchedule() throws Exception {
 
-//        Customer customer1 = getCustomer();
-//
-//        Calendar now = Calendar.getInstance();
-//        int weekNumber = now.get(Calendar.WEEK_OF_YEAR);
-//
-//        Week week = new Week(weekNumber);
-//        Date startDate = week.getDate(Calendar.SUNDAY).getTime();
-//        Date endDate   = week.getDate(Calendar.SATURDAY).getTime();
+@DatabaseSetup("customerDaoTest.xml")
+public class CustomerServiceImplTest extends BaseTest{
 
-//        List <Meal> meals = customer1.getMealList();
-//
-//        List <Day> dinerSchedule = week.getWeekList();
+    private static final Logger log = Logger.getLogger(CustomerServiceImplTest.class);
 
-//        for (Day day : dinerSchedule) {
-//            for (Meal meal : meals) {
-//                if (meal.getDate().compareTo(day.getTime()) == 0) {
-//                    day.setMeal(meal);
-//                }
-//            }
-//            day.setMeal(null);
-//        }
-//
-//    }
-//
+    @Resource(name = "customerService")
+    private CustomerService customerService;
+
+    @Test
+    public void testGetDinerSchedule() throws Exception {
+
+        Customer customer1 = new Customer();
+        customer1.setId(1);
+
+        Week week = new Week(50);
+
+        List <Day> dinerSchedule = customerService.getDinerSchedule(customer1, week);
+
+        assertEquals(7, dinerSchedule.size());
+
+        int mealCount =0;
+        for (Day day : dinerSchedule) {
+            log.info("DAY MEAL:: " + day.getMeal());
+            if (null != day.getMeal())
+                mealCount++;
+        }
+
+        assertEquals("meal count missing", 2, mealCount);
+
+    }
+
 //    private Customer getCustomer() {
 //        Customer customer1 = new Customer();
 //        customer1.setFirst_name("david").setLast_name("gilmour").setAddress("address st");

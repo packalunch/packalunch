@@ -40,13 +40,16 @@ public class Week {
      * @return
      */
     public List<Day> getWeekList() {
-        Day weekDate = new Day();
+        Calendar weekDate = Calendar.getInstance();
         weekDate.set(Calendar.WEEK_OF_YEAR, weekNumber);
 
         List  <Day> dayList = new ArrayList<>();
         for (int i = 1; i < 8; i++) {
             weekDate.set(Calendar.DAY_OF_WEEK, i);
-            dayList.add(weekDate);
+
+            Day day = new Day();
+            day.setDate(weekDate.getTime());
+            dayList.add(day);
         }
 
        return dayList;

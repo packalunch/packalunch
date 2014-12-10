@@ -2,4 +2,8 @@
     <customer id="1" first_name="david" last_name="gilmour" address="endless river st" telephone="456"/>
     <customer id="2" first_name="roger" last_name="waters" address="final cut st" telephone="456"/>
     <customer id="3" first_name="john" last_name="locke" address="enlightenment st" telephone="456"/>
+
+    <meal id="1" customer_id="1" date="2014-11-05" ordered_at="2014-11-02 02:27:42" quantity="1" rating="5" />
+    <meal id="2" customer_id="1" date="2014-11-06" ordered_at="2014-11-02 02:27:42" quantity="1" rating="5" />
+    <meal id="3" customer_id="3" date="2014-11-10" ordered_at="2014-11-02 02:27:42" quantity="1" rating="5" />
 </dataset>

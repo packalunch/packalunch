@@ -2,17 +2,28 @@ package com.curry.plugins.date;
 
 import com.curry.model.Meal;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.SimpleFormatter;
 
 /**
  * CurryWithAri
  * Created by sadra on 11/5/14.
  */
-public class Day extends Calendar {
+public class Day {
 
-
-    private boolean avaiability;
+    private boolean availability;
     private Meal meal = null;
+    private Date date;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     public Meal getMeal() {
         return meal;
@@ -22,53 +33,20 @@ public class Day extends Calendar {
         this.meal = meal;
     }
 
-    public boolean isAvaiability() {
-        return avaiability;
+    public boolean isAvailabe() {
+        return availability;
     }
 
-    public void setAvaiability(boolean avaiability) {
-        this.avaiability = avaiability;
-    }
-
-
-
-    @Override
-    protected void computeTime() {
-
+    public void setAvailabe(boolean availability) {
+        this.availability = availability;
     }
 
     @Override
-    protected void computeFields() {
-
-    }
-
-    @Override
-    public void add(int field, int amount) {
-
-    }
-
-    @Override
-    public void roll(int field, boolean up) {
-
-    }
-
-    @Override
-    public int getMinimum(int field) {
-        return 0;
-    }
-
-    @Override
-    public int getMaximum(int field) {
-        return 0;
-    }
-
-    @Override
-    public int getGreatestMinimum(int field) {
-        return 0;
-    }
-
-    @Override
-    public int getLeastMaximum(int field) {
-        return 0;
+    public String toString() {
+        return "Day{" +
+                "date=" + date +
+                ", meal=" + meal +
+                ", availability=" + availability +
+                '}';
     }
 }

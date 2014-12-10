@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -19,10 +20,10 @@ import java.util.List;
  * CurryWithAri
  * Created by sadra on 11/2/14.
  */
-@Service
+@Service (value = "customerService")
 public class CustomerServiceImpl implements CustomerService {
 
-    static Logger log = Logger.getLogger(CustomerService.class.getName());
+    static Logger log = Logger.getLogger(CustomerService.class);
 //    @Autowired
 //    private CustomerDao customerDao;
     @Autowired
@@ -46,17 +47,26 @@ public class CustomerServiceImpl implements CustomerService {
         log.info("endDate:"+ endDate);
         List <Meal> meals = mealDao.listByCustomerByRange(customer.getId(), startDate, endDate);
 
+        List<Day> weekSchedule = getDaySchedule(week, meals);
+
+        return weekSchedule;
+    }
+
+    private List<Day> getDaySchedule(Week week, List<Meal> meals) {
         List <Day> weekSchedule = week.getWeekList();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         for (Day day : weekSchedule) {
             for (Meal meal : meals) {
-                if (meal.getDate().compareTo(day.getTime()) == 0) {
+                //todo refactor if possible
+                if (sdf.format(meal.getDate())
+                        .equalsIgnoreCase(sdf.format(day.getDate()))) {
                     day.setMeal(meal);
-                    log.info("meal:: " + meal);
+                    log.info("meal::: " + meal);
                 }
             }
-            day.setMeal(null);
-            log.info("DAY::" + day.toString());
+            log.info("DAY:: " + day.toString());
         }
         return weekSchedule;
     }

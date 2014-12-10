@@ -21,12 +21,10 @@ public class Meal extends AbstractEntity {
     @JoinColumn(name="customer_id", insertable=false, updatable=false)
     private Customer customer;
 
-
     private Date date;
-    private int quantity;
+    private Integer quantity;
     private Integer rating;
     private Timestamp ordered_at;
-
 
     public Customer getCustomer() {
         return customer;
@@ -55,7 +53,7 @@ public class Meal extends AbstractEntity {
         return this;
     }
 
-    public int getRating() {
+    public Integer getRating() {
         return rating;
     }
 
@@ -76,9 +74,7 @@ public class Meal extends AbstractEntity {
     @Override
     public String toString() {
         return "Meal{" +
-                "id=" + super.getId() +
-                ", customer=" + customer +
-                ", date=" + date +
+                " date=" + date +
                 ", quantity=" + quantity +
                 ", rating=" + rating +
                 ", ordered_at=" + ordered_at +
