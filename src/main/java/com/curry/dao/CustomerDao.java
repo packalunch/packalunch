@@ -12,6 +12,8 @@ import java.util.List;
  */
 public interface CustomerDao {
     public void save (Customer customer);
+    public void update (Customer customer);
     public List <Customer> list();
     public Customer findById(int id);
+    public void delete (Customer customer);
 }

@@ -27,7 +27,6 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
     <link rel="stylesheet" href="<c:url value="/resources/css/normalize.css" />">
-
     <link rel="stylesheet" href="<c:url value="/resources/css/main.css" />">
     <script src="<c:url value="/resources/js/vendor/modernizr-2.6.2.min.js" />"></script>
     <link href='http://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>

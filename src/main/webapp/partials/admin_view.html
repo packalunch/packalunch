@@ -1,0 +1,32 @@
+<h1>Who's hungry?</h1>
+
+<table>
+    <caption>September 21st - September 28th</caption>
+    <thead>
+        <tr>
+            <td></td>
+            <td class="disabled">Sunday</td>
+            <td class="disabled">Monday</td>
+            <td>Tuesday</td>
+            <td>Wednesday</td>
+            <td>Thursday</td>
+            <td>Friday</td>
+            <td class="disabled">Saturday</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr ng-repeat="user in users">
+            <td>{{ user.first_name }} {{ user.last_name }}</td>
+
+            <td ng-repeat="meal in user.dinerSchedule">
+                <td ng-class="meal.availabe ? 'selected' : 'weekend'"><i class="fa fa-remove"></i></td>
+            </td>
+
+            <td class="total">$ {{ user.balance }}</td>
+        </tr>
+
+    </tbody>
+
+</table>

@@ -31,10 +31,7 @@ public class AdminController {
     @Autowired
     private CustomerService customerService;
 
-	@RequestMapping(value="/")
-	public ModelAndView test() throws IOException{
-		return new ModelAndView("home");
-	}
+
 
     @RequestMapping("admin/list")
     @Transactional

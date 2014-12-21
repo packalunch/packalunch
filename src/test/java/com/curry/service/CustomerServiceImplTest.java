@@ -1,12 +1,15 @@
 package com.curry.service;
 
 import com.curry.base.BaseTest;
+import com.curry.dao.CustomerDao;
 import com.curry.model.Customer;
+import com.curry.model.dto.CustomerDto;
 import com.curry.plugins.date.Day;
 import com.curry.plugins.date.Week;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 import java.util.Calendar;
@@ -14,6 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 
 @DatabaseSetup("customerDaoTest.xml")
@@ -24,8 +28,31 @@ public class CustomerServiceImplTest extends BaseTest{
     @Resource(name = "customerService")
     private CustomerService customerService;
 
+    @Autowired
+    private CustomerDao customerDao;
+
     @Test
-    public void testGetDinerSchedule() throws Exception {
+    public void testSaveCustomer () {
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.setFirst_name("martin")
+                .setLast_name("heidegger")
+                .setTelephone("111-111-1111")
+                .setAddress("being and time");
+
+        Customer customerActual = customerService.saveCustomer(customerDto);
+
+        assertNotNull("customer save Id is missing", customerActual.getId());
+        assertEquals(customerDto.getFirst_name(), customerActual.getFirst_name());
+        assertEquals(customerDto.getLast_name(), customerActual.getLast_name());
+        assertEquals(customerDto.getTelephone(), customerActual.getTelephone());
+        assertEquals(customerDto.getAddress(), customerActual.getAddress());
+
+        log.debug(customerActual.toString());
+
+    }
+
+    @Test
+    public void testGetDinerSchedule() {
 
         Customer customer1 = new Customer();
         customer1.setId(1);
@@ -47,21 +74,5 @@ public class CustomerServiceImplTest extends BaseTest{
 
     }
 
-//    private Customer getCustomer() {
-//        Customer customer1 = new Customer();
-//        customer1.setFirst_name("david").setLast_name("gilmour").setAddress("address st");
-//        Meal meal1 = new Meal();
-//        meal1.setDate(new Date()).setQuantity(10).setCustomer(customer1);
-//        Meal meal2 = new Meal();
-//        meal2.setDate(new Date()).setQuantity(1).setCustomer(customer1);
-//        Meal meal3 = new Meal();
-//        meal3.setDate(new Date()).setQuantity(1).setCustomer(customer1);
-//
-//        List<Meal> mealList = new ArrayList<Meal>();
-//        mealList.add(meal1);
-//        mealList.add(meal2);
-//        mealList.add(meal3);
-//
-//        return customer1;
-//    }
+
 }

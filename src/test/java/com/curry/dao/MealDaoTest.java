@@ -48,6 +48,7 @@ public class MealDaoTest extends BaseTest {
            assertNotNull(meal.getId());
            System.out.println(meal.toString());
         }
+
     }
 
     @Test

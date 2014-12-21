@@ -28,10 +28,10 @@
 
     <servlet-mapping>
         <servlet-name>appServlet</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/currywithari/*</url-pattern>
     </servlet-mapping>
 
-	<session-config>
+    <session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>
 </web-app>

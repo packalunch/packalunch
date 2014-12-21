@@ -23,6 +23,11 @@ public class CustomerDaoImpl extends AbstractDao <Customer>
         super.save(p);
     }
 
+    @Override
+    public void update(Customer customer) {
+        super.update(customer);
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public List<Customer> list() {

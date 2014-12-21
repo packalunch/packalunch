@@ -18,7 +18,7 @@ import java.util.Date;
 public class Meal extends AbstractEntity {
 
     @ManyToOne ()
-    @JoinColumn(name="customer_id", insertable=false, updatable=false)
+    @JoinColumn(name="customer_id")
     private Customer customer;
 
     private Date date;
@@ -75,6 +75,7 @@ public class Meal extends AbstractEntity {
     public String toString() {
         return "Meal{" +
                 " date=" + date +
+                ", customer= " + customer +
                 ", quantity=" + quantity +
                 ", rating=" + rating +
                 ", ordered_at=" + ordered_at +
