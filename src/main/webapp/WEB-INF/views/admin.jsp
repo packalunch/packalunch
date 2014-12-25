@@ -65,7 +65,9 @@
                 <c:forEach items="${user.dinerSchedule}" var="meal">
                     <c:choose>
                         <c:when test="${meal.availabe}">
-                            <td class="selected"><i class="fa fa-remove"></i></td>
+                            <td class="selected">
+                                <i class="fa fa-remove"></i>
+                            </td>
                         </c:when>
                         <c:otherwise>
                             <td class="weekend"><i class="fa fa-remove"></i></td>

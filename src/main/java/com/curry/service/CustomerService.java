@@ -2,6 +2,7 @@ package com.curry.service;
 
 import com.curry.model.Customer;
 import com.curry.model.dto.CustomerDto;
+import com.curry.model.dto.DinerDto;
 import com.curry.plugins.date.Day;
 import com.curry.plugins.date.Week;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,8 @@ public interface CustomerService {
     public Customer updateCustomer (CustomerDto customerDto);
     public void deleteCustomer (int id);
 
-    public List<Day> getDinerSchedule(Customer customer, Week week);
+    public List<com.curry.model.dto.MealDayDto> getDinerSchedule(Customer customer, Week week);
 
+    public List <DinerDto> getDiners (Week week);
 
 }

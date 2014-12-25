@@ -1,51 +1,51 @@
-angular.module('userApp.controllers',[]).controller('UserListController',function($scope,$state,popupService,$window,User){
+angular.module('userApp.controllers',[]).controller('UserListController',function($scope,$state,popupService,$window,Api){
 
-    $scope.users=User.query();
+    $scope.users = Api.User.query();
 
-    $scope.deleteUser=function(user){
+    $scope.deleteUser = function(user){
         if(popupService.showPopup('Really delete this?')){
             user.$delete(function(){
-                //$window.location.href='';
-                $state.go('users');
+                $window.location.href='';
+//                $state.go('users');
             });
         }
 
     }
 
-}).controller('AdminListController',function($scope,$state,$stateParams,User){
+}).controller('AdminListController',function($scope,$state,$stateParams,Api){
 
-    $scope.users=User.query();
+    $scope.users = Api.Diner.query();
 
-    $scope.addPayment=function(){
+    $scope.addPayment = function(){
         $scope.user.$save(function(){
             $state.go('users');
         });
     }
 
-}).controller('UserViewController',function($scope,$stateParams,User){
+}).controller('UserViewController',function($scope,$stateParams,Api){
 
-    $scope.user=User.get({id:$stateParams.id});
+    $scope.user = Api.User.get({id:$stateParams.id});
 
-}).controller('UserCreateController',function($scope,$state,$stateParams,User){
+}).controller('UserCreateController',function($scope,$state,$stateParams,Api){
 
-    $scope.user=new User();
+    $scope.user = new Api.User();
 
-    $scope.addUser=function(){
+    $scope.addUser = function(){
         $scope.user.$save(function(){
             $state.go('users');
         });
     }
 
-}).controller('UserEditController',function($scope,$state,$stateParams,User){
+}).controller('UserEditController',function($scope,$state,$stateParams,Api){
 
-    $scope.updateUser=function(){
+    $scope.updateUser = function(){
         $scope.user.$update(function(){
             $state.go('users');
         });
     };
 
     $scope.loadUser=function(){
-        $scope.user=User.get({id:$stateParams.id});
+        $scope.user = Api.User.get({id:$stateParams.id});
     };
 
     $scope.loadUser();

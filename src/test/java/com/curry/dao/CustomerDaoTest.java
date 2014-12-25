@@ -70,4 +70,12 @@ public class CustomerDaoTest extends BaseTest {
         Customer customer = customerDao.findById(1);
         assertEquals (customer.getFirst_name(), customer1.getFirst_name());
     }
+
+    @Test
+    public void testGetCustomerWithAccount () {
+        Customer customer = customerDao.findById(1);
+        assertNotNull(customer.getAccount());
+    }
+
+
 }

@@ -4,8 +4,7 @@ import com.curry.dao.CustomerDao;
 import com.curry.dao.MealDao;
 import com.curry.model.Customer;
 import com.curry.model.Meal;
-import com.curry.model.dto.CustomerDto;
-import com.curry.plugins.date.DatePlugin;
+import com.curry.model.dto.*;
 import com.curry.plugins.date.Day;
 import com.curry.plugins.date.Week;
 import org.apache.log4j.Logger;
@@ -41,8 +40,6 @@ public class CustomerServiceImpl implements CustomerService {
         return getCustomerDto(customer);
     }
 
-
-
     @Override
     public List<CustomerDto> findCustomers() {
 
@@ -65,6 +62,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customer;
     }
 
+    @Override
     public Customer updateCustomer (CustomerDto customerDto) {
         Customer customer = customerDao.findById(customerDto.getId());
         customer.setFirst_name(customerDto.getFirst_name())
@@ -81,13 +79,97 @@ public class CustomerServiceImpl implements CustomerService {
         customerDao.delete (customer);
     }
 
-    private Customer getCustomer (CustomerDto customerDto) {
-        Customer customer = new Customer ();
-        customer.setFirst_name(customerDto.getFirst_name())
-                .setLast_name(customerDto.getLast_name())
-                .setAddress(customerDto.getAddress())
-                .setTelephone(customerDto.getTelephone());
-        return customer;
+    @Override
+    public List<DinerDto> getDiners(Week week) {
+        List<Customer> customerList = customerDao.list();
+        List<DinerDto> dinersList = new ArrayList<DinerDto>();
+
+
+        for (Customer customer : customerList) {
+            DinerDto diner = new DinerDto();
+
+            diner.setId(customer.getId());
+            diner.setFirst_name(customer.getFirst_name());
+            diner.setLast_name(customer.getLast_name());
+
+            List<MealDayDto> dinerSchedule = getDinerSchedule(customer, week);
+
+//            for (Day day : dinerSchedule) {
+//                log.info("CUSTOMER-MEAL::" + day.getMeal());
+//            }
+
+            if (null != customer.getAccount()) {
+                AccountDto accountDto = getAccountDto(customer);
+                diner.setAccountDto(accountDto);
+            }
+
+            diner.setDinerSchedule(dinerSchedule);
+
+            dinersList.add(diner);
+        }
+
+//        for (DinerDto dinner : dinersList)
+//            log.info("CUSTOMER::" + dinner.getDinerSchedule());
+
+        return dinersList;
+    }
+
+    private AccountDto getAccountDto(Customer customer) {
+        AccountDto accountDto = new AccountDto();
+        accountDto.setId(customer.getAccount().getId())
+            .setAccount_due(customer.getAccount().getAccount_due());
+        return accountDto;
+    }
+
+    /**
+     * always return 7 day list.
+     * @param customer
+     * @param week
+     * @return
+     */
+    @Override
+    public List<MealDayDto> getDinerSchedule(Customer customer, Week week) {
+
+        Date startDate = week.getDate(Calendar.SUNDAY).getTime();
+        Date endDate   = week.getDate(Calendar.SATURDAY).getTime();
+
+        log.info("startDate:"+ startDate);
+        log.info("endDate:"+ endDate);
+        List <Meal> meals = mealDao.listByCustomerByRange(customer.getId(), startDate, endDate);
+
+        List<MealDayDto> weekSchedule = getDaySchedule(week, meals);
+
+        return weekSchedule;
+    }
+
+
+
+    private List<MealDayDto> getDaySchedule(Week week, List<Meal> meals) {
+        List <Day> weekSchedule = week.getWeekList();
+
+        List <MealDayDto> mealDayDtoList = new ArrayList<MealDayDto>();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        for (Day day : weekSchedule) {
+
+            MealDayDto mealDayDto = new MealDayDto();
+            for (Meal meal : meals) {
+                //todo refactor if possible
+                if (sdf.format(meal.getDate()).equalsIgnoreCase(sdf.format(day.getDate()))) {
+
+                    mealDayDto.setAvailable(true)
+                        .setDate(meal.getDate());
+//                    day.setMeal(meal);
+//                    day.setAvailabe(true);
+//                    log.info("meal::: " + meal);
+                }
+
+            }
+            mealDayDtoList.add(mealDayDto);
+            //log.info("DAY:: " + day.toString());
+        }
+        return mealDayDtoList;
     }
 
     private CustomerDto getCustomerDto(Customer customer) {
@@ -100,44 +182,12 @@ public class CustomerServiceImpl implements CustomerService {
         return customerDto;
     }
 
-    /**
-     * always return 7 day list.
-     * @param customer
-     * @param week
-     * @return
-     */
-    @Override
-    public List <Day> getDinerSchedule(Customer customer, Week week) {
-
-        Date startDate = week.getDate(Calendar.SUNDAY).getTime();
-        Date endDate   = week.getDate(Calendar.SATURDAY).getTime();
-
-        log.info("startDate:"+ startDate);
-        log.info("endDate:"+ endDate);
-        List <Meal> meals = mealDao.listByCustomerByRange(customer.getId(), startDate, endDate);
-
-        List<Day> weekSchedule = getDaySchedule(week, meals);
-
-        return weekSchedule;
-    }
-
-    private List<Day> getDaySchedule(Week week, List<Meal> meals) {
-        List <Day> weekSchedule = week.getWeekList();
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-        for (Day day : weekSchedule) {
-            for (Meal meal : meals) {
-                //todo refactor if possible
-                if (sdf.format(meal.getDate())
-                        .equalsIgnoreCase(sdf.format(day.getDate()))) {
-                    day.setMeal(meal);
-                    day.setAvailabe(true);
-                    log.info("meal::: " + meal);
-                }
-            }
-            log.info("DAY:: " + day.toString());
-        }
-        return weekSchedule;
+    private Customer getCustomer (CustomerDto customerDto) {
+        Customer customer = new Customer ();
+        customer.setFirst_name(customerDto.getFirst_name())
+                .setLast_name(customerDto.getLast_name())
+                .setAddress(customerDto.getAddress())
+                .setTelephone(customerDto.getTelephone());
+        return customer;
     }
 }

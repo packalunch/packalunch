@@ -4,6 +4,8 @@ import com.curry.base.BaseTest;
 import com.curry.dao.CustomerDao;
 import com.curry.model.Customer;
 import com.curry.model.dto.CustomerDto;
+import com.curry.model.dto.DinerDto;
+import com.curry.model.dto.MealDayDto;
 import com.curry.plugins.date.Day;
 import com.curry.plugins.date.Week;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -25,7 +27,7 @@ public class CustomerServiceImplTest extends BaseTest{
 
     private static final Logger log = Logger.getLogger(CustomerServiceImplTest.class);
 
-    @Resource(name = "customerService")
+    @Autowired
     private CustomerService customerService;
 
     @Autowired
@@ -52,6 +54,17 @@ public class CustomerServiceImplTest extends BaseTest{
     }
 
     @Test
+    public void testGetDiners () {
+        Week week = new Week(50);
+        List <DinerDto> dinerDtoList = customerService.getDiners(week);
+
+        for (DinerDto dinerDto : dinerDtoList) {
+            log.info("CUSTOMER SERIVCE :::::: DINER DTO" + dinerDto.toString());
+        }
+
+    }
+
+    @Test
     public void testGetDinerSchedule() {
 
         Customer customer1 = new Customer();
@@ -59,14 +72,13 @@ public class CustomerServiceImplTest extends BaseTest{
 
         Week week = new Week(50);
 
-        List <Day> dinerSchedule = customerService.getDinerSchedule(customer1, week);
+        List <MealDayDto> dinerSchedule = customerService.getDinerSchedule(customer1, week);
 
         assertEquals(7, dinerSchedule.size());
 
         int mealCount =0;
-        for (Day day : dinerSchedule) {
-            log.info("DAY MEAL:: " + day.getMeal());
-            if (null != day.getMeal())
+        for (MealDayDto day : dinerSchedule) {
+            if (day.isAvailable())
                 mealCount++;
         }
 

@@ -44,6 +44,7 @@
                 <beans:value>com.curry.fw.model.AbstractEntity</beans:value>
                 <beans:value>com.curry.model.Customer</beans:value>
                 <beans:value>com.curry.model.Meal</beans:value>
+                <beans:value>com.curry.model.Account</beans:value>
             </beans:list>
         </beans:property>
         <beans:property name="hibernateProperties">

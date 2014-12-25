@@ -63,6 +63,7 @@
                 <value>com.curry.fw.model.AbstractEntity</value>
                 <value>com.curry.model.Customer</value>
                 <value>com.curry.model.Meal</value>
+                <value>com.curry.model.Account</value>
             </list>
         </property>
     </bean>

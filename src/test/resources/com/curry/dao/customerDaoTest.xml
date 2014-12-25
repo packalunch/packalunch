@@ -6,4 +6,9 @@
     <meal id="1" customer_id="1" date="2014-11-05" ordered_at="2014-11-02 02:27:42" quantity="1" rating="5" />
     <meal id="2" customer_id="1" date="2014-11-06" ordered_at="2014-11-02 02:27:42" quantity="1" rating="5" />
     <meal id="3" customer_id="3" date="2014-11-10" ordered_at="2014-11-02 02:27:42" quantity="1" rating="5" />
+
+    <account id="1" customer_id="1" payment_amount="10" payment_date="2014-12-02" account_due="25" version="0" />
+    <account id="2" customer_id="2" payment_amount="0" payment_date="2014-12-02" account_due="30" version="0" />
+    <account id="3" customer_id="3" payment_amount="10" payment_date="2014-12-02" account_due="15" version="0" />
+
 </dataset>

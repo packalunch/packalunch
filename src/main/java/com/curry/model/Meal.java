@@ -5,6 +5,7 @@ import com.curry.fw.model.AbstractEntity;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -17,7 +18,7 @@ import java.util.Date;
 @Table(name="meal")
 public class Meal extends AbstractEntity {
 
-    @ManyToOne ()
+    @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name="customer_id")
     private Customer customer;
 

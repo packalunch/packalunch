@@ -20,11 +20,11 @@
         <tr ng-repeat="user in users">
             <td>{{ user.first_name }} {{ user.last_name }}</td>
 
-            <td ng-repeat="meal in user.dinerSchedule">
-                <td ng-class="meal.availabe ? 'selected' : 'weekend'"><i class="fa fa-remove"></i></td>
+            <td ng-repeat="meal in user.dinerSchedule" ng-class="meal.available ? 'selected' : 'weekend'">
+                <!--<i class="fa fa-remove"></i>-->
             </td>
 
-            <td class="total">$ {{ user.balance }}</td>
+            <td class="total">$ {{ user.accountDto.account_due }}</td>
         </tr>
 
     </tbody>

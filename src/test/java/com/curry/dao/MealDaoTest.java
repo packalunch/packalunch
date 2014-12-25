@@ -36,17 +36,15 @@ public class MealDaoTest extends BaseTest {
         Meal meal3 = new Meal();
         meal3.setDate(new Date()).setQuantity(1).setCustomer(customer1);
 
-        List <Meal> mealList = new ArrayList ();
+        List <Meal> mealList = new ArrayList <Meal>();
         mealList.add(meal1);
         mealList.add(meal2);
         mealList.add(meal3);
 
-//        mealDao.save(meal1);
         mealDao.save(mealList);
 //
         for (Meal meal : mealList) {
            assertNotNull(meal.getId());
-           System.out.println(meal.toString());
         }
 
     }

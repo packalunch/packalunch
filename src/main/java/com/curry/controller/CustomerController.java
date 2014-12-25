@@ -1,16 +1,13 @@
 package com.curry.controller;
 
-import com.curry.dao.CustomerDao;
 import com.curry.model.Customer;
 import com.curry.model.dto.CustomerDto;
-import com.curry.model.dto.CustomerInputDto;
 import com.curry.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,9 +16,6 @@ import java.util.List;
  */
 @Controller
 public class CustomerController {
-
-    @Autowired
-    private CustomerDao customerDao;
 
     @Autowired
     private CustomerService customerService;
@@ -61,25 +55,25 @@ public class CustomerController {
     }
 
 
-    @Transactional
-    @RequestMapping(value = "ajax/customer/{customerName}", method = RequestMethod.GET)
-    public @ResponseBody List<CustomerInputDto> getCustomer(@RequestParam String customerName) {
-
-        System.out.println("++++++++++++++CUSTOMER NAME " + customerName);
-        List <Customer> customerList = customerDao.list();
-        List <CustomerInputDto> customerInputDtoList = new ArrayList<CustomerInputDto>();
-
-        for (Customer customer : customerList) {
-            CustomerInputDto customerInputDto = new CustomerInputDto();
-            customerInputDto.setFirstName(customer.getFirst_name())
-                    .setLastName(customer.getLast_name())
-                    .setId(customer.getId());
-            customerInputDtoList.add(customerInputDto);
-
-            System.out.println("++++++++++++++CUSTOMER NAME " + customerInputDto.toString());
-        }
-        return customerInputDtoList;
-
-    }
+//    @Transactional
+//    @RequestMapping(value = "ajax/customer/{customerName}", method = RequestMethod.GET)
+//    public @ResponseBody List<CustomerInputDto> getCustomer(@RequestParam String customerName) {
+//
+//        System.out.println("++++++++++++++CUSTOMER NAME " + customerName);
+//        List <Customer> customerList = customerDao.list();
+//        List <CustomerInputDto> customerInputDtoList = new ArrayList<CustomerInputDto>();
+//
+//        for (Customer customer : customerList) {
+//            CustomerInputDto customerInputDto = new CustomerInputDto();
+//            customerInputDto.setFirstName(customer.getFirst_name())
+//                    .setLastName(customer.getLast_name())
+//                    .setId(customer.getId());
+//            customerInputDtoList.add(customerInputDto);
+//
+//            System.out.println("++++++++++++++CUSTOMER NAME " + customerInputDto.toString());
+//        }
+//        return customerInputDtoList;
+//
+//    }
 
 }
