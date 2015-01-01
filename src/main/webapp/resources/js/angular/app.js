@@ -11,6 +11,10 @@ angular.module('userApp').config(function($stateProvider,$httpProvider){
         url:'/users',
         templateUrl:'partials/customer_list.html',
         controller:'UserListController'
+    }).state('home',{
+        url:'/home',
+        templateUrl:'partials/home.html',
+        controller:'HomeController'
     }).state('viewUser',{
         url:'/users/:id/view',
         templateUrl:'partials/customer_view.html',

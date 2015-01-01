@@ -10,12 +10,6 @@
  'delete': {method:'DELETE'}
 
  */
-//.factory('User', function($resource){
-//    return $resource('currywithari/api/customer/:id',{id:'@id'},{
-//        update: { method: 'PUT' }
-//    });
-//
-//})
 
 angular.module('userApp.services',[]).factory('Api', ['$resource',
     function($resource) {
@@ -23,7 +17,8 @@ angular.module('userApp.services',[]).factory('Api', ['$resource',
             User: $resource('currywithari/api/customer/:id', {id:'@id'}, {
                 update: { method: 'PUT' }
             }),
-            Diner: $resource('currywithari/api/diner/:id', {id: '@id'})
+            Diner: $resource('currywithari/api/diner/:id', {id: '@id'}),
+            Home: $resource('currywithari/api/home/:id', {id: '@id'})
         };
 }]).service('popupService',function($window){
     this.showPopup=function(message){

@@ -6,7 +6,8 @@ import com.curry.plugins.date.Day;
 import com.curry.plugins.date.Week;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,15 +17,9 @@ import java.util.List;
 @Controller
 public class HomeController {
 
-
-//    @RequestMapping(value="/")
-//    public String index () {
-//        return "main.html";
-//    }
-
-
-    @RequestMapping(value="/home")
-    public ModelAndView load(ModelAndView mav) {
+    @RequestMapping(value="/api/home", method = RequestMethod.GET)
+    public @ResponseBody
+    List <DayDto> load() {
         Calendar now = Calendar.getInstance();
         int weekNumber = now.get(Calendar.WEEK_OF_YEAR);
         Week week = new Week (weekNumber);
@@ -48,13 +43,9 @@ public class HomeController {
             dayDto.setDayNumber(dayNumber);
 
             dayDtos.add(dayDto);
-
-            System.out.println(monthName + "::::::::::::::::::" + dayName);
         }
-        mav.addObject("weekList", dayDtos);
 
-        mav.setViewName("home");
-        return mav;
+        return dayDtos;
     }
 
 }

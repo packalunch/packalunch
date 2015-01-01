@@ -22,6 +22,10 @@ angular.module('userApp.controllers',[]).controller('UserListController',functio
         });
     }
 
+}).controller('HomeController',function($scope,$stateParams,Api){
+
+    $scope.weekList = Api.Home.query();
+
 }).controller('UserViewController',function($scope,$stateParams,Api){
 
     $scope.user = Api.User.get({id:$stateParams.id});
