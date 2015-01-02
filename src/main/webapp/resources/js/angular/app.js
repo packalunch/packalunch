@@ -1,6 +1,8 @@
 'use strict';
 
-angular.module('userApp',['ui.router','ngResource','userApp.controllers','userApp.services']);
+angular.module('userApp',['ui.router','ngResource','userApp.controllers','userApp.services', 'ngTouch', 'angucomplete']);
+
+
 
 angular.module('userApp').config(function($stateProvider,$httpProvider){
     $stateProvider.state('adminView',{

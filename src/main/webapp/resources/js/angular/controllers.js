@@ -53,4 +53,6 @@ angular.module('userApp.controllers',[]).controller('UserListController',functio
     };
 
     $scope.loadUser();
+}).controller('UserSuggestController',function($scope,$state,$stateParams,Api) {
+    $scope.people =  Api.User.query();
 });

@@ -5,15 +5,24 @@
 <ol>
     <li>
         <label for="name">My name</label><br/>
-        <input id="name" type="text" name="name" autofocus>
 
-        <angucomplete id="name"
-                      pause="400"
-                      selectedobject="customer"
-                      url="currywithari/api/user/find?q="
-                      datafield="results"
-                      titlefield="firstName,lastName"
-                      inputclass="form-control form-control-small"/>
+            <div ng-controller='UserSuggestController'>
+
+                <div class="padded-row">
+                    <angucomplete id="name"
+                                  placeholder="Search"
+                                  pause="300"
+                                  selectedobject="selectedPerson"
+                                  localdata="people"
+                                  searchfields="first_name,last_name"
+                                  titlefield="first_name,last_name"
+                                  minlength="2"
+                                  matchclass="highlight" />
+                </div>
+                <div class="" ng-show="selectedPerson">
+                    You selected <span class="bold-span">{{selectedPerson.originalObject.first_name}} {{selectedPerson.originalObject.last_name}}</span>
+                </div>
+            </div>
 
     </li>
     <form>
