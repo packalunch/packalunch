@@ -42,19 +42,11 @@ public class MealDaoTest extends BaseTest {
         mealList.add(meal3);
 
         mealDao.save(mealList);
-//
+
         for (Meal meal : mealList) {
            assertNotNull(meal.getId());
         }
 
     }
-
-    @Test
-    public void testListMeal () {
-
-
-    }
-
-
 
 }

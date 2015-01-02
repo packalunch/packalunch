@@ -35,7 +35,7 @@ public class AdminController {
         Calendar now = Calendar.getInstance();
         int weekNumber = now.get(Calendar.WEEK_OF_YEAR);
 
-        weekNumber = 50;
+        weekNumber = 2;
         Week week = new Week (weekNumber);
         return customerService.getDiners(week);
     }

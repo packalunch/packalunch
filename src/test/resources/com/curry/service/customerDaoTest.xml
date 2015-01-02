@@ -3,9 +3,9 @@
     <customer id="2" first_name="roger" last_name="waters" address="final cut st" telephone="456"/>
     <customer id="3" first_name="john" last_name="locke" address="enlightenment st" telephone="456"/>
 
-    <meal id="1" customer_id="1" date="2014-12-09" ordered_at="2014-12-09 02:27:42" quantity="1" rating="5" />
-    <meal id="2" customer_id="1" date="2014-12-11" ordered_at="2014-12-09 02:27:42" quantity="2" rating="5" />
-    <meal id="3" customer_id="3" date="2014-12-10" ordered_at="2014-12-10 02:27:42" quantity="1" rating="5" />
+    <meal id="1" customer_id="1" date="2015-01-05" ordered_at="2014-12-09 02:27:42" quantity="1" rating="5" />
+    <meal id="2" customer_id="1" date="2015-01-07" ordered_at="2014-12-09 02:27:42" quantity="2" rating="5" />
+    <meal id="3" customer_id="3" date="2015-01-06" ordered_at="2014-12-10 02:27:42" quantity="1" rating="5" />
 
     <account id="1" customer_id="1" payment_amount="10" payment_date="2014-12-02" account_due="25" version="0" />
     <account id="2" customer_id="2" payment_amount="0" payment_date="2014-12-02" account_due="30" version="0" />

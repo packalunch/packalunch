@@ -55,13 +55,9 @@ public class CustomerServiceImplTest extends BaseTest{
 
     @Test
     public void testGetDiners () {
-        Week week = new Week(50);
+        Week week = new Week(2);
         List <DinerDto> dinerDtoList = customerService.getDiners(week);
-
-        for (DinerDto dinerDto : dinerDtoList) {
-            log.info("CUSTOMER SERIVCE :::::: DINER DTO" + dinerDto.toString());
-        }
-
+        assertEquals(3, dinerDtoList.size());
     }
 
     @Test
@@ -70,7 +66,7 @@ public class CustomerServiceImplTest extends BaseTest{
         Customer customer1 = new Customer();
         customer1.setId(1);
 
-        Week week = new Week(50);
+        Week week = new Week(2);
 
         List <MealDayDto> dinerSchedule = customerService.getDinerSchedule(customer1, week);
 

@@ -14,7 +14,7 @@ INSERT INTO `customer` VALUES (1,'david','gilmoure','hello st',NULL,0),(2,'roger
 DROP TABLE IF EXISTS `meal`;
 CREATE TABLE `meal` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `customer_id` int(11) NOT NULL,
+  `customer_id` int(11) NULL,
   `date` date NOT NULL,
   `quantity` int(11) DEFAULT NULL,
   `rating` int(11) DEFAULT NULL,
@@ -23,7 +23,10 @@ CREATE TABLE `meal` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `meal` VALUES (1,2,'2014-11-05',1,NULL,'2014-11-02 02:27:42',0 ),(2,3,'2014-11-06',1,NULL,'2014-11-02 02:28:02', 0 );
+INSERT INTO `meal` VALUES
+  (1,1,'2015-01-05',1,NULL,'2015-01-02 02:27:42', 0 ),
+  (2,1,'2015-01-06',1,NULL,'2015-11-02 02:28:02', 0 ),
+  (3,3,'2015-01-07',1,NULL,'2015-11-02 02:28:02', 0 );
 
 drop table if exists `account`;
 CREATE TABLE IF NOT EXISTS `account` (
