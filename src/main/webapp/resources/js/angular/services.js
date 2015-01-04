@@ -18,6 +18,7 @@ angular.module('userApp.services',[]).factory('Api', ['$resource',
                 update: { method: 'PUT' }
             }),
             Diner: $resource('currywithari/api/diner/:id', {id: '@id'}),
+            DinerPayment: $resource('currywithari/api/diner/:id/payment', {id: '@id'}),
             Home: $resource('currywithari/api/home/:id', {id: '@id'})
         };
 }]).service('popupService',function($window){

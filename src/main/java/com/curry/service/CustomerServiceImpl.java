@@ -1,7 +1,9 @@
 package com.curry.service;
 
+import com.curry.dao.AccountDao;
 import com.curry.dao.CustomerDao;
 import com.curry.dao.MealDao;
+import com.curry.model.Account;
 import com.curry.model.Customer;
 import com.curry.model.Meal;
 import com.curry.model.dto.*;
@@ -29,6 +31,8 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerDao customerDao;
     @Autowired
     private MealDao mealDao;
+    @Autowired
+    private AccountDao accountDao;
 
 
     @Override
@@ -37,7 +41,7 @@ public class CustomerServiceImpl implements CustomerService {
         if (null == customer)
             return null; // todo: throw exception
 
-        return getCustomerDto(customer);
+        return getDinerDto(customer);
     }
 
     @Override
@@ -86,38 +90,62 @@ public class CustomerServiceImpl implements CustomerService {
 
 
         for (Customer customer : customerList) {
-            DinerDto diner = new DinerDto();
-
-            diner.setId(customer.getId());
-            diner.setFirst_name(customer.getFirst_name());
-            diner.setLast_name(customer.getLast_name());
-
-            List<MealDayDto> dinerSchedule = getDinerSchedule(customer, week);
-
-//            for (Day day : dinerSchedule) {
-//                log.info("CUSTOMER-MEAL::" + day.getMeal());
-//            }
-
-            if (null != customer.getAccount()) {
-                AccountDto accountDto = getAccountDto(customer);
-                diner.setAccountDto(accountDto);
-            }
-
-            diner.setDinerSchedule(dinerSchedule);
-
+            DinerDto diner = getDinerDto(week, customer);
             dinersList.add(diner);
         }
 
-//        for (DinerDto dinner : dinersList)
-//            log.info("CUSTOMER::" + dinner.getDinerSchedule());
-
         return dinersList;
+    }
+
+    @Override
+    public void savePayment(DinerDto dinerDto) {
+        Customer customer = customerDao.findById(dinerDto.getId());
+
+        if (null != customer && null != customer.getAccount()) {
+            Account account = customer.getAccount();
+            account.setPayment_amount(dinerDto.getAccountDto().getPayment_amount())
+                    .setAccount_due( account.getAccount_due() - dinerDto.getAccountDto().getPayment_amount() )
+                    .setPayment_date(new Date());
+
+            accountDao.update(account);
+        } else {
+            //todo: throw exception
+        }
+
+    }
+
+
+    private DinerDto getDinerDto(Week week, Customer customer) {
+        DinerDto diner = getDinerDto(customer);
+
+        List<MealDayDto> dinerSchedule = getDinerSchedule(customer, week);
+        diner.setDinerSchedule(dinerSchedule);
+
+        return diner;
+    }
+
+    private DinerDto getDinerDto(Customer customer) {
+        DinerDto diner = new DinerDto();
+
+        diner.setId(customer.getId());
+        diner.setFirst_name(customer.getFirst_name())
+                .setLast_name(customer.getLast_name())
+                .setAddress(customer.getAddress())
+                .setTelephone(customer.getTelephone());
+
+        if (null != customer.getAccount()) {
+            AccountDto accountDto = getAccountDto(customer);
+            diner.setAccountDto(accountDto);
+        }
+        return diner;
     }
 
     private AccountDto getAccountDto(Customer customer) {
         AccountDto accountDto = new AccountDto();
         accountDto.setId(customer.getAccount().getId())
-            .setAccount_due(customer.getAccount().getAccount_due());
+                .setPayment_amount(customer.getAccount().getPayment_amount())
+                .setAccount_due(customer.getAccount().getAccount_due())
+                .setPayment_date(customer.getAccount().getPayment_date());
         return accountDto;
     }
 
@@ -133,8 +161,6 @@ public class CustomerServiceImpl implements CustomerService {
         Date startDate = week.getDate(Calendar.SUNDAY).getTime();
         Date endDate   = week.getDate(Calendar.SATURDAY).getTime();
 
-        log.info("startDate:"+ startDate);
-        log.info("endDate:"+ endDate);
         List <Meal> meals = mealDao.listByCustomerByRange(customer.getId(), startDate, endDate);
 
         List<MealDayDto> weekSchedule = getDaySchedule(week, meals);
@@ -160,14 +186,10 @@ public class CustomerServiceImpl implements CustomerService {
 
                     mealDayDto.setAvailable(true)
                         .setDate(meal.getDate());
-//                    day.setMeal(meal);
-//                    day.setAvailabe(true);
-//                    log.info("meal::: " + meal);
                 }
 
             }
             mealDayDtoList.add(mealDayDto);
-            //log.info("DAY:: " + day.toString());
         }
         return mealDayDtoList;
     }
@@ -188,6 +210,10 @@ public class CustomerServiceImpl implements CustomerService {
                 .setLast_name(customerDto.getLast_name())
                 .setAddress(customerDto.getAddress())
                 .setTelephone(customerDto.getTelephone());
+
+        Account account = new Account();
+        account.setCustomer(customer);
+        customer.setAccount(account);
         return customer;
     }
 }

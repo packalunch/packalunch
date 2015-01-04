@@ -18,7 +18,13 @@
     <tbody>
 
         <tr ng-repeat="user in users">
-            <td>{{ user.first_name }} {{ user.last_name }}</td>
+            <!--<td><a ui-sref="editUser({id:user.id})" /> {{ user.first_name }} {{ user.last_name }}</td>-->
+
+            <td>
+                <a  ui-sref="editUser({id:user.id})">
+                    {{ user.first_name }} {{ user.last_name }}
+                </a>
+            </td>
 
             <td ng-repeat="meal in user.dinerSchedule" ng-class="meal.available ? 'selected' : 'weekend'">
                 <!--<i class="fa fa-remove"></i>-->

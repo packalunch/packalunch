@@ -34,6 +34,6 @@
 
 <div class="control-group">
     <div class="col-sm-offset-2 col-sm-10">
-        <input type="submit" ng-disabled="userForm.$invalid" class="btn btn-primary" value="Save"/>
+        <input type="submit" ng-disabled="userForm.$invalid || userForm.$pristine" class="btn btn-primary" value="Save"/>
     </div>
 </div>

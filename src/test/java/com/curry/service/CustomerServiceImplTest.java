@@ -61,6 +61,11 @@ public class CustomerServiceImplTest extends BaseTest{
     }
 
     @Test
+    public void testSavePayment () {
+        //todo
+    }
+
+    @Test
     public void testGetDinerSchedule() {
 
         Customer customer1 = new Customer();

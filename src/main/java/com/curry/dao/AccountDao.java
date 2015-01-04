@@ -9,5 +9,6 @@ import com.curry.model.Account;
 public interface AccountDao {
 
     public void save(Account account);
+    public void update(Account account);
 
 }

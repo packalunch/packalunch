@@ -32,7 +32,8 @@ public class DinerDto extends CustomerDto {
     @Override
     public String toString() {
         return "DinerDto{" +
-                "accountDto=" + accountDto +
+                "id=" + super.getId() +
+                ", accountDto=" + accountDto +
                 ", dinerSchedule=" + dinerSchedule +
                 '}';
     }

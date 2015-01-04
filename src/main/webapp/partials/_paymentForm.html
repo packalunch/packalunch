@@ -1,0 +1,15 @@
+<label for="inputPayment">Payment</label>
+<br />
+<input type="number"
+       name="inputPayment" id="inputPayment"
+       ng-minlength=1 ng-maxlength=5 required
+       ng-model="user.accountDto.payment_amount"
+       placeholder="0.0" />
+
+<br />
+<span ng-show="userPaymentForm.inputPayment.$error.number">Not a valid number</span>
+<br />
+
+<input type="submit"
+       ng-disabled=" userPaymentForm.inputPayment.$pristine || userPaymentForm.inputPayment.$invalid"
+       class="btn btn-primary" value="Add Payment"/>

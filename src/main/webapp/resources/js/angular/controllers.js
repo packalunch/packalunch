@@ -48,6 +48,17 @@ angular.module('userApp.controllers',[]).controller('UserListController',functio
         });
     };
 
+    $scope.addPayment = function () {
+        $scope.userPayment = new Api.DinerPayment();
+        $scope.userPayment.id = $scope.user.id;
+        $scope.userPayment.accountDto = { payment_amount : $scope.user.accountDto.payment_amount };
+
+        $scope.userPayment.$save(function(){
+            $state.go('adminView');
+        });
+
+    };
+
     $scope.loadUser=function(){
         $scope.user = Api.User.get({id:$stateParams.id});
     };

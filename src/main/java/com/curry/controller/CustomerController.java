@@ -1,16 +1,13 @@
 package com.curry.controller;
 
-import com.curry.dao.CustomerDao;
 import com.curry.model.Customer;
 import com.curry.model.dto.CustomerDto;
-import com.curry.model.dto.CustomerInputDto;
 import com.curry.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,7 +50,6 @@ public class CustomerController {
     @Transactional
     @RequestMapping(value = "api/customer/{id}", method = RequestMethod.DELETE)
     public void deleteCustomer (@PathVariable("id") int id) {
-        System.out.println("in delete ::::::::::" + id);
         customerService.deleteCustomer(id);
     }
 

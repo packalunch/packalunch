@@ -26,4 +26,5 @@ public interface CustomerService {
 
     public List <DinerDto> getDiners (Week week);
 
+    public void savePayment(DinerDto dinerDto);
 }
