@@ -25,13 +25,18 @@
             </div>
 
     </li>
-    <form>
+    <form role="form" ng-submit="addDinerMeal()">
         <li class="calendar clearfix"><label for="calendar">I want my shit on:</label><br/>
 
-            <figure  ng-repeat="day in weekList" id="day1" class="available">
-                <span id="month">{{day.month}}</span>
-                <span id="date">{{day.dayNumber}}</span>
-                <span id="day">{{day.day}}</span>
+            <figure  ng-repeat="day in weekList" id="day1" class="available"  >
+
+                <div ng-click="day.selected = !day.selected">
+                    <span id="month">{{day.month}}</span>
+                    <span id="date">{{day.dayNumber}}</span>
+                    <span id="day">{{day.day}}</span>
+                </div>
+
+                <input id="quantity" name="quantity" ng-model="day.quantity" type="number" />
             </figure>
 
 
@@ -75,7 +80,7 @@
         <li><label for="total">Total due</label><br/>
             <span id="total">$11.00</span>
         </li>
-        <li><button>Submit</button></li>
+        <li><button type="submit">Submit</button></li>
     </form>
 </ol>
 

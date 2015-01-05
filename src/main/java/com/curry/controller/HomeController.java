@@ -1,7 +1,7 @@
 package com.curry.controller;
 
 
-import com.curry.model.dto.DayDto;
+import com.curry.model.dto.MealDayDto;
 import com.curry.plugins.date.Day;
 import com.curry.plugins.date.Week;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,7 @@ public class HomeController {
 
     @RequestMapping(value="/api/home", method = RequestMethod.GET)
     public @ResponseBody
-    List <DayDto> load() {
+    List <MealDayDto> load() {
         Calendar now = Calendar.getInstance();
         int weekNumber = now.get(Calendar.WEEK_OF_YEAR);
         Week week = new Week (weekNumber);
@@ -30,22 +30,24 @@ public class HomeController {
         SimpleDateFormat dayFormatter = new SimpleDateFormat("EEEE");
         SimpleDateFormat dayNumberFormatter = new SimpleDateFormat("dd");
 
-        List <DayDto> dayDtos = new ArrayList<DayDto>();
+        List <MealDayDto> mealDayDtoList = new ArrayList<MealDayDto>();
         for (Day day : weekList) {
 
             String monthName = monthFormatter.format(day.getDate());
             String dayName = dayFormatter.format(day.getDate());
             String dayNumber = dayNumberFormatter.format(day.getDate());
 
-            DayDto dayDto = new DayDto();
-            dayDto.setMonth(monthName);
-            dayDto.setDay(dayName);
-            dayDto.setDayNumber(dayNumber);
+            MealDayDto mealDayDto = new MealDayDto();
+            mealDayDto.setMonth(monthName)
+                    .setDay(dayName)
+                    .setDayNumber(dayNumber)
+                    .setSelected(false)
+                    .setQuantity(0);
 
-            dayDtos.add(dayDto);
+            mealDayDtoList.add(mealDayDto);
         }
 
-        return dayDtos;
+        return mealDayDtoList;
     }
 
 }
