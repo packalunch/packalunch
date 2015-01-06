@@ -44,7 +44,7 @@ public class HomeController {
                     .setSelected(false)
                     .setQuantity(0);
 
-            if (dayName.equalsIgnoreCase("Sunday") || dayName.equalsIgnoreCase("Monday") || dayName.equalsIgnoreCase("Saturday")  )
+            if (isAvailable(dayName))
                 mealDayDto.setAvailable(false);
             else
                 mealDayDto.setAvailable(true);
@@ -53,6 +53,12 @@ public class HomeController {
         }
 
         return mealDayDtoList;
+    }
+
+    private boolean isAvailable(String dayName) {
+        return  dayName.equalsIgnoreCase("Sunday") ||
+                dayName.equalsIgnoreCase("Monday") ||
+                dayName.equalsIgnoreCase("Saturday");
     }
 
 }
