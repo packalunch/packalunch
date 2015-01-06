@@ -28,7 +28,8 @@
     <form role="form" ng-submit="addDinerMeal()">
         <li class="calendar clearfix"><label for="calendar">I want my shit on:</label><br/>
 
-            <figure  ng-repeat="day in weekList" id="day1" class="available"  >
+            <figure  ng-repeat="day in weekList" id="day1"
+                     class="available" ng-class="{available: day.available , selected : day.selected ,  holiday : !day.available}" >
 
                 <div ng-click="day.selected = !day.selected">
                     <span id="month">{{day.month}}</span>
