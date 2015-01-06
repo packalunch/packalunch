@@ -177,7 +177,7 @@ figure{
 }
 
 figure.selected{
-	border:solid 1px #f7170c;
+	border:solid 1px #1d9715;
 }
 
 
@@ -195,7 +195,7 @@ figure span#date{
 }
 
 figure.selected span#date{
-	color:#f7170c;
+	color: #269c30;
 }
 
 figure span#month, figure span#day{
@@ -204,8 +204,13 @@ figure span#month, figure span#day{
     font-size:.875em;
 }
 
+figure.holiday span#month, figure.holiday span#day{
+	background: #4659ce;
+    color:white;
+}
+
 figure.selected span#month, figure.selected span#day{
-	background:#f7170c;
+	background: #269c30;
     color:white;
 }
 
