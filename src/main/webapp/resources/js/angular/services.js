@@ -17,6 +17,7 @@ angular.module('userApp.services',[]).factory('Api', ['$resource',
             User: $resource('currywithari/api/customer/:id', {id:'@id'}, {
                 update: { method: 'PUT' }
             }),
+            DinerMeal: $resource('currywithari/api/dinerMeal/:id', {id: '@id'}),
             Diner: $resource('currywithari/api/diner/:id', {id: '@id'}),
             DinerPayment: $resource('currywithari/api/diner/:id/payment', {id: '@id'}),
             Home: $resource('currywithari/api/home/:id', {id: '@id'})
@@ -25,4 +26,14 @@ angular.module('userApp.services',[]).factory('Api', ['$resource',
     this.showPopup=function(message){
         return $window.confirm(message);
     }
+}).service('userProperties', function () {
+    var user;
+    return {
+        getUser: function () {
+            return user;
+        },
+        setUser: function(value) {
+            user = value.originalObject;
+        }
+    };
 });

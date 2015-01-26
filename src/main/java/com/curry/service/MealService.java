@@ -1,6 +1,11 @@
 package com.curry.service;
 
+import com.curry.model.Customer;
+import com.curry.model.Meal;
+import com.curry.model.dto.MealDayDto;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * CurryWithAri
@@ -8,4 +13,5 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface MealService {
+    public boolean saveMeals (Customer customer, List<MealDayDto> mealDayDtoList) throws Exception;
 }

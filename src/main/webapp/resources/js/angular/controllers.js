@@ -66,4 +66,29 @@ angular.module('userApp.controllers',[]).controller('UserListController',functio
     $scope.loadUser();
 }).controller('UserSuggestController',function($scope,$state,$stateParams,Api) {
     $scope.people =  Api.User.query();
+
+}).controller('UserAddMealController',function($scope,$state,$stateParams,Api, userProperties) {
+
+    $scope.addDinerMeal = function () {
+
+        $scope.user =  userProperties.getUser();
+
+        if ($scope.user == null){
+            //todo: handle user not selected exception.
+            return false;
+        }
+
+        $scope.dinerMeal = new Api.DinerMeal();
+        $scope.dinerMeal.id = $scope.user.id;
+        $scope.dinerMeal.dinerSchedule = $scope.weekList;
+        console.log ('add meal ctl user:');
+        console.log ($scope.dinerMeal);
+
+        $scope.dinerMeal.$save(function(){
+            //$state.go('home');
+            console.log ('meals saved.');
+        });
+
+    };
+
 });

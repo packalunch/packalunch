@@ -45,6 +45,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public Customer getCustomerById(int id) {
+        return customerDao.findById(id);
+    }
+
+    @Override
     public List<CustomerDto> findCustomers() {
 
         List <Customer> customerList =  customerDao.list();

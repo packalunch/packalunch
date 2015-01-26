@@ -1,17 +1,19 @@
 package com.curry.controller;
 
-import com.curry.dao.CustomerDao;
 import com.curry.model.Customer;
-import com.curry.model.dto.CustomerInputDto;
+import com.curry.model.dto.DinerDto;
+import com.curry.model.dto.MealDayDto;
+import com.curry.service.CustomerService;
+import com.curry.service.MealService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,27 +24,33 @@ import java.util.List;
 public class MealController {
 
     @Autowired
-    private CustomerDao customerDao;
-//
-//    @Transactional
-//    @RequestMapping(value = "ajax/customer/{customerName}", method = RequestMethod.GET)
-//    public @ResponseBody List<CustomerInputDto> getCustomer(@RequestParam String customerName) {
-//
-//        System.out.println("++++++++++++++CUSTOMER NAME " + customerName);
-//        List <Customer> customerList = customerDao.list();
-//        List <CustomerInputDto> customerInputDtoList = new ArrayList<>();
-//
-//        for (Customer customer : customerList) {
-//            CustomerInputDto customerInputDto = new CustomerInputDto();
-//            customerInputDto.setFirstName(customer.getFirst_name())
-//                    .setLastName(customer.getLast_name())
-//                    .setId(customer.getId());
-//            customerInputDtoList.add(customerInputDto);
-//
-//            System.out.println("++++++++++++++CUSTOMER NAME " + customerInputDto.toString());
-//        }
-//        return customerInputDtoList;
-//
-//    }
+    private CustomerService customerService;
+    @Autowired
+    private MealService mealService;
+
+    static Logger log = Logger.getLogger(MealController.class);
+
+    @Transactional
+    @RequestMapping(value = "api/dinerMeal/{id}", method = RequestMethod.POST)
+    public @ResponseBody
+    boolean saveDinerMeal (@RequestBody DinerDto dinerDto) throws Exception {
+
+        Customer customer = customerService.getCustomerById(dinerDto.getId());
+
+        if (customer == null){
+            return false;
+        } else {
+            log.info("Controller meal:::::::" + customer);
+            List <MealDayDto> mealDayDtoList = dinerDto.getDinerSchedule();
+            log.info("Controller meal:::::::" + mealDayDtoList);
+
+            mealService.saveMeals(customer, mealDayDtoList);
+
+            return true;
+        }
+
+    }
+
+    //todo: Handle exception
 
 }

@@ -6,7 +6,7 @@
  */
 
 angular.module('angucomplete', [] )
-    .directive('angucomplete', function ($parse, $http, $sce, $timeout) {
+    .directive('angucomplete', function ($parse, $http, $sce, $timeout, userProperties) {
         return {
             restrict: 'EA',
             scope: {
@@ -191,6 +191,7 @@ angular.module('angucomplete', [] )
                     }
                     $scope.searchStr = $scope.lastSearchTerm = result.title;
                     $scope.selectedObject = result;
+                    userProperties.setUser($scope.selectedObject);
                     $scope.showDropdown = false;
                     $scope.results = [];
                     //$scope.$apply();
@@ -237,6 +238,7 @@ angular.module('angucomplete', [] )
                         $scope.$apply();
                     } else if (event.which == 8) {
                         $scope.selectedObject = null;
+                        userProperties.setUser($scope.selectedObject);
                         $scope.$apply();
                     }
                 });

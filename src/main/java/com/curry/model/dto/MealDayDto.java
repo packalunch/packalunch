@@ -111,6 +111,10 @@ public class MealDayDto {
                 ", rating=" + rating +
                 ", ordered_at=" + ordered_at +
                 ", available=" + available +
-                '}';
+                ", month='" + month + '\'' +
+                ", day='" + day + '\'' +
+                ", dayNumber='" + dayNumber + '\'' +
+                ", selected=" + selected +
+                '}' + '\n';
     }
 }

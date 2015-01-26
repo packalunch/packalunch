@@ -11,8 +11,5 @@ import java.util.List;
 public interface MealDao {
     public void save (Meal meal);
     public void save (List<Meal> meal);
-
-//    public List <Meal> listByCustomer(int customerId);
-//    public List <Meal> listMealFilterByRange(Date startDate, Date endDate) ;
     public List <Meal> listByCustomerByRange(int id, Date startDate, Date endDate);
 }

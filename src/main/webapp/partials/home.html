@@ -6,7 +6,7 @@
     <li>
         <label for="name">My name</label><br/>
 
-            <div ng-controller='UserSuggestController'>
+            <div ng-controller="UserSuggestController">
 
                 <div class="padded-row">
                     <angucomplete id="name"
@@ -21,12 +21,13 @@
                 </div>
                 <div class="" ng-show="selectedPerson">
                     You selected <span class="bold-span">{{selectedPerson.originalObject.first_name}} {{selectedPerson.originalObject.last_name}}</span>
+                    <div style="visibility: hidden;">{{$scope.selectedCustomer = selectedPerson.originalObject}}</div>
                 </div>
             </div>
 
     </li>
-    <form role="form" ng-submit="addDinerMeal()">
-        <li class="calendar clearfix"><label for="calendar">I want my shit on:</label><br/>
+    <form role="form" ng-controller="UserAddMealController" ng-submit="addDinerMeal()">
+        <li class="calendar clearfix"><label for="calendar">I want my lunch on:</label><br/>
 
             <figure  ng-repeat="day in weekList" id="day1"
                      class="available" ng-class="{available: day.available , selected : day.selected ,  holiday : !day.available}" >
@@ -81,8 +82,10 @@
         <li><label for="total">Total due</label><br/>
             <span id="total">$11.00</span>
         </li>
-        <li><button type="submit">Submit</button></li>
+        <li>
+            <button type="submit" >Submit</button>
+        </li>
     </form>
 </ol>
 
-<p class="confirmation">Chill. You will get your shit soon.</p>
+<p class="confirmation">Chill. You will get your lunch soon.</p>

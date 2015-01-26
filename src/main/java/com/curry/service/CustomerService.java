@@ -17,6 +17,7 @@ import java.util.List;
 public interface CustomerService {
 
     public CustomerDto findCustomerById (int id);
+    public Customer getCustomerById (int id);
     public List <CustomerDto> findCustomers ();
     public Customer saveCustomer (CustomerDto customerDto);
     public Customer updateCustomer (CustomerDto customerDto);

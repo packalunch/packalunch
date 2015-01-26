@@ -40,6 +40,7 @@ public class HomeController {
             MealDayDto mealDayDto = new MealDayDto();
             mealDayDto.setMonth(monthName)
                     .setDay(dayName)
+                    .setDate(day.getDate())
                     .setDayNumber(dayNumber)
                     .setSelected(false)
                     .setQuantity(0);
