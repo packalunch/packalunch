@@ -28,11 +28,14 @@ public class MealServiceImpl implements MealService {
 
         for (MealDayDto mealDayDto : mealDayDtoList){
             Meal meal = new Meal();
-            meal.setCustomer(customer)
-                    .setQuantity(mealDayDto.getQuantity())
-                    .setDate(mealDayDto.getDate())
-                    .setOrdered_at(new Timestamp(date.getTime()));
-            mealList.add(meal);
+            if (mealDayDto.isSelected()){
+                meal.setCustomer(customer)
+                        .setQuantity(mealDayDto.getQuantity())
+                        .setDate(mealDayDto.getDate())
+                        .setOrdered_at(new Timestamp(date.getTime()));
+                mealList.add(meal);
+            }
+
         }
         try {
             mealDao.save(mealList);
