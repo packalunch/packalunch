@@ -16,7 +16,7 @@
         <developer>
             <id>Sadra</id>
             <email>sadrayan@gmail.com</email>
-            <organizationUrl>http://www.CoolIndia.com</organizationUrl>
+            <organizationUrl>http://www.currywithari.com</organizationUrl>
             <roles>
                 <role>Java Developer</role>
             </roles>
@@ -123,13 +123,6 @@
             <version>1.0.1.Final</version>
         </dependency>
 
-        <!-- JSP -->
-        <dependency>
-            <groupId>jstl</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
-
         <!-- Log4j -->
         <dependency>
             <groupId>log4j</groupId>
@@ -211,13 +204,6 @@
             <version>2.2.3</version>
         </dependency>
 
-        <!-- in-memory database provider -->
-        <dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-            <version>2.3.2</version>
-            <scope>test</scope>
-        </dependency>
 
     </dependencies>
 
