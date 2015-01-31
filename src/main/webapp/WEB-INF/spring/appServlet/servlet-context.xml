@@ -5,6 +5,7 @@
              xmlns:beans="http://www.springframework.org/schema/beans"
              xmlns:context="http://www.springframework.org/schema/context"
              xmlns:tx="http://www.springframework.org/schema/tx"
+             xmlns:p="http://www.springframework.org/schema/p"
              xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
@@ -26,13 +27,17 @@
 
     <beans:bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
 
+
+    <beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+          p:location="jdbc.properties"/>
+
     <!-- HIBERNATE-->
     <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
                 destroy-method="close">
-        <beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <beans:property name="url" value="jdbc:mysql://localhost:3306/main" />
-        <beans:property name="username" value="sonic" />
-        <beans:property name="password" value="!QAZ2wsx" />
+        <beans:property name="driverClassName" value="${jdbc.driverClassName}" />
+        <beans:property name="url" value="${jdbc.url}" />
+        <beans:property name="username" value="${jdbc.username}" />
+        <beans:property name="password" value="${jdbc.password}" />
     </beans:bean>
 
     <!-- Hibernate 4 SessionFactory Bean definition -->
@@ -49,8 +54,8 @@
         </beans:property>
         <beans:property name="hibernateProperties">
             <beans:props>
-                <beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</beans:prop>
-                <beans:prop key="hibernate.show_sql">true</beans:prop>
+                <beans:prop key="hibernate.dialect">${hibernate.dialect}</beans:prop>
+                <beans:prop key="hibernate.show_sql">${hibernate.show_sql}</beans:prop>
             </beans:props>
         </beans:property>
     </beans:bean>

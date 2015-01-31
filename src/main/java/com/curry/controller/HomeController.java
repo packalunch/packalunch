@@ -4,6 +4,8 @@ package com.curry.controller;
 import com.curry.model.dto.MealDayDto;
 import com.curry.plugins.date.Day;
 import com.curry.plugins.date.Week;
+import com.curry.plugins.date.helpers.MealWeek;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,49 +19,15 @@ import java.util.List;
 @Controller
 public class HomeController {
 
+    @Autowired
+    private MealWeek mealWeek;
+
     @RequestMapping(value="/api/home", method = RequestMethod.GET)
     public @ResponseBody
     List <MealDayDto> load() {
-        Calendar now = Calendar.getInstance();
-        int weekNumber = now.get(Calendar.WEEK_OF_YEAR);
-        Week week = new Week (weekNumber);
-
-        List<Day> weekList =  week.getWeekList();
-
-        SimpleDateFormat monthFormatter = new SimpleDateFormat("MMMM");
-        SimpleDateFormat dayFormatter = new SimpleDateFormat("EEEE");
-        SimpleDateFormat dayNumberFormatter = new SimpleDateFormat("dd");
-
-        List <MealDayDto> mealDayDtoList = new ArrayList<MealDayDto>();
-        for (Day day : weekList) {
-
-            String monthName = monthFormatter.format(day.getDate());
-            String dayName = dayFormatter.format(day.getDate());
-            String dayNumber = dayNumberFormatter.format(day.getDate());
-
-            MealDayDto mealDayDto = new MealDayDto();
-            mealDayDto.setMonth(monthName)
-                    .setDay(dayName)
-                    .setDate(day.getDate())
-                    .setDayNumber(dayNumber)
-                    .setSelected(false)
-                    .setQuantity(0);
-
-            if (isAvailable(dayName))
-                mealDayDto.setAvailable(false);
-            else
-                mealDayDto.setAvailable(true);
-
-            mealDayDtoList.add(mealDayDto);
-        }
-
-        return mealDayDtoList;
+        return mealWeek.getMealDayDtos();
     }
 
-    private boolean isAvailable(String dayName) {
-        return  dayName.equalsIgnoreCase("Sunday") ||
-                dayName.equalsIgnoreCase("Monday") ||
-                dayName.equalsIgnoreCase("Saturday");
-    }
+
 
 }
