@@ -3,10 +3,7 @@ package com.curry.model;
 import com.curry.fw.model.AbstractEntity;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * CurryWithAri
@@ -19,11 +16,27 @@ public class Customer extends AbstractEntity {
 
     private String first_name;
     private String last_name;
+
+    @Column(name = "email", length = 100,  unique = true)
+    private String email;
+
     private String address;
     private String telephone;
 
+    @OneToOne (mappedBy = "customer", cascade = CascadeType.ALL)
+    private Credential credential;
+
     @OneToOne (mappedBy = "customer", cascade= CascadeType.ALL)
     private Account account;
+
+    public Credential getCredential() {
+        return credential;
+    }
+
+    public Customer setCredential(Credential credential) {
+        this.credential = credential;
+        return this;
+    }
 
     public String getFirst_name() {
         return first_name;
@@ -42,6 +55,16 @@ public class Customer extends AbstractEntity {
         this.last_name = last_name;
         return this;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Customer setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
 
     public String getAddress() {
         return address;

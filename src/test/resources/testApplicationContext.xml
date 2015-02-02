@@ -53,7 +53,6 @@
     <bean id="sessionFactory"
           name="hsqlSessionFactory"
           class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
-          p:configLocation="META-INF/hibernate.cfg.xml"
           p:hibernateProperties-ref="hibernateProperties"
           p:dataSource-ref="dataSource"
           p:namingStrategy-ref="namingStrategy">
@@ -64,6 +63,7 @@
                 <value>com.curry.model.Customer</value>
                 <value>com.curry.model.Meal</value>
                 <value>com.curry.model.Account</value>
+                <value>com.curry.model.Credential</value>
             </list>
         </property>
     </bean>

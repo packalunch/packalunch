@@ -4,13 +4,13 @@
              xmlns:mvc="http://www.springframework.org/schema/mvc"
              xmlns:beans="http://www.springframework.org/schema/beans"
              xmlns:context="http://www.springframework.org/schema/context"
-             xmlns:tx="http://www.springframework.org/schema/tx"
-             xmlns:p="http://www.springframework.org/schema/p"
              xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+
+    <beans:import resource="application-context-persistence.xml"/>
+    <!--<beans:import resource="application-context-social.xml"/>-->
 
     <context:component-scan base-package="com.curry" />
     <mvc:annotation-driven/>
@@ -19,52 +19,22 @@
 
     <mvc:view-controller path="/" view-name="index"/>
 
-   <beans:bean
-            class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <beans:property name="prefix" value="/WEB-INF/views/" />
-        <beans:property name="suffix" value="" />
-    </beans:bean>
-
-    <beans:bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
-
-
-    <beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-          p:location="jdbc.properties"/>
-
-    <!-- HIBERNATE-->
-    <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-                destroy-method="close">
-        <beans:property name="driverClassName" value="${jdbc.driverClassName}" />
-        <beans:property name="url" value="${jdbc.url}" />
-        <beans:property name="username" value="${jdbc.username}" />
-        <beans:property name="password" value="${jdbc.password}" />
-    </beans:bean>
-
-    <!-- Hibernate 4 SessionFactory Bean definition -->
-    <beans:bean id="hibernate4AnnotatedSessionFactory"
-                class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <beans:property name="dataSource" ref="dataSource" />
-        <beans:property name="annotatedClasses">
-            <beans:list>
-                <beans:value>com.curry.fw.model.AbstractEntity</beans:value>
-                <beans:value>com.curry.model.Customer</beans:value>
-                <beans:value>com.curry.model.Meal</beans:value>
-                <beans:value>com.curry.model.Account</beans:value>
-            </beans:list>
-        </beans:property>
-        <beans:property name="hibernateProperties">
+    <!-- todo: implement and test -->
+    <beans:bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <beans:property name="exceptionMappings">
             <beans:props>
-                <beans:prop key="hibernate.dialect">${hibernate.dialect}</beans:prop>
-                <beans:prop key="hibernate.show_sql">${hibernate.show_sql}</beans:prop>
+                <beans:prop key="java.lang.Exception">error/error</beans:prop>
+                <beans:prop key="java.lang.RuntimeException">error/error</beans:prop>
+            </beans:props>
+        </beans:property>
+        <beans:property name="statusCodes">
+            <beans:props>
+                <beans:prop key="error/404">404</beans:prop>
+                <beans:prop key="error/error">500</beans:prop>
             </beans:props>
         </beans:property>
     </beans:bean>
 
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <beans:bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
 
-    <beans:bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-    </beans:bean>
-
-    <!-- HIBERNATE-->
 </beans:beans>

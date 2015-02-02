@@ -1,8 +1,11 @@
 package com.curry.dao;
 
 import com.curry.base.BaseTest;
+import com.curry.model.Credential;
 import com.curry.model.Customer;
 import com.curry.model.Meal;
+import com.curry.model.dto.Role;
+import com.curry.model.dto.SocialMediaService;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import org.junit.Test;
@@ -20,6 +23,7 @@ import java.util.concurrent.Callable;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * CurryWithAri
@@ -38,6 +42,47 @@ public class CustomerDaoTest extends BaseTest {
         customer1.setFirst_name("davidTest").setLast_name("gilmourTest").setAddress("address st");
         customerDao.save(customer1);
         assertNotNull(customer1.getId());
+    }
+
+    @Test
+    public void testSaveCustomerWithCredential () {
+        Customer customer = new Customer();
+        customer.setFirst_name("rogerTest").setLast_name("watersTest").setEmail("email@email.com");
+
+        Credential credential = new Credential();
+        credential.setPassword("123")
+                .setSalt("123qwe")
+                .setRole(Role.ROLE_USER)
+                .setSignInProvider(SocialMediaService.FACEBOOK)
+                .setCustomer(customer);
+
+        customer.setCredential(credential);
+        customerDao.save(customer);
+        assertNotNull(customer.getId());
+        Customer expectedCustomer = customerDao.findById(customer.getId());
+        assertNotNull(expectedCustomer.getCredential());
+
+        assertEquals(expectedCustomer.getCredential().getRole(), Role.ROLE_USER);
+
+    }
+
+    @Test
+    public void testSaveCredentialExistingCustomer () {
+        Customer customer = customerDao.findById(1);
+        Credential credential = customer.getCredential();
+        credential.setPassword("new password");
+        customerDao.save(customer);
+
+        Customer expectedCustomer = customerDao.findById(customer.getId());
+        assertEquals(expectedCustomer.getCredential().getPassword(), "new password");
+
+    }
+
+    @Test
+    public void testFindCustomerByEmail () {
+        Customer customer = customerDao.findByEmail("waters@email.com");
+        assertNotNull(customer);
+        assertEquals(customer.getFirst_name(), "roger");
     }
 
     @Test

@@ -2,6 +2,8 @@ package com.curry.dao;
 
 import com.curry.fw.dao.AbstractDao;
 import com.curry.model.Customer;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -38,5 +40,13 @@ public class CustomerDaoImpl extends AbstractDao <Customer>
     @Override
     public Customer findById(int id) {
         return super.findById(id);
+    }
+
+    @Override
+    public Customer findByEmail(String email) {
+        return (Customer) super.getSession()
+                .createCriteria(Customer.class)
+                .add(Restrictions.eq("email", email))
+                .uniqueResult();
     }
 }
