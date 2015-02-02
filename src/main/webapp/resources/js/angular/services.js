@@ -14,13 +14,14 @@
 angular.module('userApp.services',[]).factory('Api', ['$resource',
     function($resource) {
         return {
-            User: $resource('currywithari/api/customer/:id', {id:'@id'}, {
+            User: $resource('api/customer/:id', {id:'@id'}, {
                 update: { method: 'PUT' }
             }),
-            DinerMeal: $resource('currywithari/api/dinerMeal/:id', {id: '@id'}),
-            Diner: $resource('currywithari/api/diner/:id', {id: '@id'}),
-            DinerPayment: $resource('currywithari/api/diner/:id/payment', {id: '@id'}),
-            Home: $resource('currywithari/api/home/:id', {id: '@id'})
+            DinerMeal: $resource('api/dinerMeal/:id', {id: '@id'}),
+            Diner: $resource('api/diner/:id', {id: '@id'}),
+            DinerPayment: $resource('api/diner/:id/payment', {id: '@id'}),
+            UserAuthenticate: $resource('login/athenticate'),
+            Home: $resource('api/home/:id', {id: '@id'})
         };
 }]).service('popupService',function($window){
     this.showPopup=function(message){

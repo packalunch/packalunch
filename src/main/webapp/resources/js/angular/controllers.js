@@ -30,6 +30,29 @@ angular.module('userApp.controllers',[]).controller('UserListController',functio
 
     $scope.user = Api.User.get({id:$stateParams.id});
 
+}).controller('LoginController',function($scope,$stateParams,Api) {
+
+    $scope.userAuthenticate = new Api.UserAuthenticate();
+
+    $scope.authenticateUser = function(){
+        console.log($scope.userAuthenticate)
+        $scope.userAuthenticate.$save(function(){
+           // $state.go('users');
+        });
+    }
+
+}).controller('RegistrationController',function($scope,$stateParams,Api) {
+
+    //todo
+    //$scope.userRegister = new Api.UserRegister();
+    //
+    //$scope.registerUser = function(){
+    //    //console.log($scope.userAuthenticate)
+    //    //$scope.userAuthenticate.$save(function(){
+    //    //   // $state.go('users');
+    //    //});
+    //}
+
 }).controller('UserCreateController',function($scope,$state,$stateParams,Api){
 
     $scope.user = new Api.User();

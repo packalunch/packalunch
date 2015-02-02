@@ -10,14 +10,23 @@
 
 
     <beans:import resource="application-context-persistence.xml"/>
-    <!--<beans:import resource="application-context-social.xml"/>-->
+    <beans:import resource="application-context-security.xml"/>
+    <beans:import resource="application-context-social.xml"/>
 
     <context:component-scan base-package="com.curry" />
     <mvc:annotation-driven/>
 
-    <resources mapping="/resources/**" location="/resources/" />
+    <mvc:resources mapping="/resources/**" location="/resources/" />
 
-    <mvc:view-controller path="/" view-name="index"/>
+    <mvc:default-servlet-handler />
+
+    <!--<mvc:view-controller path="/" />-->
+
+    <!--<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+        <!--<beans:property name="prefix" value="/partials/"/>-->
+        <!--<beans:property name="suffix" value=".html"/>-->
+    <!--</beans:bean>-->
+
 
     <!-- todo: implement and test -->
     <beans:bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">

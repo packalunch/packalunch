@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:social="http://www.springframework.org/schema/social"
+       xmlns:beans="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:facebook="http://www.springframework.org/schema/social/facebook"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+       http://www.springframework.org/schema/social http://www.springframework.org/schema/social/spring-social.xsd
+        http://www.springframework.org/schema/social/facebook http://www.springframework.org/schema/social/spring-social-facebook.xsd">
+
+    <!-- Ensures that configuration properties are read from a property file -->
+    <!--<context:property-placeholder location="social.properties"/>-->
+
+    <beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+                p:location="social.properties"/>
+
+    <!-- Configures FB  support. -->
+    <!--<facebook:config app-id="${social.facebook.appId}" app-secret="${social.facebook.appSecret}"/>-->
+    <facebook:config app-id="1549583268633896" app-secret="44a79c55997227c0b9e25d3fb6fd1e44"/>
+
+    <!--
+        Configures the connection repository. This application uses JDBC
+        connection repository which saves connection details to database.
+        This repository uses the data source bean for obtaining database
+        connection.
+    -->
+    <social:jdbc-connection-repository/>
+
+    <!--
+        This bean manages the connection flow between the account provider and
+        the example application.
+    -->
+    <bean id="connectController" class="org.springframework.social.connect.web.ConnectController"
+          autowire="constructor"></bean>
+</beans>

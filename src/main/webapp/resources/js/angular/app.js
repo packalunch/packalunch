@@ -13,6 +13,10 @@ angular.module('userApp').config(function($stateProvider,$httpProvider){
         url:'/users',
         templateUrl:'partials/customer_list.html',
         controller:'UserListController'
+    }).state('login',{
+        url:'/login',
+        templateUrl:'partials/login.html',
+        controller:'LoginController'
     }).state('home',{
         url:'/home',
         templateUrl:'partials/home.html',
@@ -29,6 +33,10 @@ angular.module('userApp').config(function($stateProvider,$httpProvider){
         url:'/users/:id/edit',
         templateUrl:'partials/customer_edit.html',
         controller:'UserEditController'
+    }).state('registerUser',{
+        url:'/registerUser',
+        templateUrl:'partials/registration.html',
+        controller:'RegistrationController'
     });
 }).run(function($state){
     $state.go('users');

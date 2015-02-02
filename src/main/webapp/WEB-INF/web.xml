@@ -26,6 +26,10 @@
               <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
        </listener>
 
+       <welcome-file-list>
+              <welcome-file>index.html</welcome-file>
+       </welcome-file-list>
+
        <!-- Processes application requests -->
        <servlet>
               <servlet-name>appServlet</servlet-name>
@@ -39,7 +43,7 @@
 
        <servlet-mapping>
               <servlet-name>appServlet</servlet-name>
-              <url-pattern>/currywithari/*</url-pattern>
+              <url-pattern>/</url-pattern>
        </servlet-mapping>
 
        <session-config>
