@@ -6,16 +6,14 @@ import com.curry.model.Customer;
 import com.curry.model.dto.CustomerDto;
 import com.curry.model.dto.DinerDto;
 import com.curry.model.dto.MealDayDto;
-import com.curry.plugins.date.Day;
 import com.curry.plugins.date.Week;
+import com.curry.service.CustomerService;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.Resource;
-import java.util.Calendar;
-import java.util.Date;
+import javax.inject.Inject;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -23,12 +21,13 @@ import static org.junit.Assert.assertNotNull;
 
 
 @DatabaseSetup("customerDaoTest.xml")
-public class CustomerServiceImplTest extends BaseTest{
+public class CustomerServiceTest extends BaseTest {
 
-    private static final Logger log = Logger.getLogger(CustomerServiceImplTest.class);
+    private static final Logger log = Logger.getLogger(CustomerServiceTest.class);
 
     @Autowired
     private CustomerService customerService;
+
 
     @Autowired
     private CustomerDao customerDao;
@@ -38,6 +37,7 @@ public class CustomerServiceImplTest extends BaseTest{
         CustomerDto customerDto = new CustomerDto();
         customerDto.setFirst_name("martin")
                 .setLast_name("heidegger")
+                .setEmail("martin@heidegger.com")
                 .setTelephone("111-111-1111")
                 .setAddress("being and time");
 
@@ -56,36 +56,40 @@ public class CustomerServiceImplTest extends BaseTest{
     @Test
     public void testGetDiners () {
         Week week = new Week(2);
-        List <DinerDto> dinerDtoList = customerService.getDiners(week);
-        assertEquals(3, dinerDtoList.size());
-    }
-
-    @Test
-    public void testSavePayment () {
-        //todo
-    }
-
-    @Test
-    public void testGetDinerSchedule() {
-
-        Customer customer1 = new Customer();
-        customer1.setId(1);
-
-        Week week = new Week(2);
-
-        List <MealDayDto> dinerSchedule = customerService.getDinerSchedule(customer1, week);
-
-        assertEquals(7, dinerSchedule.size());
-
-        int mealCount =0;
-        for (MealDayDto day : dinerSchedule) {
-            if (day.isAvailable())
-                mealCount++;
+        List<DinerDto> dinerDtoList = customerService.getDiners(week);
+        for (DinerDto dinerDto : dinerDtoList)
+        {
+            System.out.println("======================="+dinerDto.toString());
         }
-
-        assertEquals("meal count missing", 2, mealCount);
-
+        assertEquals(2, dinerDtoList.size());
     }
+//
+//    @Test
+//    public void testSavePayment () {
+//        //todo
+//    }
+//
+//    @Test
+//    public void testGetDinerSchedule() {
+//
+//        Customer customer1 = new Customer();
+//        customer1.setId(1);
+//
+//        Week week = new Week(2);
+//
+//        List <MealDayDto> dinerSchedule = customerService.getDinerSchedule(customer1, week);
+//
+//        assertEquals(7, dinerSchedule.size());
+//
+//        int mealCount =0;
+//        for (MealDayDto day : dinerSchedule) {
+//            if (day.isAvailable())
+//                mealCount++;
+//        }
+//
+//        assertEquals("meal count missing", 2, mealCount);
+//
+//    }
 
 
 }

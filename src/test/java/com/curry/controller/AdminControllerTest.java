@@ -1,11 +1,10 @@
 package com.curry.controller;
 
-import junit.framework.TestCase;
+import com.curry.base.BaseTest;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 
-public class AdminControllerTest extends TestCase {
+public class AdminControllerTest extends BaseTest {
 
     @Test
     public void testIndexAction () {

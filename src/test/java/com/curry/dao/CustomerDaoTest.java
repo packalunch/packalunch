@@ -3,27 +3,16 @@ package com.curry.dao;
 import com.curry.base.BaseTest;
 import com.curry.model.Credential;
 import com.curry.model.Customer;
-import com.curry.model.Meal;
 import com.curry.model.dto.Role;
 import com.curry.model.dto.SocialMediaService;
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.curry.service.CustomerService;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
-import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Callable;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * CurryWithAri
@@ -39,7 +28,11 @@ public class CustomerDaoTest extends BaseTest {
     @Test
     public void testSaveCustomer () {
         Customer customer1 = new Customer();
-        customer1.setFirst_name("davidTest").setLast_name("gilmourTest").setAddress("address st");
+        customer1.setFirst_name("davidTest")
+                .setEmail("gilmour@email.com")
+                .setLast_name("gilmourTest")
+                .setAddress("address st");
+
         customerDao.save(customer1);
         assertNotNull(customer1.getId());
     }
@@ -47,7 +40,9 @@ public class CustomerDaoTest extends BaseTest {
     @Test
     public void testSaveCustomerWithCredential () {
         Customer customer = new Customer();
-        customer.setFirst_name("rogerTest").setLast_name("watersTest").setEmail("email@email.com");
+        customer.setFirst_name("rogerTest")
+                .setLast_name("watersTest")
+                .setEmail("email@email.com");
 
         Credential credential = new Credential();
         credential.setPassword("123")
@@ -59,7 +54,7 @@ public class CustomerDaoTest extends BaseTest {
         customer.setCredential(credential);
         customerDao.save(customer);
         assertNotNull(customer.getId());
-        Customer expectedCustomer = customerDao.findById(customer.getId());
+        Customer expectedCustomer = customerDao.findOne(customer.getId());
         assertNotNull(expectedCustomer.getCredential());
 
         assertEquals(expectedCustomer.getCredential().getRole(), Role.ROLE_USER);
@@ -68,14 +63,14 @@ public class CustomerDaoTest extends BaseTest {
 
     @Test
     public void testSaveCredentialExistingCustomer () {
-        Customer customer = customerDao.findById(1);
+        Customer customer = customerDao.findOne(1);
         Credential credential = customer.getCredential();
         credential.setPassword("new password");
+        customer.setCredential(credential);
         customerDao.save(customer);
 
-        Customer expectedCustomer = customerDao.findById(customer.getId());
+        Customer expectedCustomer = customerDao.findOne(customer.getId());
         assertEquals(expectedCustomer.getCredential().getPassword(), "new password");
-
     }
 
     @Test
@@ -87,13 +82,15 @@ public class CustomerDaoTest extends BaseTest {
 
     @Test
     public void testUpdateCustomer () {
-        Customer customer1 = new Customer();
-        customer1.setFirst_name("FTest").setLast_name("LTest").setAddress("address st");
-        customer1.setId(2);
-        customerDao.update(customer1);
-        Customer actual =  customerDao.findById(2);
+        Customer actual =  customerDao.findOne(2);
+        actual.setFirst_name("FTest").setLast_name("LTest").setAddress("address st");
 
-        assertEquals(actual.getFirst_name(), customer1.getFirst_name());
+        customerDao.saveAndFlush(actual);
+
+        Customer updated = customerDao.findOne(actual.getId());
+
+        assertEquals(actual.getFirst_name(), updated.getFirst_name());
+        assertEquals(actual.getId(), updated.getId());
 
     }
 
@@ -102,7 +99,7 @@ public class CustomerDaoTest extends BaseTest {
         Customer customer1 = new Customer();
         customer1.setFirst_name("david").setLast_name("gilmour");
 
-        List<Customer> customerList = customerDao.list();
+        List<Customer> customerList = customerDao.findAll();
 
         assertEquals(3, customerList.size());
         assertEquals (customer1.getFirst_name(), customerList.get(0).getFirst_name());
@@ -112,14 +109,20 @@ public class CustomerDaoTest extends BaseTest {
     public void testGetCustomer () {
         Customer customer1 = new Customer();
         customer1.setFirst_name("david").setLast_name("gilmour");
-        Customer customer = customerDao.findById(1);
+        Customer customer = customerDao.findOne(1);
         assertEquals (customer.getFirst_name(), customer1.getFirst_name());
     }
 
     @Test
     public void testGetCustomerWithAccount () {
-        Customer customer = customerDao.findById(1);
+        Customer customer = customerDao.findOne(1);
         assertNotNull(customer.getAccount());
+    }
+
+    @Test
+    public void testDeleteCustomer () {
+        customerDao.delete(3);
+        assertFalse(customerDao.exists(3));
     }
 
 
