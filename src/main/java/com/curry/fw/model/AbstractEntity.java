@@ -1,34 +1,29 @@
 package com.curry.fw.model;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  * CurryWithAri
  * Created by sadra on 11/15/14.
  */
 @MappedSuperclass
-public abstract class AbstractEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public abstract class AbstractEntity {
 
     @SuppressWarnings("unused")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    protected int id;
+    protected Integer id;
 
-    @SuppressWarnings("unused")
-    @Version
-    @Column(name = "version")
-    private Integer version;
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
+
+    @Version
+    private Integer version = 0;
 
     public Integer getVersion() {
         return version;

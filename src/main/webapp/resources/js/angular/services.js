@@ -20,7 +20,7 @@ angular.module('userApp.services',[]).factory('Api', ['$resource',
             DinerMeal: $resource('api/dinerMeal/:id', {id: '@id'}),
             Diner: $resource('api/diner/:id', {id: '@id'}),
             DinerPayment: $resource('api/diner/:id/payment', {id: '@id'}),
-            UserAuthenticate: $resource('login/athenticate'),
+            UserAuthenticate: $resource('login/authenticate/:id', {id: '@id'}),
             Home: $resource('api/home/:id', {id: '@id'})
         };
 }]).service('popupService',function($window){

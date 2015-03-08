@@ -3,6 +3,8 @@ package com.curry.controller;
 import com.curry.model.Customer;
 import com.curry.model.dto.CustomerDto;
 import com.curry.service.CustomerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,8 @@ import java.util.List;
  */
 @Controller
 public class CustomerController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomerController.class);
 
     @Autowired
     private CustomerService customerService;
@@ -60,5 +64,30 @@ public class CustomerController {
         //todo filter by query...
         return customerService.findCustomers();
     }
+
+
+    //Spring Security see this :
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login() {
+
+        LOGGER.debug("in login");
+
+//        if (error != null) {
+//            LOGGER.debug("error", "Invalid username and password!");
+//        }
+//
+//        if (logout != null) {
+//            LOGGER.debug("msg", "You've been logged out successfully.");
+//        }
+
+
+        return "index.html";
+    }
+//
+//    @RequestMapping(value = "login/authenticate", method = RequestMethod.POST)
+//    public String authenticate(){
+//        LOGGER.debug( "in authenticate");
+//        return "something";
+//    }
 
 }

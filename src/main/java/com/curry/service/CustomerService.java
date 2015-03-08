@@ -23,8 +23,6 @@ public interface CustomerService {
     public Customer updateCustomer (CustomerDto customerDto);
     public void deleteCustomer (int id);
 
-    public List<com.curry.model.dto.MealDayDto> getDinerSchedule(Customer customer, Week week);
-
     public List <DinerDto> getDiners (Week week);
 
     public void savePayment(DinerDto dinerDto);

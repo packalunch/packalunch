@@ -11,6 +11,7 @@ public class CustomerDto {
     private String last_name;
     private String address;
     private String telephone;
+    private String email;
 
     public Integer getId() {
         return id;
@@ -65,5 +66,14 @@ public class CustomerDto {
                 ", address='" + address + '\'' +
                 ", telephone='" + telephone + '\'' +
                 '}';
+    }
+
+    public CustomerDto setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

@@ -18,7 +18,7 @@ import java.util.Date;
 @Table(name="meal")
 public class Meal extends AbstractEntity {
 
-    @ManyToOne (fetch = FetchType.LAZY)
+    @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name="customer_id")
     private Customer customer;
 
@@ -76,7 +76,6 @@ public class Meal extends AbstractEntity {
     public String toString() {
         return "Meal{" +
                 " date=" + date +
-                ", customer= " + customer +
                 ", quantity=" + quantity +
                 ", rating=" + rating +
                 ", ordered_at=" + ordered_at +

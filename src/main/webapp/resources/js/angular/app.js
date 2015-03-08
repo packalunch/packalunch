@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('userApp',['ui.router','ngResource','userApp.controllers','userApp.services', 'ngTouch', 'angucomplete']);
+angular.module('userApp',['ui.router','ngResource','userApp.controllers','userApp.services',
+    'ngTouch', 'angucomplete', 'spring-security-csrf-token-interceptor']);
 
 
 

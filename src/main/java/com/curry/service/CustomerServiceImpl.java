@@ -23,7 +23,7 @@ import java.util.List;
  * CurryWithAri
  * Created by sadra on 11/2/14.
  */
-@Service (value = "customerService")
+@Service
 public class CustomerServiceImpl implements CustomerService {
 
     static Logger log = Logger.getLogger(CustomerService.class);
@@ -37,7 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDto findCustomerById(int id) {
-        Customer customer = customerDao.findById(id);
+        Customer customer = customerDao.findOne(id);
         if (null == customer)
             return null; // todo: throw exception
 
@@ -46,13 +46,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer getCustomerById(int id) {
-        return customerDao.findById(id);
+        return customerDao.findOne(id);
     }
 
     @Override
     public List<CustomerDto> findCustomers() {
 
-        List <Customer> customerList =  customerDao.list();
+        List <Customer> customerList =  customerDao.findAll();
         List <CustomerDto> customerDtoList = new ArrayList<CustomerDto>();
 
         for (Customer customer : customerList){
@@ -73,38 +73,66 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer updateCustomer (CustomerDto customerDto) {
-        Customer customer = customerDao.findById(customerDto.getId());
+        Customer customer = customerDao.findOne(customerDto.getId());
         customer.setFirst_name(customerDto.getFirst_name())
                 .setLast_name(customerDto.getLast_name())
                 .setAddress(customerDto.getAddress())
                 .setTelephone(customerDto.getTelephone());
-        customerDao.update(customer); // todo: try catch
+        customerDao.save(customer); // todo: try catch
         return customer;
     }
 
     @Override
     public void deleteCustomer(int id) {
-        Customer customer = customerDao.findById(id);
+        Customer customer = customerDao.findOne(id);
         customerDao.delete (customer);
     }
 
     @Override
     public List<DinerDto> getDiners(Week week) {
-        List<Customer> customerList = customerDao.list();
-        List<DinerDto> dinersList = new ArrayList<DinerDto>();
 
+        List<DinerDto> dinersList = new ArrayList<>();
+
+        Date startDate = week.getDate(Calendar.SUNDAY).getTime();
+        Date endDate   = week.getDate(Calendar.SATURDAY).getTime();
+
+        List<Meal> mealList = mealDao.findByDateBetween(startDate, endDate);
+
+        List<Customer> customerList = getUniqueCustomers(mealList);
 
         for (Customer customer : customerList) {
-            DinerDto diner = getDinerDto(week, customer);
+            DinerDto diner = getDinerMealsDto(customer, mealList, week);
             dinersList.add(diner);
         }
 
         return dinersList;
     }
 
+    private DinerDto getDinerMealsDto(Customer customer, List<Meal> mealList, Week week) {
+        DinerDto dinerDto = getDinerDto (customer);
+        List<MealDayDto> mealDayDtoList = getDaySchedule(week, mealList);
+        dinerDto.setDinerSchedule(mealDayDtoList);
+
+        return dinerDto;
+    }
+
+    /**
+     * @param mealList
+     * @return
+     */
+    private List<Customer> getUniqueCustomers(List<Meal> mealList) {
+        List<Customer> customersList = new ArrayList<>();
+        for (Meal meal : mealList){
+            if (!customersList.contains(meal.getCustomer())){
+                customersList.add(meal.getCustomer());
+            }
+        }
+        return customersList;
+    }
+
     @Override
     public void savePayment(DinerDto dinerDto) {
-        Customer customer = customerDao.findById(dinerDto.getId());
+        Customer customer = customerDao.findOne(dinerDto.getId());
 
         if (null != customer && null != customer.getAccount()) {
             Account account = customer.getAccount();
@@ -112,22 +140,13 @@ public class CustomerServiceImpl implements CustomerService {
                     .setAccount_due( account.getAccount_due() - dinerDto.getAccountDto().getPayment_amount() )
                     .setPayment_date(new Date());
 
-            accountDao.update(account);
+            accountDao.save(account);
         } else {
             //todo: throw exception
         }
 
     }
 
-
-    private DinerDto getDinerDto(Week week, Customer customer) {
-        DinerDto diner = getDinerDto(customer);
-
-        List<MealDayDto> dinerSchedule = getDinerSchedule(customer, week);
-        diner.setDinerSchedule(dinerSchedule);
-
-        return diner;
-    }
 
     private DinerDto getDinerDto(Customer customer) {
         DinerDto diner = new DinerDto();
@@ -153,26 +172,6 @@ public class CustomerServiceImpl implements CustomerService {
                 .setPayment_date(customer.getAccount().getPayment_date());
         return accountDto;
     }
-
-    /**
-     * always return 7 day list.
-     * @param customer
-     * @param week
-     * @return
-     */
-    @Override
-    public List<MealDayDto> getDinerSchedule(Customer customer, Week week) {
-
-        Date startDate = week.getDate(Calendar.SUNDAY).getTime();
-        Date endDate   = week.getDate(Calendar.SATURDAY).getTime();
-
-        List <Meal> meals = mealDao.listByCustomerByRange(customer.getId(), startDate, endDate);
-
-        List<MealDayDto> weekSchedule = getDaySchedule(week, meals);
-
-        return weekSchedule;
-    }
-
 
 
     private List<MealDayDto> getDaySchedule(Week week, List<Meal> meals) {
@@ -214,6 +213,7 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setFirst_name(customerDto.getFirst_name())
                 .setLast_name(customerDto.getLast_name())
                 .setAddress(customerDto.getAddress())
+                .setEmail(customerDto.getEmail())
                 .setTelephone(customerDto.getTelephone());
 
         Account account = new Account();
