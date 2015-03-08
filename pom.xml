@@ -262,6 +262,21 @@
             <version>1.1.0.RELEASE</version>
         </dependency>
 
+        <!-- Sitemesh -->
+        <dependency>
+            <groupId>org.sitemesh</groupId>
+            <artifactId>sitemesh</artifactId>
+            <version>3.0-alpha-2</version>
+        </dependency>
+
+        <!-- Servlet API 3.0 -->
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.servlet</artifactId>
+            <version>3.0</version>
+            <scope>provided</scope>
+        </dependency>
+
 
     </dependencies>
 

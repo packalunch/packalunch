@@ -6,16 +6,16 @@ CREATE TABLE `customer` (
   `email` varchar (255) NOT NULL  DEFAULT '',
   `address` varchar(255) DEFAULT NULL,
   `telephone` varchar(255) DEFAULT NULL,
-  `version` int(11) DEFAULT NULL,
+  `version` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
 #   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `customer` VALUES
-  (1,'david','gilmour', 'gilmour@email.com' ,'hello st',NULL,0),
-  (2,'roger','waters','waters@email.com' ,'final cut st',NULL,0),
-  (3,'john','locke','locke@email.com' ,'enlightment st',NULL,0),
-  (4,'noam','chumsky','chumsky@email.com' ,'failed state st',NULL,0);
+  (1,'david','gilmour', 'gilmour@email.com' ,'hello st',NULL, 0),
+  (2,'roger','waters','waters@email.com' ,'final cut st',NULL, 0),
+  (3,'john','locke','locke@email.com' ,'enlightment st',NULL, 0),
+  (4,'noam','chumsky','chumsky@email.com' ,'failed state st',NULL, 0);
 
 DROP TABLE IF EXISTS `meal`;
 CREATE TABLE `meal` (
@@ -25,7 +25,7 @@ CREATE TABLE `meal` (
   `quantity` int(11) DEFAULT NULL,
   `rating` int(11) DEFAULT NULL,
   `ordered_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `version` int(11) DEFAULT NULL,
+  `version` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `account` (
   `payment_amount` float(11) DEFAULT NULL,
   `payment_date` date DEFAULT NULL,
   `account_due` float(11) DEFAULT NULL,
-  `version` int(11) DEFAULT NULL,
+  `version` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `credential` (
   `sign_in_provider` varchar (20) NULL,
   `salt` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `version` int(11) DEFAULT NULL,
+  `version` int(11) DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `customer_id` (`customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
