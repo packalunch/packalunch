@@ -15,13 +15,24 @@ angular.module('userApp.services',[]).factory('Api', ['$resource',
     function($resource) {
         return {
             User: $resource('api/customer/:id', {id:'@id'}, {
-                update: { method: 'PUT' }
+                update: { method: 'PUT' },
+                query: {method: 'GET', isArray: false }
             }),
-            DinerMeal: $resource('api/dinerMeal/:id', {id: '@id'}),
-            Diner: $resource('api/diner/:id', {id: '@id'}),
-            DinerPayment: $resource('api/diner/:id/payment', {id: '@id'}),
-            UserAuthenticate: $resource('login/authenticate/:id', {id: '@id'}),
-            Home: $resource('api/home/:id', {id: '@id'})
+            DinerMeal: $resource('api/dinerMeal/:id', {id: '@id'}, {
+                query: {method: 'GET', isArray: false }
+            }),
+            Diner: $resource('api/diner/:id', {id: '@id'}, {
+                query: {method: 'GET', isArray: false }
+            }),
+            DinerPayment: $resource('api/diner/:id/payment', {id: '@id'}, {
+                query: {method: 'GET', isArray: false }
+            }),
+            UserAuthenticate: $resource('login/authenticate/:id', {id: '@id'}, {
+                query: {method: 'GET', isArray: false }
+            }),
+            Home: $resource('api/home/:id', {id: '@id'}, {
+                query: {method: 'GET', isArray: false }
+            })
         };
 }]).service('popupService',function($window){
     this.showPopup=function(message){
