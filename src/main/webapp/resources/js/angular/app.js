@@ -40,5 +40,5 @@ angular.module('userApp').config(function($stateProvider,$httpProvider){
         controller:'RegistrationController'
     });
 }).run(function($state){
-    $state.go('users');
+    $state.go('home');
 });

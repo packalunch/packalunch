@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -66,28 +68,5 @@ public class CustomerController {
     }
 
 
-    //Spring Security see this :
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
-
-        LOGGER.debug("in login");
-
-//        if (error != null) {
-//            LOGGER.debug("error", "Invalid username and password!");
-//        }
-//
-//        if (logout != null) {
-//            LOGGER.debug("msg", "You've been logged out successfully.");
-//        }
-
-
-        return "index.html";
-    }
-//
-//    @RequestMapping(value = "login/authenticate", method = RequestMethod.POST)
-//    public String authenticate(){
-//        LOGGER.debug( "in authenticate");
-//        return "something";
-//    }
 
 }

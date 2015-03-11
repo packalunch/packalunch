@@ -9,7 +9,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by sonic on 2/2/15.
+ * CurryWithAri
+ * Created by sadra on 2/2/15.
  */
 public class SocialUserFactory {
 

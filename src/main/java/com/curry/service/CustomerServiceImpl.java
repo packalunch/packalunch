@@ -173,7 +173,7 @@ public class CustomerServiceImpl implements CustomerService {
         return accountDto;
     }
 
-
+//todo FIX: BROKEN
     private List<MealDayDto> getDaySchedule(Week week, List<Meal> meals) {
         List <Day> weekSchedule = week.getWeekList();
 

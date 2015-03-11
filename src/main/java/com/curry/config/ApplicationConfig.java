@@ -22,13 +22,9 @@ public class ApplicationConfig implements WebApplicationInitializer {
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
-        //If you want to use the XML configuration, comment the following two lines out.
+
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
         rootContext.register(ApplicationContext.class);
-
-        //If you want to use the XML configuration, uncomment the following lines.
-        //XmlWebApplicationContext rootContext = new XmlWebApplicationContext();
-        //rootContext.setConfigLocation("classpath:exampleApplicationContext.xml");
 
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet(DISPATCHER_SERVLET_NAME, new DispatcherServlet(rootContext));
         dispatcher.setLoadOnStartup(1);
@@ -46,8 +42,8 @@ public class ApplicationConfig implements WebApplicationInitializer {
         FilterRegistration.Dynamic security = servletContext.addFilter("springSecurityFilterChain", new DelegatingFilterProxy());
         security.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
 
-        FilterRegistration.Dynamic sitemesh = servletContext.addFilter("sitemesh", new ConfigurableSiteMeshFilter());
-        sitemesh.addMappingForUrlPatterns(dispatcherTypes, true, "*.jsp");
+//        FilterRegistration.Dynamic sitemesh = servletContext.addFilter("sitemesh", new ConfigurableSiteMeshFilter());
+//        sitemesh.addMappingForUrlPatterns(dispatcherTypes, true, "*.jsp");
 
         servletContext.addListener(new ContextLoaderListener(rootContext));
     }

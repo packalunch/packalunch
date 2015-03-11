@@ -11,9 +11,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
@@ -46,53 +50,49 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
             .ignoring()
-                .antMatchers("/resources/**");
+                .antMatchers("/resources/**")
+                .antMatchers("/partials/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                //Configures form login
-                .formLogin()
-                    .loginPage("/#/login")
-                    .loginProcessingUrl("/login/authenticate")
-                    .failureUrl("/login?error=bad_credentials")
-                //Configures the logout function
-                .and()
-                    .logout()
-                        .deleteCookies("JSESSIONID")
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login")
-                //Configures url based authorization
-                .and()
-                    .authorizeRequests()
-                        //Anyone can access the urls
-                        .antMatchers(
-                                "/index.html",
-                                "#/home",
-                                "/auth/**",
-                                "#/login",
-                                "/login",
-                                "/signup/**",
-                                "/user/register/**"
-                        ).permitAll()
+        http.formLogin()
+//                .successHandler(new AuthSuccess())
+//                .failureHandler(new AuthFailure())
 
-                .anyRequest()
-                    .authenticated()
-                    .antMatchers("/**")
-                    .hasRole("USER")
                 .and()
-                    .csrf()
+                .logout().and().authorizeRequests()
+                .antMatchers(
+                            "/#/home",
+                            "/partials/login.html",
+                            "/")
+                .permitAll()
+                .anyRequest().authenticated() //.antMatchers("/**").hasRole("ROLE_USER")
+                .and()
+                .csrf()
                     .csrfTokenRepository(csrfTokenRepository())
-
                 //Adds the SocialAuthenticationFilter to Spring Security's filter chain.
                 .and()
-                    .apply(new SpringSocialConfigurer())
+                .apply(new SpringSocialConfigurer())
                 .and()
                 .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
     }
 
-//    authorizeRequests().anyRequest().authenticated();
+
+
+    public class AuthFailure extends SimpleUrlAuthenticationFailureHandler {
+        @Override
+        public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        }
+    }
+
+    public class AuthSuccess extends SimpleUrlAuthenticationSuccessHandler {
+        @Override
+        public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
+    }
 
     private Filter csrfHeaderFilter() {
         return new OncePerRequestFilter() {
