@@ -11,7 +11,7 @@ import java.util.Collection;
  */
 public class SocialUserDetail extends SocialUser {
 
-    private Long id;
+    private Integer id;
 
     private String firstName;
 
@@ -25,11 +25,11 @@ public class SocialUserDetail extends SocialUser {
         super(username, password, authorities);
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public SocialUserDetail setId(Long id) {
+    public SocialUserDetail setId(Integer id) {
         this.id = id;
         return this;
     }

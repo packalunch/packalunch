@@ -39,7 +39,16 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDto findCustomerById(int id) {
         Customer customer = customerDao.findOne(id);
         if (null == customer)
-            return null; // todo: throw exception
+            return null;
+
+        return getDinerDto(customer);
+    }
+
+    @Override
+    public CustomerDto findByUsername(String userName) {
+        Customer customer = customerDao.findByEmail(userName);
+        if (null == customer)
+            return null;
 
         return getDinerDto(customer);
     }

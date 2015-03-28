@@ -26,66 +26,7 @@
             </div>
 
     </li>
-    <form role="form" ng-controller="UserAddMealController" ng-submit="addDinerMeal()">
-        <li class="calendar clearfix"><label for="calendar">I want my lunch on:</label><br/>
 
-            <figure  ng-repeat="day in weekList" id="day1"
-                     class="available" ng-class="{available: day.available , selected : day.selected ,  holiday : !day.available}" >
-
-                <div ng-click="day.selected = !day.selected">
-                    <span id="month">{{day.month}}</span>
-                    <span id="date">{{day.dayNumber}}</span>
-                    <span id="day">{{day.day}}</span>
-                </div>
-
-                <input id="quantity" name="quantity" ng-model="day.quantity" type="number" />
-            </figure>
-
-
-            <!--<figure id="day1" class="selected">-->
-                <!--<span id="month">November</span>-->
-                <!--<span id="date">1</span>-->
-                <!--<span id="day">Tuesday</span>-->
-            <!--</figure>-->
-            <!--<figure id="day1" class="holiday">-->
-                <!--<span id="month">November</span>-->
-                <!--<span id="date">2</span>-->
-                <!--<span id="day">Wednsday</span>-->
-            <!--</figure>-->
-            <!--<figure id="day1" class="unavailable">-->
-                <!--<span id="month">November</span>-->
-                <!--<span id="date">3</span>-->
-                <!--<span id="day">Thursday</span>-->
-            <!--</figure>-->
-            <!--<figure id="day1" class="available">-->
-                <!--<span id="month">November</span>-->
-                <!--<span id="date">4</span>-->
-                <!--<span id="day">Friday</span>-->
-            <!--</figure>-->
-            <!--<figure id="day1" class="weekend">-->
-                <!--<span id="month">November</span>-->
-                <!--<span id="date">5</span>-->
-                <!--<span id="day">Suthurday</span>-->
-            <!--</figure>-->
-            <!--<figure id="day1" class="weekend">-->
-                <!--<span id="month">November</span>-->
-                <!--<span id="date">6</span>-->
-                <!--<span id="day">Sunday</span>-->
-            <!--</figure>-->
-        </li>
-        <li><label for="price">Total price</label><br/>
-            <span id="price">$11.00</span>
-        </li>
-        <li class="tip"><label for="tip">Tip <em>(optional)</em></label><br/>
-            <input id="tip" type="number" name="tip" value="0">
-        </li>
-        <li><label for="total">Total due</label><br/>
-            <span id="total">$11.00</span>
-        </li>
-        <li>
-            <button type="submit" >Submit</button>
-        </li>
-    </form>
 </ol>
 
 <p class="confirmation">Chill. You will get your lunch soon.</p>

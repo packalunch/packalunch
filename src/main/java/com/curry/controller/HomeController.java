@@ -31,7 +31,7 @@ public class HomeController {
 //        this.facebook = facebook;
 //    }
 
-    @RequestMapping(value="/api/home", method = RequestMethod.GET)
+    @RequestMapping(value="/home", method = RequestMethod.GET)
     public @ResponseBody
     List <MealDayDto> load() {
         return mealWeek.getMealDayDtos();

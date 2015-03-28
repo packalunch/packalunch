@@ -54,20 +54,27 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
                 .antMatchers("/partials/**");
     }
 
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
+        http
+                .formLogin()
 //                .successHandler(new AuthSuccess())
 //                .failureHandler(new AuthFailure())
-
                 .and()
-                .logout().and().authorizeRequests()
+                .logout()
+                    .deleteCookies("JSESSIONID")
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login")
+                .and().authorizeRequests()
                 .antMatchers(
-                            "/#/home",
-                            "/partials/login.html",
-                            "/")
+                        "/index.html",
+                        "/home",
+                        "/")
                 .permitAll()
-                .anyRequest().authenticated() //.antMatchers("/**").hasRole("ROLE_USER")
+                    .anyRequest().authenticated()
+                    .antMatchers("/**").hasRole("USER")
                 .and()
                 .csrf()
                     .csrfTokenRepository(csrfTokenRepository())
@@ -75,7 +82,7 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
                 .and()
                 .apply(new SpringSocialConfigurer())
                 .and()
-                .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
+                    .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
     }
 
 

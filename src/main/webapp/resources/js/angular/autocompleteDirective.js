@@ -4,9 +4,8 @@
  * Autocomplete directive for AngularJS
  * By Daryl Rowland
  */
-
-angular.module('angucomplete', [] )
-    .directive('angucomplete', function ($parse, $http, $sce, $timeout, userProperties) {
+//.module('angucomplete', [] )
+app.directive('angucomplete', function ($parse, $http, $sce, $timeout, userProperties) {
         return {
             restrict: 'EA',
             scope: {

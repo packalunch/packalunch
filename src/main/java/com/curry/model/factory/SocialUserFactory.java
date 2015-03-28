@@ -24,7 +24,9 @@ public class SocialUserFactory {
                 customer.getCredential().getPassword(),
                 authorities);
 
-        socialUser.setFirstName(customer.getFirst_name())
+        socialUser
+                .setId(customer.getId())
+                .setFirstName(customer.getFirst_name())
                 .setLastName(customer.getLast_name())
                 .setRole(customer.getCredential().getRole())
                 .setSocialSignInProvider(customer.getCredential().getSignInProvider());

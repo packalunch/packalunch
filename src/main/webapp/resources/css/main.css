@@ -270,6 +270,25 @@ p.confirmation{
     margin-top:3em;
 }
 
+/* centered columns styles */
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+.col-fixed {
+    /* custom width */
+    width:320px;
+}
+
+.top-buffer { margin-top:20px; }
+
 @media (max-width: 840px) {
     figure span#date{
         font-size:1.5em;
