@@ -64,6 +64,11 @@ CREATE TABLE IF NOT EXISTS `credential` (
   UNIQUE KEY `customer_id` (`customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `credential` (`id`, `customer_id`, `role`, `sign_in_provider`, `salt`, `password`, `version` ) VALUES
+  (1, 1, 'ROLE_USER', NULL , '123qweasd', '$2a$10$yWH3GRxFBuOlVuBQGhjqJe3OyvdCYUEnfBjL514x.vubpVh3vYoAG', 0),
+  (2, 2, 'ROLE_USER', NULL , '123qweasd', '$2a$10$yWH3GRxFBuOlVuBQGhjqJe3OyvdCYUEnfBjL514x.vubpVh3vYoAG', 0),
+  (3, 3, 'ROLE_USER', NULL , '123qweasd', '$2a$10$yWH3GRxFBuOlVuBQGhjqJe3OyvdCYUEnfBjL514x.vubpVh3vYoAG', 0);
+
 DROP TABLE IF EXISTS `UserConnection`;
 create table `UserConnection` (
   userId varchar(255) not null,
