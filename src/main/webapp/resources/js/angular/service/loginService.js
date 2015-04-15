@@ -1,6 +1,6 @@
 /**
- * Created by sonic on 3/18/15.
- */
+* Created by Sadra on 3/18/15.
+*/
 
 app.service('loginModal', ['$modal', '$rootScope', function ($modal, $rootScope) {
 

@@ -27,16 +27,12 @@
     <!-- Extra -->
     <link rel="stylesheet" href="resources/css/normalize.css" >
     <link rel="stylesheet" href="resources/css/main.css" >
+    <link rel="stylesheet" href="resources/css/style.css" >
     <link rel="stylesheet" href="resources/css/angucomplete.css" >
 
     <link rel="stylesheet" href="resources/css/bootstrap-social.css" >
 
-    <!-- RequireJS -->
-    <!--<script data-main="scripts/main" src="resources/js/require.js"></script>-->
-
-
     <script src="resources/js/vendor/modernizr-2.6.2.min.js" > </script>
-    <link href='http://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
     <!-- Extra /-->
 
 
@@ -49,7 +45,7 @@
 
 </head>
 
-<body id="page-top" class="index">
+<body id="page-top" class="index" ng-controller="navCtrl">
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -59,13 +55,7 @@
         <!-- /.container-fluid -->
     </nav>
 
-    <div ng-include="'partials/theme/_home.html'">
-    </div>
-
-    <!--<section>-->
-        <!--<div ui-view>-->
-        <!--</div>-->
-    <!--</section>-->
+    <div ui-view></div>
 
     <footer ng-include = "'partials/theme/_footer.html'">
     </footer>
@@ -90,18 +80,24 @@
     <script src="resources/js/angular/factories/api.js"></script>
     <script src="resources/js/angular/router/routes.js"></script>
 
+    <script src="resources/js/angular/controllers/navCtrl.js"></script>
     <script src="resources/js/angular/controllers/homeCtrl.js"></script>
     <script src="resources/js/angular/controllers/controllers.js"></script>
     <script src="resources/js/angular/controllers/loginModalCtrl.js"></script>
+    <script src="resources/js/angular/controllers/userCtrl.js"></script>
+    <script src="resources/js/angular/controllers/registrationCtrl.js"></script>
+    <script src="resources/js/angular/controllers/userMealCtrl.js"></script>
 
     <script src="resources/js/angular/service/services.js"></script>
-    <script src="resources/js/angular/directive/autocompleteDirective.js"></script>
-    <script src="resources/js/vendor/angular/ui-bootstrap-tpls-0.12.1.min.js"></script>
-    <script src="resources/js/angular/controllers/loginModalCtrl.js"></script>
     <script src="resources/js/angular/service/loginService.js"></script>
+    <script src="resources/js/angular/service/authService.js"></script>
+    <script src="resources/js/angular/service/userService.js"></script>
+
+    <script src="resources/js/angular/directive/autocompleteDirective.js"></script>
 
 
     <!-- Plugin JavaScript -->
+    <script src="resources/js/vendor/angular/ui-bootstrap-tpls-0.12.1.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
     <script src="resources/js/theme/classie.js"></script>
     <script src="resources/js/theme/cbpAnimatedHeader.js"></script>

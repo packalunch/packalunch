@@ -1,6 +1,6 @@
 /**
- * Created by sonic on 3/18/15.
- */
+* Created by Sadra on 3/18/15.
+*/
 
 app.controller('LoginModalCtrl', function ($rootScope, $scope, $http, $location,$modalInstance) {
 
@@ -56,10 +56,12 @@ app.controller('LoginModalCtrl', function ($rootScope, $scope, $http, $location,
     $scope.logout = function () {
         $http.post('logout', {}).success(function () {
             $rootScope.authenticated = false;
+            delete $rootScope.currentUser;//TODO: Test
             $location.path("/");
         }).error(function (data) {
             console.log("Logout failed");
             $rootScope.authenticated = false;
+            delete $rootScope.currentUser;
         });
     };
 

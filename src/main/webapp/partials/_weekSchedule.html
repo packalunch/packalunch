@@ -6,7 +6,12 @@
         </div>
     </div>
 
-    <form role="form" ng-controller="UserAddMealController" ng-submit="addDinerMeal()">
+
+
+    <form role="form" ng-controller="UserAddMealCtrl" ng-submit="addDinerMeal()">
+
+        <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+
         <div class="row">
             <div ng-repeat="day in weekList">
                 <!--<div ng-repeat="day in weekList" class="col-xs-6 col-centered col-fixed">-->

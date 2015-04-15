@@ -1,5 +1,5 @@
 /**
- * Created by sonic on 1/1/15.
+ * Created by sadra on 1/1/15.
  * Angucomplete
  * Autocomplete directive for AngularJS
  * By Daryl Rowland

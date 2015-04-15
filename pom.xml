@@ -5,18 +5,18 @@
     <modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.curry</groupId>
-	<artifactId>currywithari</artifactId>
+	<artifactId>PackALunch</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>CurryWithAri</name>
+	<name>PackALunch</name>
 	<url>http://maven.apache.org</url>
 
     <developers>
         <developer>
             <id>Sadra</id>
             <email>sadrayan@gmail.com</email>
-            <organizationUrl>http://www.currywithari.com</organizationUrl>
+            <organizationUrl>http://www.packalunch.ca</organizationUrl>
             <roles>
                 <role>Java Developer</role>
             </roles>
@@ -284,7 +284,7 @@
 	</repositories>
 
     <build>
-        <finalName>currywithari</finalName>
+        <finalName>packalunch</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -295,6 +295,15 @@
                     <target>${jdk.version}</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>

@@ -42,24 +42,12 @@ app.config(function ($httpProvider) {
 
 app.run(function ($rootScope, $state, loginModal) {
 
-    $rootScope.isLoggedIn = function() {
-        if (typeof $rootScope.currentUser === 'undefined') {
-            loginModal()
-                .then(function () {
-                   // return $state.go(toState.name, toParams);
-                })
-                .catch(function () {
-                    console.log(' $rootScope.isLoggedIn in catch -------------');
-                    return $state.go('home');
-                });
-        } else {
-            return $rootScope.currentUser;
-        }
-    };
-
-
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
         var requireLogin = toState.data.requireLogin;
+        console.log('in state change start-------------');
+        console.log(requireLogin);
+        console.log($rootScope.currentUser);
+        console.log('in state change end-------------');
         if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
             event.preventDefault();
 
@@ -72,6 +60,7 @@ app.run(function ($rootScope, $state, loginModal) {
                     return $state.go('home');
                 });
         }
+        console.log('AFTER');
     });
 
 });

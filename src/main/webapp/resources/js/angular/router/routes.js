@@ -1,6 +1,6 @@
 /**
- * Created by Sadra on 3/18/15.
- */
+* Created by Sadra on 3/18/15.
+*/
 app.config(function($stateProvider) {
         $stateProvider
         .state('welcome',{
@@ -11,19 +11,18 @@ app.config(function($stateProvider) {
                 requireLogin: false
             }
         })
-        //.state('home',{
-        //    url:'/home',
-        //    templateUrl:'partials/home.html',
-        //    controller:'HomeController',
-        //    data: {
-        //        requireLogin: false
-        //    }
-        //})
+
         .state('app', {
             abstract: true,
+            template: '<ui-view/>', // needed for nested templates.
             data: {
-                requireLogin: true // this property will apply to all children of 'app'
+                requireLogin: true // shared.
             }
+        })
+        .state('app.user',{
+            url:'/user',
+            templateUrl:'partials/user_home.html',
+            controller:'UserCtrl'
         })
         .state('app.adminView',{
             url:'/admin',
@@ -41,11 +40,6 @@ app.config(function($stateProvider) {
             templateUrl:'partials/customer_list.html',
             controller:'UserListController'
         })
-        //.state('login',{
-        //    url:'/login',
-        //    templateUrl:'partials/login.html',
-        //    controller:'LoginController'
-        //})
 
         .state('viewUser',{
             url:'/users/:id/view',
