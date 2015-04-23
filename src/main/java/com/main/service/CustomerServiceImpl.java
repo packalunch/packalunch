@@ -76,7 +76,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer saveCustomer(CustomerDto customerDto) {
         Customer customer = getCustomer(customerDto);
-        customerDao.save(customer); // todo: try catch
+        customerDao.save(customer);
         return customer;
     }
 
@@ -87,7 +87,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .setLast_name(customerDto.getLast_name())
                 .setAddress(customerDto.getAddress())
                 .setTelephone(customerDto.getTelephone());
-        customerDao.save(customer); // todo: try catch
+        customerDao.save(customer);
         return customer;
     }
 

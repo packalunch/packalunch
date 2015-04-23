@@ -12,6 +12,7 @@ public class CustomerDto {
     private String address;
     private String telephone;
     private String email;
+    private CredentialDto credentialDto;
 
     public Integer getId() {
         return id;
@@ -55,6 +56,15 @@ public class CustomerDto {
 
     public CustomerDto setTelephone(String telephone) {
         this.telephone = telephone;
+        return this;
+    }
+
+    public CredentialDto getCredentialDto() {
+        return credentialDto;
+    }
+
+    public CustomerDto setCredentialDto(CredentialDto credentialDto) {
+        this.credentialDto = credentialDto;
         return this;
     }
 

@@ -71,7 +71,10 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/index.html",
                         "/home",
-                        "/")
+                        "/signup/**",
+                        "/auth/social",
+                        "/api/register"
+                        )
                 .permitAll()
                     .anyRequest().authenticated()
                     .antMatchers("/**").hasRole("USER")

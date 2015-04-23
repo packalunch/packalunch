@@ -32,6 +32,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 
 @PropertySources({
+//        @PropertySource("file:/opt/sonic/configs/jdbc.properties"),
         @PropertySource("classpath:jdbc.properties"),
         @PropertySource("classpath:social.properties")
 })
