@@ -34,7 +34,7 @@ INSERT INTO `meal` VALUES
   (2,1,'2015-01-06',1,NULL,'2015-11-02 02:28:02', 0 ),
   (3,3,'2015-01-07',1,NULL,'2015-11-02 02:28:02', 0 );
 
-drop table if exists `account`;
+DROP TABLE IF EXISTS `account`;
 CREATE TABLE IF NOT EXISTS `account` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NULL,
@@ -82,5 +82,6 @@ create table `UserConnection` (
   secret varchar(255),
   refreshToken varchar(255),
   expireTime bigint,
-  primary key (userId, providerId, providerUserId));
+  primary key (userId, providerId, providerUserId))
+  ENGINE=InnoDB DEFAULT CHARSET=utf8;
 create unique index UserConnectionRank on UserConnection(userId, providerId, rank);
