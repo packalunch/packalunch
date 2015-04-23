@@ -1,17 +1,31 @@
 /**
- * Created by sadra on 3/28/15.
- */
+* Created by Sadra on 3/28/15.
+*/
 
 app.controller('RegistrationController',function($scope,$stateParams,Api) {
 
-    //todo
-    //$scope.userRegister = new Api.UserRegister();
-    //
-    //$scope.registerUser = function(){
-    //    //console.log($scope.userAuthenticate)
-    //    //$scope.userAuthenticate.$save(function(){
-    //    //   // $state.go('users');
-    //    //});
-    //}
+    //$scope.user = Api.SocialAuth.query();
+    //console.log($scope.user);
+
+    console.log($scope.userRegister);
+    console.log("user registration starting");
+
+
+    $scope.userRegister = new Api.UserRegister();
+
+    console.log($scope.userRegister);
+    console.log("user registration starting");
+
+
+    $scope.socialRegister = function() {
+
+        console.log($scope.userRegister)
+        $scope.userRegister.$save(function(){
+           // $state.go('users');
+
+           console.log($scope.userRegister);
+           console.log("user registration done");
+        });
+    }
 
 });

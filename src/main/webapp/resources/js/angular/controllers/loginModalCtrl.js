@@ -56,7 +56,7 @@ app.controller('LoginModalCtrl', function ($rootScope, $scope, $http, $location,
     $scope.logout = function () {
         $http.post('logout', {}).success(function () {
             $rootScope.authenticated = false;
-            delete $rootScope.currentUser;//TODO: Test
+            delete $rootScope.currentUser;
             $location.path("/");
         }).error(function (data) {
             console.log("Logout failed");

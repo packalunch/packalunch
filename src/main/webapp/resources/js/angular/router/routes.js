@@ -3,21 +3,29 @@
 */
 app.config(function($stateProvider) {
         $stateProvider
-        .state('welcome',{
-            url:'',
-            templateUrl:'partials/theme/_home.html',
-            controller:'HomeController',
-            data: {
-                requireLogin: false
-            }
-        })
-
-        .state('app', {
+        .state('public', {
             abstract: true,
             template: '<ui-view/>', // needed for nested templates.
             data: {
-                requireLogin: true // shared.
+                requireLogin: false // shared.
             }
+        })
+        .state('app', {
+            abstract: true,
+            template: '<ui-view/>',
+            data: {
+                requireLogin: true
+            }
+        })
+        .state('public.welcome',{
+            url:'',
+            templateUrl:'partials/theme/_home.html',
+            controller:'HomeController'
+        })
+        .state('public.registerUser',{
+            url:'/socialsignup',
+            templateUrl:'partials/socialRegistration.html',
+            controller:'RegistrationController'
         })
         .state('app.user',{
             url:'/user',
@@ -34,6 +42,7 @@ app.config(function($stateProvider) {
             templateUrl:'partials/admin_view.html',
             controller:'UserAddMealController'
         })
+
         // old
         .state('users',{
             url:'/users',
@@ -55,10 +64,5 @@ app.config(function($stateProvider) {
             url:'/users/:id/edit',
             templateUrl:'partials/customer_edit.html',
             controller:'UserEditController'
-        })
-        .state('registerUser',{
-            url:'/signup',
-            templateUrl:'partials/registration.html',
-            controller:'RegistrationController'
         });
     });

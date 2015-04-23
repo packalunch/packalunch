@@ -21,8 +21,6 @@ app.controller('UserAddMealCtrl', function($scope,$state,$stateParams,authServic
             console.log("in FAILED isLoggedIN");
         }
 
-
-
     };
 
     $scope.closeAlert = function(index) {

@@ -24,6 +24,8 @@ app.factory('Api', ['$resource',
             Diner: $resource('api/diner/:id', {id: '@id'}),
             DinerPayment: $resource('api/diner/:id/payment', {id: '@id'}),
             UserAuthenticate: $resource('auth/username/:id', {id: '@id'}),
-            Home: $resource('home/:id', {id: '@id'})
+            SocialAuth: $resource('auth/social/:id', {id: '@id'}),
+            Home: $resource('home/:id', {id: '@id'}),
+            UserRegister: $resource('api/register/:id', {id: '@id'})
         };
     }]);
