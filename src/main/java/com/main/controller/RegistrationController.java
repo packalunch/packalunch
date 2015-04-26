@@ -1,6 +1,7 @@
 package com.main.controller;
 
 import com.main.fw.json.Response;
+import com.main.helper.auth.SecuritySignInAdapter;
 import com.main.model.Customer;
 import com.main.model.dto.CustomerDto;
 import com.main.service.CustomerService;
@@ -37,6 +38,9 @@ public class RegistrationController {
     @Autowired
     private CustomerService customerService;
 
+    @Autowired
+    private SecuritySignInAdapter securitySignInAdapter;
+
 
     @Transactional
     @RequestMapping(value = "api/register", method = RequestMethod.POST)
@@ -56,12 +60,19 @@ public class RegistrationController {
                             + "======== " + connection.getImageUrl()
             );
 
-            customerDto.setFirst_name(connection.fetchUserProfile().getFirstName())
+            customerDto
+                    .setFirst_name(connection.fetchUserProfile().getFirstName())
                     .setLast_name(connection.fetchUserProfile().getLastName());
 
-            Customer customer = customerService.saveCustomer(customerDto);
+            Customer customer = customerService.saveFacebookCustomer(customerDto);
 
-            System.out.println("customer saved " + customer.getId());
+            System.out.println("customer saved " + customer.getEmail()
+                    + "  ID:  " + customer.getId());
+
+            securitySignInAdapter.signIn(customer.getEmail(), null, null);
+
+            System.out.println("after sign in " + customer.getEmail());
+
             return new Response("success", String.valueOf(customer.getId()));
         } else {
             System.out.println("nothing ");

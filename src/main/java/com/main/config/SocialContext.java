@@ -1,5 +1,6 @@
 package com.main.config;
 
+import com.main.helper.auth.SecuritySignInAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +20,7 @@ import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 import org.springframework.social.connect.web.ConnectController;
+import org.springframework.social.connect.web.ProviderSignInController;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 
@@ -35,11 +37,6 @@ public class SocialContext implements SocialConfigurer {
     @Autowired
     private DataSource dataSource;
 
-    /**
-     * Configures the connection factories for Facebook and Twitter.
-     * @param cfConfig
-     * @param env
-     */
     @Override
     public void addConnectionFactories(ConnectionFactoryConfigurer cfConfig, Environment env) {
         cfConfig.addConnectionFactory(new FacebookConnectionFactory(
@@ -63,16 +60,11 @@ public class SocialContext implements SocialConfigurer {
     }
 
 
-        @Override
+    @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
         return new JdbcUsersConnectionRepository(
                 dataSource,
                 connectionFactoryLocator,
-                /**
-                 * The TextEncryptor object encrypts the authorization details of the connection. In
-                 * our example, the authorization details are stored as plain text.
-                 * DO NOT USE THIS IN PRODUCTION.
-                 */
                 Encryptors.noOpText()
         );
     }
@@ -92,5 +84,10 @@ public class SocialContext implements SocialConfigurer {
     @Bean
     public ConnectController connectController(ConnectionFactoryLocator connectionFactoryLocator, ConnectionRepository connectionRepository) {
         return new ConnectController(connectionFactoryLocator, connectionRepository);
+    }
+
+    @Bean
+    public ProviderSignInController providerSignInController(ConnectionFactoryLocator connectionFactoryLocator, UsersConnectionRepository usersConnectionRepository) {
+        return new ProviderSignInController(connectionFactoryLocator, usersConnectionRepository, new SecuritySignInAdapter());
     }
 }

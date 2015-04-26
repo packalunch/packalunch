@@ -28,4 +28,6 @@ public interface CustomerService {
     void savePayment(DinerDto dinerDto);
 
     DinerDto getDiner(int id, Week week);
+
+    Customer saveFacebookCustomer (CustomerDto customerDto);
 }

@@ -4,6 +4,7 @@ import com.main.dao.AccountDao;
 import com.main.dao.CustomerDao;
 import com.main.dao.MealDao;
 import com.main.model.Account;
+import com.main.model.Credential;
 import com.main.model.Customer;
 import com.main.model.Meal;
 import com.main.model.dto.*;
@@ -75,8 +76,16 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer saveCustomer(CustomerDto customerDto) {
-        Customer customer = getCustomer(customerDto);
+        Customer customer = getNewFacebookCustomer(customerDto);
         customerDao.save(customer);
+        return customer;
+    }
+
+    @Override
+    public Customer saveFacebookCustomer(CustomerDto customerDto) {
+        Customer customer = getNewFacebookCustomer(customerDto);
+        customerDao.save(customer);
+
         return customer;
     }
 
@@ -132,7 +141,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     private DinerDto getDinerMealsDto(Customer customer, List<Meal> mealList, Week week) {
-        DinerDto dinerDto = getDinerDto (customer);
+        DinerDto dinerDto = getDinerDto(customer);
         List<MealDayDto> mealDayDtoList = getDaySchedule(week, mealList);
         dinerDto.setDinerSchedule(mealDayDtoList);
 
@@ -232,7 +241,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customerDto;
     }
 
-    private Customer getCustomer (CustomerDto customerDto) {
+    private Customer getNewFacebookCustomer(CustomerDto customerDto) {
         Customer customer = new Customer ();
         customer.setFirst_name(customerDto.getFirst_name())
                 .setLast_name(customerDto.getLast_name())
@@ -243,6 +252,16 @@ public class CustomerServiceImpl implements CustomerService {
         Account account = new Account();
         account.setCustomer(customer);
         customer.setAccount(account);
+
+        Credential credential = new Credential();
+        credential
+            .setRole( Role.ROLE_USER)
+            .setSignInProvider(SocialMediaService.FACEBOOK)
+            .setCustomer(customer)
+            .setPassword("").setSalt("");
+
+        customer.setCredential(credential);
+
         return customer;
     }
 }
