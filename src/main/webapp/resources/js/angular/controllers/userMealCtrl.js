@@ -2,7 +2,7 @@
 * Created by Sadra on 3/29/15.
 */
 
-app.controller('UserAddMealCtrl', function($scope,$state,$stateParams,authService,userMealService,Api) {
+app.controller('UserAddMealCtrl', function($scope,$state,$stateParams,authService,userMealService) {
 
     $scope.addDinerMeal = function () {
         console.log ('add meal ctl user:-----------addDinerMeal');
@@ -12,9 +12,7 @@ app.controller('UserAddMealCtrl', function($scope,$state,$stateParams,authServic
 
             userMealService.saveMealOrder ($scope.weekList);
 
-            $scope.alerts = [
-                { type: 'success', msg: 'Chill, we will serve you.' }
-            ];
+            $scope.alerts = [{ type: 'success', msg: 'Chill, we will serve you.' }];
 
         } else {
             authService.promptLogin();
@@ -31,6 +29,7 @@ app.controller('UserAddMealCtrl', function($scope,$state,$stateParams,authServic
 
 app.controller('UserMealCtrl', function($scope,authService,Api) {
     if ( authService.getCurrentUser()) {
+        console.log("UserMeal Controller ==========="  + authService.getCurrentUser().id );
         $scope.user = Api.Diner.get( {id : authService.getCurrentUser().id} );
     }
 

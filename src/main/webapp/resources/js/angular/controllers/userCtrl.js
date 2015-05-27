@@ -4,34 +4,35 @@
 
 app.controller('UserViewController',function($scope,$stateParams,Api){
 
+
     $scope.user = Api.User.get({id:$stateParams.id});
 
 });
 
 app.controller('UserCtrl',function($scope,$stateParams,Api){
-    
+    console.log("after user get00000000000000."  + $stateParams.id);
 
 });
 
 
 
-app.controller('UserCreateController',function($scope,$state,$stateParams,Api){
+app.controller('UserCreateController',function($scope,$state,$location,$stateParams,Api){
 
     $scope.user = new Api.User();
 
     $scope.addUser = function(){
         $scope.user.$save(function(){
-            $state.go('users');
+            $location.path('/users');
         });
     }
 
 });
 
-app.controller('UserEditController',function($scope,$state,$stateParams,Api){
+app.controller('UserEditController',function($scope,$state,$location,$stateParams,Api){
 
     $scope.updateUser = function(){
         $scope.user.$update(function(){
-            $state.go('users');
+            $location.path('/users');
         });
     };
 
@@ -41,7 +42,7 @@ app.controller('UserEditController',function($scope,$state,$stateParams,Api){
         $scope.userPayment.accountDto = { payment_amount : $scope.user.accountDto.payment_amount };
 
         $scope.userPayment.$save(function(){
-            $state.go('adminView');
+            $location.path('/adminView');
         });
 
     };

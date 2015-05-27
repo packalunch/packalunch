@@ -1,4 +1,4 @@
-app.controller('UserListController',function($scope,$state,popupService,$window,Api){
+app.controller('UserListController',function($scope,$state,$location,popupService,$window,Api){
 
     $scope.users = Api.User.query();
 
@@ -6,7 +6,7 @@ app.controller('UserListController',function($scope,$state,popupService,$window,
         if(popupService.showPopup('Really delete this?')){
             user.$delete(function(){
                 $window.location.href='';
-//                $state.go('users');
+                $location.path('/users');
             });
         }
 
@@ -14,13 +14,13 @@ app.controller('UserListController',function($scope,$state,popupService,$window,
 
 });
 
-app.controller('AdminListController',function($scope,$state,$stateParams,Api){
+app.controller('AdminListController',function($scope,$state,$location,$stateParams,Api){
 
     $scope.users = Api.Diner.query();
 
     $scope.addPayment = function(){
         $scope.user.$save(function(){
-            $state.go('users');
+            $location.path('/users');
         });
     }
 

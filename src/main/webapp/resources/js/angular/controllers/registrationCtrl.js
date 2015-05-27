@@ -2,7 +2,7 @@
 * Created by Sadra on 3/28/15.
 */
 
-app.controller('RegistrationController',function($scope,$stateParams,Api) {
+app.controller('RegistrationController',function($scope,$location,$stateParams,Api) {
 
     //$scope.user = Api.SocialAuth.query();
     //console.log($scope.user);
@@ -21,10 +21,9 @@ app.controller('RegistrationController',function($scope,$stateParams,Api) {
 
         console.log($scope.userRegister)
         $scope.userRegister.$save(function(){
-           // $state.go('users');
-
            console.log($scope.userRegister);
            console.log("user registration done");
+           $location.path('/user');
         });
     }
 

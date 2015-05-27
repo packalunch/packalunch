@@ -27,6 +27,11 @@ app.config(function($stateProvider) {
             templateUrl:'partials/socialRegistration.html',
             controller:'RegistrationController'
         })
+        .state('public.login',{
+            url:'/login',
+            templateUrl:'partials/login.html',
+            controller:'LoginModalCtrl'
+        })
         .state('app.user',{
             url:'/user',
             templateUrl:'partials/user_home.html',

@@ -59,35 +59,35 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .formLogin()
-//                .successHandler(new AuthSuccess())
-//                .failureHandler(new AuthFailure())
-                .and()
-                .logout()
-                    .deleteCookies("JSESSIONID")
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/login")
-                .and().authorizeRequests()
+            .formLogin()
+                .successHandler(new AuthSuccess())
+                .failureHandler(new AuthFailure())
+            .and()
+            .logout()
+                .deleteCookies("JSESSIONID")
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login")
+            .and().authorizeRequests()
                 .antMatchers(
                         "/index.html",
                         "/home",
                         "/signup/**",
                         "/auth/social",
                         "/api/register"
-                        )
+                )
                 .permitAll()
-                    .anyRequest().authenticated()
-                    .antMatchers("/**").hasRole("USER")
+                .anyRequest().authenticated()
+                .antMatchers("/**").hasRole("USER")
                 .and()
-                .csrf()
-                    .csrfTokenRepository(csrfTokenRepository())
-                //Adds the SocialAuthenticationFilter to Spring Security's filter chain.
-                .and()
-                    .apply(new SpringSocialConfigurer()
-                            .alwaysUsePostLoginUrl(true)
-                            .postLoginUrl("/"))
-                .and()
-                    .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
+            .csrf()
+                .csrfTokenRepository(csrfTokenRepository())
+            //Adds the SocialAuthenticationFilter to Spring Security's filter chain.
+            .and()
+                .apply(new SpringSocialConfigurer()
+                        .alwaysUsePostLoginUrl(true)
+                        .postLoginUrl("/"))
+            .and()
+                .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
     }
 
 
@@ -95,6 +95,7 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
     public class AuthFailure extends SimpleUrlAuthenticationFailureHandler {
         @Override
         public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+            System.out.println("AUTH FAILED----------------------401");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }
