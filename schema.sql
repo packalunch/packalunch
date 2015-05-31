@@ -24,7 +24,7 @@ CREATE TABLE `meal` (
   `date` date NOT NULL,
   `quantity` int(11) DEFAULT NULL,
   `rating` int(11) DEFAULT NULL,
-  `ordered_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ordered_at` timestamp DEFAULT CURRENT_TIMESTAMP,
   `version` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
