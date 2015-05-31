@@ -8,6 +8,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,11 +35,11 @@ public class MealDaoTest extends BaseTest {
         Customer customer1 = customerDao.findOne(3);
 
         Meal meal1 = new Meal();
-        meal1.setDate(new Date()).setQuantity(10).setCustomer(customer1);
+        meal1.setDate(new Date()).setQuantity(10).setCustomer(customer1).setOrdered_at(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
         Meal meal2 = new Meal();
-        meal2.setDate(new Date()).setQuantity(1).setCustomer(customer1);
+        meal2.setDate(new Date()).setQuantity(1).setCustomer(customer1).setOrdered_at(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
         Meal meal3 = new Meal();
-        meal3.setDate(new Date()).setQuantity(1).setCustomer(customer1);
+        meal3.setDate(new Date()).setQuantity(1).setCustomer(customer1).setOrdered_at(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
 
         List <Meal> mealList = new ArrayList <Meal>();
         mealList.add(meal1);
