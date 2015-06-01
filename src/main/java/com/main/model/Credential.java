@@ -17,7 +17,7 @@ import javax.persistence.*;
 public class Credential extends AbstractEntity {
 
     @OneToOne
-    @JoinColumn(name="customer_id")
+    @JoinColumn(name="user_id")
     private Customer customer;
 
     @Column(name = "salt")

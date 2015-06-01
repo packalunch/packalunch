@@ -3,6 +3,8 @@ package com.main.config;
 import com.main.dao.CustomerDao;
 import com.main.service.SocialUserDetailServiceImpl;
 import com.main.service.UserDetailServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,6 +44,8 @@ import java.io.IOException;
 @Configuration
 @EnableWebSecurity
 public class SecurityContext extends WebSecurityConfigurerAdapter {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SecurityContext.class);
 
     @Autowired
     private CustomerDao customerDao;
@@ -95,7 +99,7 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
     public class AuthFailure extends SimpleUrlAuthenticationFailureHandler {
         @Override
         public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-            System.out.println("AUTH FAILED----------------------401");
+            LOGGER.debug("AUTH FAILED----------------------401");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }
@@ -103,6 +107,7 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
     public class AuthSuccess extends SimpleUrlAuthenticationSuccessHandler {
         @Override
         public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+            LOGGER.debug("AUTH SUCCESS---------------------- 200");
             response.setStatus(HttpServletResponse.SC_OK);
         }
     }

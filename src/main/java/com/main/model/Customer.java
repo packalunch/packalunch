@@ -11,7 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @Component
-@Table(name="customer")
+@Table(name="user")
 public class Customer extends AbstractEntity {
 
     private String first_name;

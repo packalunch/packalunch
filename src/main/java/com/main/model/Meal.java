@@ -19,7 +19,7 @@ import java.util.Date;
 public class Meal extends AbstractEntity {
 
     @ManyToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name="customer_id")
+    @JoinColumn(name="user_id")
     private Customer customer;
 
     private Date date;

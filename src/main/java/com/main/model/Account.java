@@ -19,7 +19,7 @@ import java.util.Date;
 public class Account extends AbstractEntity {
 
     @OneToOne
-    @JoinColumn(name="customer_id")
+    @JoinColumn(name="user_id")
     private Customer customer;
 
     private float payment_amount;
