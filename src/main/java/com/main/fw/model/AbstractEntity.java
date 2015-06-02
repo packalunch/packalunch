@@ -17,7 +17,6 @@ public abstract class AbstractEntity {
     protected Integer id;
     private Date created;
     private Date updated;
-    private Date deleted;
 
     public Integer getId() {
         return id;
@@ -35,11 +34,6 @@ public abstract class AbstractEntity {
     @PreUpdate
     protected void onUpdate() {
         updated = new Date();
-    }
-
-    @PreDestroy
-    protected void onDelete() {
-        deleted = new Date();
     }
 
     @Version

@@ -9,7 +9,6 @@ CREATE TABLE `user` (
   `telephone` varchar(255) DEFAULT NULL,
   `created` timestamp DEFAULT CURRENT_TIMESTAMP,
   `updated` timestamp NULL,
-  `deleted` timestamp NULL,
   `version` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -24,7 +23,6 @@ CREATE TABLE IF NOT EXISTS `credential` (
   `password` varchar(255) DEFAULT NULL,
   `created` timestamp DEFAULT CURRENT_TIMESTAMP,
   `updated` timestamp NULL,
-  `deleted` timestamp NULL,
   `version` int(11) DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`)
@@ -40,7 +38,6 @@ CREATE TABLE `meal` (
   `ordered_at` timestamp NULL,
   `created` timestamp DEFAULT CURRENT_TIMESTAMP,
   `updated` timestamp NULL,
-  `deleted` timestamp NULL,
   `version` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -54,7 +51,6 @@ CREATE TABLE IF NOT EXISTS `account` (
   `account_due` float(11) DEFAULT NULL,
   `created` timestamp DEFAULT CURRENT_TIMESTAMP,
   `updated` timestamp NULL,
-  `deleted` timestamp NULL,
   `version` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
