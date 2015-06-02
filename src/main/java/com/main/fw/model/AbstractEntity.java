@@ -1,6 +1,8 @@
 package com.main.fw.model;
 
+import javax.annotation.PreDestroy;
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * sadra
@@ -13,6 +15,9 @@ public abstract class AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Integer id;
+    private Date created;
+    private Date updated;
+    private Date deleted;
 
     public Integer getId() {
         return id;
@@ -20,6 +25,21 @@ public abstract class AbstractEntity {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        created = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updated = new Date();
+    }
+
+    @PreDestroy
+    protected void onDelete() {
+        deleted = new Date();
     }
 
     @Version

@@ -7,6 +7,9 @@ CREATE TABLE `user` (
   `userType` varchar (255) NOT NULL  DEFAULT '',
   `address` varchar(255) DEFAULT NULL,
   `telephone` varchar(255) DEFAULT NULL,
+  `created` timestamp DEFAULT CURRENT_TIMESTAMP,
+  `updated` timestamp NULL,
+  `deleted` timestamp NULL,
   `version` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -19,6 +22,9 @@ CREATE TABLE IF NOT EXISTS `credential` (
   `sign_in_provider` varchar (20) NULL,
   `salt` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
+  `created` timestamp DEFAULT CURRENT_TIMESTAMP,
+  `updated` timestamp NULL,
+  `deleted` timestamp NULL,
   `version` int(11) DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`)
@@ -31,7 +37,10 @@ CREATE TABLE `meal` (
   `date` date NOT NULL,
   `quantity` int(11) DEFAULT NULL,
   `rating` int(11) DEFAULT NULL,
-  `ordered_at` timestamp DEFAULT CURRENT_TIMESTAMP,
+  `ordered_at` timestamp NULL,
+  `created` timestamp DEFAULT CURRENT_TIMESTAMP,
+  `updated` timestamp NULL,
+  `deleted` timestamp NULL,
   `version` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -43,6 +52,9 @@ CREATE TABLE IF NOT EXISTS `account` (
   `payment_amount` float(11) DEFAULT NULL,
   `payment_date` date DEFAULT NULL,
   `account_due` float(11) DEFAULT NULL,
+  `created` timestamp DEFAULT CURRENT_TIMESTAMP,
+  `updated` timestamp NULL,
+  `deleted` timestamp NULL,
   `version` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
