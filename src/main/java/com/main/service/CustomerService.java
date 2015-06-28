@@ -1,6 +1,6 @@
 package com.main.service;
 
-import com.main.model.Customer;
+import com.main.model.user.User;
 import com.main.model.dto.CustomerDto;
 import com.main.model.dto.DinerDto;
 import com.main.plugins.date.Week;
@@ -17,10 +17,10 @@ public interface CustomerService {
 
     CustomerDto findCustomerById (int id);
     CustomerDto findByUsername (String userName);
-    Customer getCustomerById (int id);
+    User getCustomerById (int id);
     List <CustomerDto> findCustomers ();
-    Customer saveCustomer (CustomerDto customerDto);
-    Customer updateCustomer (CustomerDto customerDto);
+    User saveCustomer (CustomerDto customerDto);
+    User updateCustomer (CustomerDto customerDto);
     void deleteCustomer (int id);
 
     List <DinerDto> getDiners (Week week);
@@ -29,5 +29,5 @@ public interface CustomerService {
 
     DinerDto getDiner(int id, Week week);
 
-    Customer saveFacebookCustomer (CustomerDto customerDto);
+    User saveFacebookCustomer (CustomerDto customerDto);
 }

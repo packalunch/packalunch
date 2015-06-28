@@ -1,6 +1,7 @@
-package com.main.model;
+package com.main.model.user;
 
 import com.main.fw.model.AbstractEntity;
+import com.main.model.billing.Account;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -12,7 +13,9 @@ import javax.persistence.*;
 @Entity
 @Component
 @Table(name="user")
-public class Customer extends AbstractEntity {
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="user_type", discriminatorType = DiscriminatorType.STRING)
+public class User extends AbstractEntity {
 
     private String first_name;
     private String last_name;
@@ -20,20 +23,23 @@ public class Customer extends AbstractEntity {
     @Column(name = "email", length = 100,  unique = true)
     private String email;
 
+    @Column(name="user_type", nullable=false, length=8, insertable = false, updatable = false)
+    protected String userType;
+
     private String address;
     private String telephone;
 
-    @OneToOne (mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToOne (mappedBy = "user", cascade = CascadeType.ALL)
     private Credential credential;
 
-    @OneToOne (mappedBy = "customer", cascade= CascadeType.ALL)
+    @OneToOne (mappedBy = "user", cascade= CascadeType.ALL)
     private Account account;
 
     public Credential getCredential() {
         return credential;
     }
 
-    public Customer setCredential(Credential credential) {
+    public User setCredential(Credential credential) {
         this.credential = credential;
         return this;
     }
@@ -42,7 +48,7 @@ public class Customer extends AbstractEntity {
         return first_name;
     }
 
-    public Customer setFirst_name(String first_name) {
+    public User setFirst_name(String first_name) {
         this.first_name = first_name;
         return this;
     }
@@ -51,7 +57,7 @@ public class Customer extends AbstractEntity {
         return last_name;
     }
 
-    public Customer setLast_name(String last_name) {
+    public User setLast_name(String last_name) {
         this.last_name = last_name;
         return this;
     }
@@ -60,7 +66,7 @@ public class Customer extends AbstractEntity {
         return email;
     }
 
-    public Customer setEmail(String email) {
+    public User setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -70,7 +76,7 @@ public class Customer extends AbstractEntity {
         return address;
     }
 
-    public Customer setAddress(String address) {
+    public User setAddress(String address) {
         this.address = address;
         return this;
     }
@@ -79,7 +85,7 @@ public class Customer extends AbstractEntity {
         return telephone;
     }
 
-    public Customer setTelephone(String telephone) {
+    public User setTelephone(String telephone) {
         this.telephone = telephone;
         return this;
     }
@@ -88,7 +94,7 @@ public class Customer extends AbstractEntity {
         return account;
     }
 
-    public Customer setAccount(Account account) {
+    public User setAccount(Account account) {
         this.account = account;
         return this;
     }
@@ -103,4 +109,14 @@ public class Customer extends AbstractEntity {
                 ", telephone='" + telephone + '\'' +
                 '}';
     }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public User setUserType(String userType) {
+        this.userType = userType;
+        return this;
+    }
+
 }

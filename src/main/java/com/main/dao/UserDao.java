@@ -1,6 +1,6 @@
 package com.main.dao;
 
-import com.main.model.Customer;
+import com.main.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
  * Created by sadra on 10/30/14.
  */
 @Repository
-public interface CustomerDao extends JpaRepository<Customer, Integer> {
+public interface UserDao extends JpaRepository<User, Integer> {
 
-    public Customer findByEmail(String email);
+    User findByEmail(String email);
+//    List <User> findByUser_type (String user_type);
 }

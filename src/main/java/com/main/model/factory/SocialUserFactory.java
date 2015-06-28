@@ -1,6 +1,6 @@
 package com.main.model.factory;
 
-import com.main.model.Customer;
+import com.main.model.user.User;
 import com.main.model.dto.SocialUserDetail;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,22 +14,22 @@ import java.util.Set;
  */
 public class SocialUserFactory {
 
-    public static SocialUserDetail build (Customer customer){
+    public static SocialUserDetail build (User user){
 
         Set<GrantedAuthority> authorities = new HashSet<>();
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(customer.getCredential().getRole().toString());
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getCredential().getRole().toString());
         authorities.add(authority);
 
-        SocialUserDetail socialUser = new SocialUserDetail(customer.getEmail(),
-                customer.getCredential().getPassword(),
+        SocialUserDetail socialUser = new SocialUserDetail(user.getEmail(),
+                user.getCredential().getPassword(),
                 authorities);
 
         socialUser
-                .setId(customer.getId())
-                .setFirstName(customer.getFirst_name())
-                .setLastName(customer.getLast_name())
-                .setRole(customer.getCredential().getRole())
-                .setSocialSignInProvider(customer.getCredential().getSignInProvider());
+                .setId(user.getId())
+                .setFirstName(user.getFirst_name())
+                .setLastName(user.getLast_name())
+                .setRole(user.getCredential().getRole())
+                .setSocialSignInProvider(user.getCredential().getSignInProvider());
 
         return socialUser;
 

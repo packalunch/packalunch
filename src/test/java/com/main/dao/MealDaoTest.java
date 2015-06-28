@@ -1,14 +1,13 @@
 package com.main.dao;
 
 import com.main.base.BaseTest;
-import com.main.model.Customer;
-import com.main.model.Meal;
+import com.main.model.user.User;
+import com.main.model.product.Meal;
 import com.main.plugins.date.Week;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,25 +20,25 @@ import static org.junit.Assert.assertNotNull;
  * PackALunch
  * Created by sadra on 11/15/14.
  */
-@DatabaseSetup("customerDaoTest.xml")
+@DatabaseSetup("userDaoTest.xml")
 public class MealDaoTest extends BaseTest {
 
     @Autowired
     private MealDao mealDao;
 
     @Autowired
-    private CustomerDao customerDao;
+    private UserDao userDao;
 
     @Test
     public void testSaveMealList () {
-        Customer customer1 = customerDao.findOne(3);
+        User user1 = userDao.findOne(3);
 
         Meal meal1 = new Meal();
-        meal1.setDate(new Date()).setQuantity(10).setCustomer(customer1).setOrdered_at(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
+        meal1.setDate(new Date()).setQuantity(10).setUser(user1).setOrdered_at(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
         Meal meal2 = new Meal();
-        meal2.setDate(new Date()).setQuantity(1).setCustomer(customer1).setOrdered_at(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
+        meal2.setDate(new Date()).setQuantity(1).setUser(user1).setOrdered_at(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
         Meal meal3 = new Meal();
-        meal3.setDate(new Date()).setQuantity(1).setCustomer(customer1).setOrdered_at(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
+        meal3.setDate(new Date()).setQuantity(1).setUser(user1).setOrdered_at(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
 
         List <Meal> mealList = new ArrayList <Meal>();
         mealList.add(meal1);
@@ -78,7 +77,7 @@ public class MealDaoTest extends BaseTest {
         List<Meal> mealList = mealDao.findByDateBetween(startDate, endDate);
         assertEquals(3, mealList.size());
         for (Meal meal : mealList) {
-            assertNotNull(meal.getCustomer());
+            assertNotNull(meal.getUser());
         }
     }
 

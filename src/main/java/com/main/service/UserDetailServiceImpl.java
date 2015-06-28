@@ -1,7 +1,7 @@
 package com.main.service;
 
-import com.main.dao.CustomerDao;
-import com.main.model.Customer;
+import com.main.dao.UserDao;
+import com.main.model.user.User;
 import com.main.model.dto.SocialUserDetail;
 import com.main.model.factory.SocialUserFactory;
 import org.slf4j.Logger;
@@ -20,11 +20,11 @@ public class UserDetailServiceImpl implements UserDetailsService
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDetailServiceImpl.class);
 
-    private CustomerDao customerDao;
+    private UserDao userDao;
 
     @Autowired
-    public UserDetailServiceImpl(CustomerDao customerDao) {
-        this.customerDao = customerDao;
+    public UserDetailServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
     }
 
     /**
@@ -38,14 +38,14 @@ public class UserDetailServiceImpl implements UserDetailsService
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         LOGGER.debug("Loading user by username: {}", username);
 
-        Customer customer = customerDao.findByEmail(username);
-        LOGGER.debug("Found user: {}", customer);
+        User user = userDao.findByEmail(username);
+        LOGGER.debug("Found user: {}", user);
 
-        if (customer == null) {
+        if (user == null) {
             throw new UsernameNotFoundException("No user found with username: " + username);
         }
 
-        SocialUserDetail socialUserDetail = SocialUserFactory.build(customer);
+        SocialUserDetail socialUserDetail = SocialUserFactory.build(user);
 
         LOGGER.debug("Returning user details: {}", socialUserDetail);
 

@@ -1,8 +1,8 @@
 package com.main.service;
 
 import com.main.base.BaseTest;
-import com.main.dao.CustomerDao;
-import com.main.model.Customer;
+import com.main.dao.UserDao;
+import com.main.model.user.User;
 import com.main.model.dto.CustomerDto;
 import com.main.model.dto.DinerDto;
 import com.main.plugins.date.Week;
@@ -17,17 +17,17 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 
-@DatabaseSetup("customerDaoTest.xml")
-public class CustomerServiceTest extends BaseTest {
+@DatabaseSetup("userDaoTest.xml")
+public class UserServiceTest extends BaseTest {
 
-    private static final Logger log = Logger.getLogger(CustomerServiceTest.class);
+    private static final Logger log = Logger.getLogger(UserServiceTest.class);
 
     @Autowired
     private CustomerService customerService;
 
 
     @Autowired
-    private CustomerDao customerDao;
+    private UserDao userDao;
 
     @Test
     public void testSaveCustomer () {
@@ -38,15 +38,15 @@ public class CustomerServiceTest extends BaseTest {
                 .setTelephone("111-111-1111")
                 .setAddress("being and time");
 
-        Customer customerActual = customerService.saveCustomer(customerDto);
+        User userActual = customerService.saveCustomer(customerDto);
 
-        assertNotNull("customer save Id is missing", customerActual.getId());
-        assertEquals(customerDto.getFirst_name(), customerActual.getFirst_name());
-        assertEquals(customerDto.getLast_name(), customerActual.getLast_name());
-        assertEquals(customerDto.getTelephone(), customerActual.getTelephone());
-        assertEquals(customerDto.getAddress(), customerActual.getAddress());
+        assertNotNull("customer save Id is missing", userActual.getId());
+        assertEquals(customerDto.getFirst_name(), userActual.getFirst_name());
+        assertEquals(customerDto.getLast_name(), userActual.getLast_name());
+        assertEquals(customerDto.getTelephone(), userActual.getTelephone());
+        assertEquals(customerDto.getAddress(), userActual.getAddress());
 
-        log.debug(customerActual.toString());
+        log.debug(userActual.toString());
 
     }
 

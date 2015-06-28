@@ -1,6 +1,6 @@
 package com.main.plugins.date;
 
-import com.main.model.Meal;
+import com.main.model.product.Meal;
 
 import java.util.Date;
 

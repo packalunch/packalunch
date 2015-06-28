@@ -1,12 +1,12 @@
 package com.main.service;
 
 import com.main.dao.AccountDao;
-import com.main.dao.CustomerDao;
+import com.main.dao.UserDao;
 import com.main.dao.MealDao;
-import com.main.model.Account;
-import com.main.model.Credential;
-import com.main.model.Customer;
-import com.main.model.Meal;
+import com.main.model.billing.Account;
+import com.main.model.user.Credential;
+import com.main.model.user.User;
+import com.main.model.product.Meal;
 import com.main.model.dto.*;
 import com.main.plugins.date.Day;
 import com.main.plugins.date.Week;
@@ -29,7 +29,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     static Logger log = Logger.getLogger(CustomerService.class);
     @Autowired
-    private CustomerDao customerDao;
+    private UserDao userDao;
     @Autowired
     private MealDao mealDao;
     @Autowired
@@ -38,35 +38,35 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDto findCustomerById(int id) {
-        Customer customer = customerDao.findOne(id);
-        if (null == customer)
+        User user = userDao.findOne(id);
+        if (null == user)
             return null;
 
-        return getDinerDto(customer);
+        return getDinerDto(user);
     }
 
     @Override
     public CustomerDto findByUsername(String userName) {
-        Customer customer = customerDao.findByEmail(userName);
-        if (null == customer)
+        User user = userDao.findByEmail(userName);
+        if (null == user)
             return null;
 
-        return getDinerDto(customer);
+        return getDinerDto(user);
     }
 
     @Override
-    public Customer getCustomerById(int id) {
-        return customerDao.findOne(id);
+    public User getCustomerById(int id) {
+        return userDao.findOne(id);
     }
 
     @Override
     public List<CustomerDto> findCustomers() {
 
-        List <Customer> customerList =  customerDao.findAll();
+        List <User> userList =  userDao.findAll();
         List <CustomerDto> customerDtoList = new ArrayList<CustomerDto>();
 
-        for (Customer customer : customerList){
-            CustomerDto customerDto = getCustomerDto(customer);
+        for (User user : userList){
+            CustomerDto customerDto = getCustomerDto(user);
             customerDtoList.add(customerDto);
         }
 
@@ -75,35 +75,35 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer saveCustomer(CustomerDto customerDto) {
-        Customer customer = getNewFacebookCustomer(customerDto);
-        customerDao.save(customer);
-        return customer;
+    public User saveCustomer(CustomerDto customerDto) {
+        User user = getNewFacebookCustomer(customerDto);
+        userDao.save(user);
+        return user;
     }
 
     @Override
-    public Customer saveFacebookCustomer(CustomerDto customerDto) {
-        Customer customer = getNewFacebookCustomer(customerDto);
-        customerDao.save(customer);
+    public User saveFacebookCustomer(CustomerDto customerDto) {
+        User user = getNewFacebookCustomer(customerDto);
+        userDao.save(user);
 
-        return customer;
+        return user;
     }
 
     @Override
-    public Customer updateCustomer (CustomerDto customerDto) {
-        Customer customer = customerDao.findOne(customerDto.getId());
-        customer.setFirst_name(customerDto.getFirst_name())
+    public User updateCustomer (CustomerDto customerDto) {
+        User user = userDao.findOne(customerDto.getId());
+        user.setFirst_name(customerDto.getFirst_name())
                 .setLast_name(customerDto.getLast_name())
                 .setAddress(customerDto.getAddress())
                 .setTelephone(customerDto.getTelephone());
-        customerDao.save(customer);
-        return customer;
+        userDao.save(user);
+        return user;
     }
 
     @Override
     public void deleteCustomer(int id) {
-        Customer customer = customerDao.findOne(id);
-        customerDao.delete(customer);
+        User user = userDao.findOne(id);
+        userDao.delete(user);
     }
 
     @Override
@@ -116,10 +116,10 @@ public class CustomerServiceImpl implements CustomerService {
 
         List<Meal> mealList = mealDao.findByDateBetween(startDate, endDate);
 
-        List<Customer> customerList = getUniqueCustomers(mealList);
+        List<User> userList = getUniqueCustomers(mealList);
 
-        for (Customer customer : customerList) {
-            DinerDto diner = getDinerMealsDto(customer, mealList, week);
+        for (User user : userList) {
+            DinerDto diner = getDinerMealsDto(user, mealList, week);
             dinersList.add(diner);
         }
 
@@ -131,17 +131,17 @@ public class CustomerServiceImpl implements CustomerService {
     public DinerDto getDiner(int id, Week week) {
         Date startDate = week.getDate(Calendar.SUNDAY).getTime();
         Date endDate   = week.getDate(Calendar.SATURDAY).getTime();
-        Customer customer = customerDao.findOne(id);
-        System.out.println("IN SERVICE" + customer.getId());
-        List<Meal> mealList =  mealDao.findByCustomer(customer);
+        User user = userDao.findOne(id);
+        System.out.println("IN SERVICE" + user.getId());
+        List<Meal> mealList =  mealDao.findByUser(user);
         System.out.println("IN SERVICE ---- after jpa" + mealList.size());
 
-        DinerDto diner = getDinerMealsDto(customer, mealList, week);
+        DinerDto diner = getDinerMealsDto(user, mealList, week);
         return diner;
     }
 
-    private DinerDto getDinerMealsDto(Customer customer, List<Meal> mealList, Week week) {
-        DinerDto dinerDto = getDinerDto(customer);
+    private DinerDto getDinerMealsDto(User user, List<Meal> mealList, Week week) {
+        DinerDto dinerDto = getDinerDto(user);
         List<MealDayDto> mealDayDtoList = getDaySchedule(week, mealList);
         dinerDto.setDinerSchedule(mealDayDtoList);
 
@@ -152,11 +152,11 @@ public class CustomerServiceImpl implements CustomerService {
      * @param mealList
      * @return
      */
-    private List<Customer> getUniqueCustomers(List<Meal> mealList) {
-        List<Customer> customersList = new ArrayList<>();
+    private List<User> getUniqueCustomers(List<Meal> mealList) {
+        List<User> customersList = new ArrayList<>();
         for (Meal meal : mealList){
-            if (!customersList.contains(meal.getCustomer())){
-                customersList.add(meal.getCustomer());
+            if (!customersList.contains(meal.getUser())){
+                customersList.add(meal.getUser());
             }
         }
         return customersList;
@@ -164,10 +164,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void savePayment(DinerDto dinerDto) {
-        Customer customer = customerDao.findOne(dinerDto.getId());
+        User user = userDao.findOne(dinerDto.getId());
 
-        if (null != customer && null != customer.getAccount()) {
-            Account account = customer.getAccount();
+        if (null != user && null != user.getAccount()) {
+            Account account = user.getAccount();
             account.setPayment_amount(dinerDto.getAccountDto().getPayment_amount())
                     .setAccount_due( account.getAccount_due() - dinerDto.getAccountDto().getPayment_amount() )
                     .setPayment_date(new Date());
@@ -180,28 +180,28 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
 
-    private DinerDto getDinerDto(Customer customer) {
+    private DinerDto getDinerDto(User user) {
         DinerDto diner = new DinerDto();
 
-        diner.setId(customer.getId());
-        diner.setFirst_name(customer.getFirst_name())
-                .setLast_name(customer.getLast_name())
-                .setAddress(customer.getAddress())
-                .setTelephone(customer.getTelephone());
+        diner.setId(user.getId());
+        diner.setFirst_name(user.getFirst_name())
+                .setLast_name(user.getLast_name())
+                .setAddress(user.getAddress())
+                .setTelephone(user.getTelephone());
 
-        if (null != customer.getAccount()) {
-            AccountDto accountDto = getAccountDto(customer);
+        if (null != user.getAccount()) {
+            AccountDto accountDto = getAccountDto(user);
             diner.setAccountDto(accountDto);
         }
         return diner;
     }
 
-    private AccountDto getAccountDto(Customer customer) {
+    private AccountDto getAccountDto(User user) {
         AccountDto accountDto = new AccountDto();
-        accountDto.setId(customer.getAccount().getId())
-                .setPayment_amount(customer.getAccount().getPayment_amount())
-                .setAccount_due(customer.getAccount().getAccount_due())
-                .setPayment_date(customer.getAccount().getPayment_date());
+        accountDto.setId(user.getAccount().getId())
+                .setPayment_amount(user.getAccount().getPayment_amount())
+                .setAccount_due(user.getAccount().getAccount_due())
+                .setPayment_date(user.getAccount().getPayment_date());
         return accountDto;
     }
 
@@ -231,37 +231,37 @@ public class CustomerServiceImpl implements CustomerService {
         return mealDayDtoList;
     }
 
-    private CustomerDto getCustomerDto(Customer customer) {
+    private CustomerDto getCustomerDto(User user) {
         CustomerDto customerDto = new CustomerDto();
-        customerDto.setId(customer.getId())
-                .setFirst_name(customer.getFirst_name())
-                .setLast_name(customer.getLast_name())
-                .setAddress(customer.getAddress())
-                .setTelephone(customer.getTelephone());
+        customerDto.setId(user.getId())
+                .setFirst_name(user.getFirst_name())
+                .setLast_name(user.getLast_name())
+                .setAddress(user.getAddress())
+                .setTelephone(user.getTelephone());
         return customerDto;
     }
 
-    private Customer getNewFacebookCustomer(CustomerDto customerDto) {
-        Customer customer = new Customer ();
-        customer.setFirst_name(customerDto.getFirst_name())
+    private User getNewFacebookCustomer(CustomerDto customerDto) {
+        User user = new User();
+        user.setFirst_name(customerDto.getFirst_name())
                 .setLast_name(customerDto.getLast_name())
                 .setAddress(customerDto.getAddress())
                 .setEmail(customerDto.getEmail())
                 .setTelephone(customerDto.getTelephone());
 
         Account account = new Account();
-        account.setCustomer(customer);
-        customer.setAccount(account);
+        account.setUser(user);
+        user.setAccount(account);
 
         Credential credential = new Credential();
         credential
             .setRole( Role.ROLE_USER)
             .setSignInProvider(SocialMediaService.FACEBOOK)
-            .setCustomer(customer)
+            .setUser(user)
             .setPassword("").setSalt("");
 
-        customer.setCredential(credential);
+        user.setCredential(credential);
 
-        return customer;
+        return user;
     }
 }

@@ -1,6 +1,7 @@
-package com.main.model;
+package com.main.model.billing;
 
 import com.main.fw.model.AbstractEntity;
+import com.main.model.user.User;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
@@ -20,18 +21,18 @@ public class Account extends AbstractEntity {
 
     @OneToOne
     @JoinColumn(name="user_id")
-    private Customer customer;
+    private User user;
 
     private float payment_amount;
     private float account_due;
     private Date payment_date;
 
-    public Customer getCustomer() {
-        return customer;
+    public User getUser() {
+        return user;
     }
 
-    public Account setCustomer(Customer customer) {
-        this.customer = customer;
+    public Account setUser(User user) {
+        this.user = user;
         return this;
     }
 
@@ -65,7 +66,7 @@ public class Account extends AbstractEntity {
     @Override
     public String toString() {
         return "Account{" +
-                "customer=" + customer +
+                "customer=" + user +
                 ", payment_amount=" + payment_amount +
                 ", account_due=" + account_due +
                 ", payment_date=" + payment_date +

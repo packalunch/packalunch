@@ -1,4 +1,4 @@
-package com.main.model;
+package com.main.model.user;
 
 import com.main.fw.model.AbstractEntity;
 import com.main.model.dto.Role;
@@ -18,7 +18,7 @@ public class Credential extends AbstractEntity {
 
     @OneToOne
     @JoinColumn(name="user_id")
-    private Customer customer;
+    private User user;
 
     @Column(name = "salt")
     private String salt;
@@ -34,12 +34,12 @@ public class Credential extends AbstractEntity {
     @Column(name = "sign_in_provider", length = 20)
     private SocialMediaService signInProvider;
 
-    public Customer getCustomer() {
-        return customer;
+    public User getUser() {
+        return user;
     }
 
-    public Credential setCustomer(Customer customer) {
-        this.customer = customer;
+    public Credential setUser(User user) {
+        this.user = user;
         return this;
     }
 

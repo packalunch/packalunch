@@ -1,6 +1,6 @@
 package com.main.dao;
 
-import com.main.model.billing.Account;
+import com.main.model.product.Plan;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
  * Created by sadra on 11/1/14.
  */
 @Repository
-public interface AccountDao extends JpaRepository<Account, Integer> {
+public interface PlanDao extends JpaRepository<Plan, Integer> {
 
 }

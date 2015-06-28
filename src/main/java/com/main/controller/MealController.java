@@ -1,6 +1,6 @@
 package com.main.controller;
 
-import com.main.model.Customer;
+import com.main.model.user.User;
 import com.main.model.dto.DinerDto;
 import com.main.model.dto.MealDayDto;
 import com.main.service.CustomerService;
@@ -35,16 +35,16 @@ public class MealController {
     public @ResponseBody
     boolean saveDinerMeal (@RequestBody DinerDto dinerDto) throws Exception {
 
-        Customer customer = customerService.getCustomerById(dinerDto.getId());
+        User user = customerService.getCustomerById(dinerDto.getId());
 
-        if (customer == null){
+        if (user == null){
             return false;
         } else {
-            log.info("Controller meal:::::::" + customer);
+            log.info("Controller meal:::::::" + user);
             List <MealDayDto> mealDayDtoList = dinerDto.getDinerSchedule();
             log.info("Controller meal:::::::" + mealDayDtoList);
 
-            mealService.saveMeals(customer, mealDayDtoList);
+            mealService.saveMeals(user, mealDayDtoList);
 
             return true;
         }

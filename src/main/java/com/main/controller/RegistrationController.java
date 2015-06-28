@@ -2,7 +2,7 @@ package com.main.controller;
 
 import com.main.fw.json.Response;
 import com.main.helper.auth.SecuritySignInAdapter;
-import com.main.model.Customer;
+import com.main.model.user.User;
 import com.main.model.dto.CustomerDto;
 import com.main.service.CustomerService;
 import org.slf4j.Logger;
@@ -64,16 +64,16 @@ public class RegistrationController {
                     .setFirst_name(connection.fetchUserProfile().getFirstName())
                     .setLast_name(connection.fetchUserProfile().getLastName());
 
-            Customer customer = customerService.saveFacebookCustomer(customerDto);
+            User user = customerService.saveFacebookCustomer(customerDto);
 
-            System.out.println("customer saved " + customer.getEmail()
-                    + "  ID:  " + customer.getId());
+            System.out.println("customer saved " + user.getEmail()
+                    + "  ID:  " + user.getId());
 
-            securitySignInAdapter.signIn(customer.getEmail(), null, null);
+            securitySignInAdapter.signIn(user.getEmail(), null, null);
 
-            System.out.println("after sign in " + customer.getEmail());
+            System.out.println("after sign in " + user.getEmail());
 
-            return new Response("success", String.valueOf(customer.getId()));
+            return new Response("success", String.valueOf(user.getId()));
         } else {
             System.out.println("nothing ");
             return new Response("failed", USER_REGISTER_FAILED);

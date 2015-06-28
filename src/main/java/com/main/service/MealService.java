@@ -1,6 +1,6 @@
 package com.main.service;
 
-import com.main.model.Customer;
+import com.main.model.user.User;
 import com.main.model.dto.MealDayDto;
 import org.springframework.stereotype.Service;
 
@@ -12,5 +12,5 @@ import java.util.List;
  */
 @Service
 public interface MealService {
-    public boolean saveMeals (Customer customer, List<MealDayDto> mealDayDtoList) throws Exception;
+    public boolean saveMeals (User user, List<MealDayDto> mealDayDtoList) throws Exception;
 }

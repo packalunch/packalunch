@@ -1,7 +1,8 @@
-package com.main.model;
+package com.main.model.product;
 
 
 import com.main.fw.model.AbstractEntity;
+import com.main.model.user.User;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -20,19 +21,19 @@ public class Meal extends AbstractEntity {
 
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name="user_id")
-    private Customer customer;
+    private User user;
 
     private Date date;
     private Integer quantity;
     private Integer rating;
     private Timestamp ordered_at;
 
-    public Customer getCustomer() {
-        return customer;
+    public User getUser() {
+        return user;
     }
 
-    public Meal setCustomer(Customer customer) {
-        this.customer = customer;
+    public Meal setUser(User user) {
+        this.user = user;
         return this;
     }
 

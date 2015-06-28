@@ -1,6 +1,6 @@
 package com.main.controller;
 
-import com.main.model.Customer;
+import com.main.model.user.User;
 import com.main.model.dto.CustomerDto;
 import com.main.service.CustomerService;
 import org.slf4j.Logger;
@@ -40,15 +40,15 @@ public class CustomerController {
     @Transactional
     @RequestMapping(value = "api/customer", method = RequestMethod.POST)
     public @ResponseBody int saveCustomer (@RequestBody CustomerDto customerDto) {
-        Customer customer = customerService.saveCustomer(customerDto);
-        return customer.getId();
+        User user = customerService.saveCustomer(customerDto);
+        return user.getId();
     }
 
     @Transactional
     @RequestMapping(value = "api/customer/{id}", method = RequestMethod.PUT)
     public @ResponseBody int updateCustomer (@RequestBody CustomerDto customerDto) {
-        Customer customer = customerService.updateCustomer(customerDto);
-        return customer.getId();
+        User user = customerService.updateCustomer(customerDto);
+        return user.getId();
     }
 
     @Transactional

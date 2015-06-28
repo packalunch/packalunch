@@ -1,6 +1,6 @@
 package com.main.config;
 
-import com.main.dao.CustomerDao;
+import com.main.dao.UserDao;
 import com.main.service.SocialUserDetailServiceImpl;
 import com.main.service.UserDetailServiceImpl;
 import org.slf4j.Logger;
@@ -48,7 +48,7 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityContext.class);
 
     @Autowired
-    private CustomerDao customerDao;
+    private UserDao userDao;
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -174,6 +174,6 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
      */
     @Bean
     public UserDetailsService userDetailsService() {
-        return new UserDetailServiceImpl(customerDao);
+        return new UserDetailServiceImpl(userDao);
     }
 }

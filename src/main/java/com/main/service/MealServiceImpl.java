@@ -1,8 +1,8 @@
 package com.main.service;
 
 import com.main.dao.MealDao;
-import com.main.model.Customer;
-import com.main.model.Meal;
+import com.main.model.user.User;
+import com.main.model.product.Meal;
 import com.main.model.dto.MealDayDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,14 +22,14 @@ public class MealServiceImpl implements MealService {
     private MealDao mealDao;
 
     @Override
-    public boolean saveMeals(Customer customer, List<MealDayDto> mealDayDtoList) throws Exception {
+    public boolean saveMeals(User user, List<MealDayDto> mealDayDtoList) throws Exception {
         List <Meal> mealList = new ArrayList<Meal>();
         java.util.Date date= new java.util.Date();
 
         for (MealDayDto mealDayDto : mealDayDtoList){
             Meal meal = new Meal();
             if (mealDayDto.isSelected()){
-                meal.setCustomer(customer)
+                meal.setUser(user)
                         .setQuantity(mealDayDto.getQuantity())
                         .setDate(mealDayDto.getDate())
                         .setOrdered_at(new Timestamp(date.getTime()));
