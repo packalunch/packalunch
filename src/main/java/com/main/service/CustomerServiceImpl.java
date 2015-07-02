@@ -37,7 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     @Override
-    public CustomerDto findCustomerById(int id) {
+    public UserDto findCustomerById(int id) {
         User user = userDao.findOne(id);
         if (null == user)
             return null;
@@ -46,7 +46,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDto findByUsername(String userName) {
+    public UserDto findByUsername(String userName) {
         User user = userDao.findByEmail(userName);
         if (null == user)
             return null;
@@ -60,42 +60,35 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerDto> findCustomers() {
+    public List<UserDto> findCustomers() {
 
         List <User> userList =  userDao.findAll();
-        List <CustomerDto> customerDtoList = new ArrayList<CustomerDto>();
+        List <UserDto> userDtoList = new ArrayList<UserDto>();
 
         for (User user : userList){
-            CustomerDto customerDto = getCustomerDto(user);
-            customerDtoList.add(customerDto);
+            UserDto userDto = getCustomerDto(user);
+            userDtoList.add(userDto);
         }
 
-        return customerDtoList;
+        return userDtoList;
 
     }
 
     @Override
-    public User saveCustomer(CustomerDto customerDto) {
-        User user = getNewFacebookCustomer(customerDto);
+    public User saveCustomer(UserDto userDto) {
+        User user = getNewCustomer(userDto);
         userDao.save(user);
         return user;
     }
 
-    @Override
-    public User saveFacebookCustomer(CustomerDto customerDto) {
-        User user = getNewFacebookCustomer(customerDto);
-        userDao.save(user);
-
-        return user;
-    }
 
     @Override
-    public User updateCustomer (CustomerDto customerDto) {
-        User user = userDao.findOne(customerDto.getId());
-        user.setFirst_name(customerDto.getFirst_name())
-                .setLast_name(customerDto.getLast_name())
-                .setAddress(customerDto.getAddress())
-                .setTelephone(customerDto.getTelephone());
+    public User updateCustomer (UserDto userDto) {
+        User user = userDao.findOne(userDto.getId());
+        user.setFirst_name(userDto.getFirst_name())
+                .setLast_name(userDto.getLast_name())
+                .setAddress(userDto.getAddress())
+                .setTelephone(userDto.getTelephone());
         userDao.save(user);
         return user;
     }
@@ -231,23 +224,23 @@ public class CustomerServiceImpl implements CustomerService {
         return mealDayDtoList;
     }
 
-    private CustomerDto getCustomerDto(User user) {
-        CustomerDto customerDto = new CustomerDto();
-        customerDto.setId(user.getId())
+    private UserDto getCustomerDto(User user) {
+        UserDto userDto = new UserDto();
+        userDto.setId(user.getId())
                 .setFirst_name(user.getFirst_name())
                 .setLast_name(user.getLast_name())
                 .setAddress(user.getAddress())
                 .setTelephone(user.getTelephone());
-        return customerDto;
+        return userDto;
     }
 
-    private User getNewFacebookCustomer(CustomerDto customerDto) {
+    private User getNewCustomer(UserDto userDto) {
         User user = new User();
-        user.setFirst_name(customerDto.getFirst_name())
-                .setLast_name(customerDto.getLast_name())
-                .setAddress(customerDto.getAddress())
-                .setEmail(customerDto.getEmail())
-                .setTelephone(customerDto.getTelephone());
+        user.setFirst_name(userDto.getFirst_name())
+                .setLast_name(userDto.getLast_name())
+                .setAddress(userDto.getAddress())
+                .setEmail(userDto.getEmail())
+                .setTelephone(userDto.getTelephone());
 
         Account account = new Account();
         account.setUser(user);
@@ -255,13 +248,15 @@ public class CustomerServiceImpl implements CustomerService {
 
         Credential credential = new Credential();
         credential
-            .setRole( Role.ROLE_USER)
-            .setSignInProvider(SocialMediaService.FACEBOOK)
-            .setUser(user)
-            .setPassword("").setSalt("");
+                .setRole( Role.ROLE_USER)
+                .setSignInProvider(SocialMediaService.FACEBOOK)
+                .setUser(user)
+                .setPassword("").setSalt("");
 
         user.setCredential(credential);
 
         return user;
     }
+
+
 }

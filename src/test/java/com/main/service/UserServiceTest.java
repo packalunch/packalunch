@@ -2,8 +2,8 @@ package com.main.service;
 
 import com.main.base.BaseTest;
 import com.main.dao.UserDao;
+import com.main.model.dto.UserDto;
 import com.main.model.user.User;
-import com.main.model.dto.CustomerDto;
 import com.main.model.dto.DinerDto;
 import com.main.plugins.date.Week;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -31,20 +31,20 @@ public class UserServiceTest extends BaseTest {
 
     @Test
     public void testSaveCustomer () {
-        CustomerDto customerDto = new CustomerDto();
-        customerDto.setFirst_name("martin")
+        UserDto userDto = new UserDto();
+        userDto.setFirst_name("martin")
                 .setLast_name("heidegger")
                 .setEmail("martin@heidegger.com")
                 .setTelephone("111-111-1111")
                 .setAddress("being and time");
 
-        User userActual = customerService.saveCustomer(customerDto);
+        User userActual = customerService.saveCustomer(userDto);
 
         assertNotNull("customer save Id is missing", userActual.getId());
-        assertEquals(customerDto.getFirst_name(), userActual.getFirst_name());
-        assertEquals(customerDto.getLast_name(), userActual.getLast_name());
-        assertEquals(customerDto.getTelephone(), userActual.getTelephone());
-        assertEquals(customerDto.getAddress(), userActual.getAddress());
+        assertEquals(userDto.getFirst_name(), userActual.getFirst_name());
+        assertEquals(userDto.getLast_name(), userActual.getLast_name());
+        assertEquals(userDto.getTelephone(), userActual.getTelephone());
+        assertEquals(userDto.getAddress(), userActual.getAddress());
 
         log.debug(userActual.toString());
 

@@ -20,7 +20,7 @@ public class SocialUserFactory {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getCredential().getRole().toString());
         authorities.add(authority);
 
-        SocialUserDetail socialUser = new SocialUserDetail(user.getEmail(),
+        SocialUserDetail socialUser = new SocialUserDetail(Integer.toString(user.getId()),
                 user.getCredential().getPassword(),
                 authorities);
 

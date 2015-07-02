@@ -1,7 +1,7 @@
 package com.main.service;
 
+import com.main.model.dto.UserDto;
 import com.main.model.user.User;
-import com.main.model.dto.CustomerDto;
 import com.main.model.dto.DinerDto;
 import com.main.plugins.date.Week;
 import org.springframework.stereotype.Service;
@@ -15,12 +15,12 @@ import java.util.List;
 @Service
 public interface CustomerService {
 
-    CustomerDto findCustomerById (int id);
-    CustomerDto findByUsername (String userName);
+    UserDto findCustomerById (int id);
+    UserDto findByUsername (String userName);
     User getCustomerById (int id);
-    List <CustomerDto> findCustomers ();
-    User saveCustomer (CustomerDto customerDto);
-    User updateCustomer (CustomerDto customerDto);
+    List <UserDto> findCustomers ();
+    User saveCustomer (UserDto userDto);
+    User updateCustomer (UserDto userDto);
     void deleteCustomer (int id);
 
     List <DinerDto> getDiners (Week week);
@@ -29,5 +29,4 @@ public interface CustomerService {
 
     DinerDto getDiner(int id, Week week);
 
-    User saveFacebookCustomer (CustomerDto customerDto);
 }

@@ -6,7 +6,7 @@ import java.util.List;
  * PackALunch
  * Created by sadra on 12/9/14.
  */
-public class DinerDto extends CustomerDto {
+public class DinerDto extends UserDto {
 
     private AccountDto accountDto;
     private List<MealDayDto> dinerSchedule;

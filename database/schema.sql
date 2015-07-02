@@ -1,10 +1,10 @@
 DROP TABLE IF EXISTS user;
 CREATE TABLE user (
   id int(11) unsigned NOT NULL AUTO_INCREMENT,
-  first_name varchar(255) NOT NULL DEFAULT '',
-  last_name varchar(255) NOT NULL DEFAULT '',
-  email varchar (255) NOT NULL  DEFAULT '',
-  user_type varchar (255) NOT NULL  DEFAULT '',
+  first_name varchar(255) DEFAULT NULL,
+  last_name varchar(255) DEFAULT NULL,
+  email varchar (255)  DEFAULT NULL,
+  user_type varchar (255) ,
   address varchar(255) DEFAULT NULL,
   telephone varchar(255) DEFAULT NULL,
   created timestamp DEFAULT CURRENT_TIMESTAMP,
@@ -101,6 +101,19 @@ CREATE TABLE customer_plan
   version int(11) DEFAULT 0
 );
 CREATE UNIQUE INDEX unique_id ON customer_plan (id);
+
+
+DROP TABLE IF EXISTS supplier_account;
+CREATE TABLE supplier_account (
+  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  plan_id INT NOT NULL,
+  credit INT NOT NULL,
+  created timestamp DEFAULT CURRENT_TIMESTAMP,
+  updated timestamp NULL,
+  version int(11) DEFAULT 0
+);
+CREATE UNIQUE INDEX unique_id ON supplier_account (id);
 
 
 

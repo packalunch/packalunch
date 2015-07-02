@@ -19,7 +19,7 @@ app.config(function($stateProvider) {
         })
         .state('public.welcome',{
             url:'',
-            templateUrl:'partials/theme/_home.html',
+            templateUrl:'partials/marketing/_home.html',
             controller:'HomeController'
         })
         .state('public.registerUser',{

@@ -18,7 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 public class UserDetailServiceImpl implements UserDetailsService
 {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserDetailServiceImpl.class);
+    static org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(UserDetailServiceImpl.class);
 
     private UserDao userDao;
 
@@ -36,18 +36,19 @@ public class UserDetailServiceImpl implements UserDetailsService
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        LOGGER.debug("Loading user by username: {}", username);
 
-        User user = userDao.findByEmail(username);
-        LOGGER.debug("Found user: {}", user);
+        LOGGER.debug("Loading user by username: " + username);
+        User user = userDao.findOne(Integer.parseInt(username));
+        LOGGER.debug("Found userID:" + user.getId());
 
         if (user == null) {
+            LOGGER.debug("no user found: " + username);
             throw new UsernameNotFoundException("No user found with username: " + username);
         }
 
         SocialUserDetail socialUserDetail = SocialUserFactory.build(user);
 
-        LOGGER.debug("Returning user details: {}", socialUserDetail);
+        LOGGER.debug("Returning user details: " + socialUserDetail.toString());
 
         return socialUserDetail;
     }

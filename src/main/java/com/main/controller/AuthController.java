@@ -1,22 +1,18 @@
 package com.main.controller;
 
-import com.main.model.dto.CustomerDto;
+import com.main.model.dto.UserDto;
 import com.main.model.dto.DinerDto;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.main.service.auth.UserAuthService;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
-import org.springframework.social.connect.ConnectionRepository;
-import org.springframework.social.connect.UserProfile;
 import org.springframework.social.connect.web.ProviderSignInUtils;
-import org.springframework.social.facebook.api.Facebook;
-import org.springframework.social.facebook.api.FacebookProfile;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
-import javax.inject.Inject;
 import java.security.Principal;
 
 /**
@@ -26,18 +22,15 @@ import java.security.Principal;
 @Controller
 public class AuthController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
+    static Logger LOGGER = Logger.getLogger(AuthController.class);
 
-    private Facebook facebook;
+    @Autowired
+    protected UserAuthService userAuthService;
+
 
     private final ProviderSignInUtils providerSignInUtils;
 
-    @Inject
-    private ConnectionRepository connectionRepository;
-
-    @Inject
-    public AuthController(Facebook facebook) {
-        this.facebook = facebook;
+    public AuthController() {
         this.providerSignInUtils = new ProviderSignInUtils();
     }
 
@@ -56,7 +49,7 @@ public class AuthController {
 
     @RequestMapping(value = "/auth/social", method = RequestMethod.GET)
     public @ResponseBody
-    CustomerDto getSocialUser(WebRequest request) {
+    UserDto getSocialUser(WebRequest request) {
 
         Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
         DinerDto dinerDto = new DinerDto();
@@ -64,7 +57,7 @@ public class AuthController {
             dinerDto.setFirst_name(connection.fetchUserProfile().getFirstName())
                     .setLast_name(connection.fetchUserProfile().getLastName());
 
-            System.out.println(
+            LOGGER.debug(
                     "======== " + connection.fetchUserProfile().getEmail()
                             + "======== " + connection.fetchUserProfile().getUsername()
                             + "======== " + connection.fetchUserProfile().getName()
@@ -84,25 +77,33 @@ public class AuthController {
     @RequestMapping (value = "/signup", method = RequestMethod.GET)
     private String signup (WebRequest request) {
 
-        System.out.println("in sign up");
+        LOGGER.debug("in sign up");
 
         Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
 
         if (connection != null) {
 
-            System.out.println(
-                "======== " + connection.fetchUserProfile().getEmail()
-                + "======== " + connection.fetchUserProfile().getUsername()
-                + "======== " + connection.fetchUserProfile().getName()
-                + "======== " + connection.fetchUserProfile().getFirstName()
-                + "======== " + connection.getDisplayName()
-                + "======== " + connection.getImageUrl()
+            LOGGER.debug(
+                    "======== " + connection.fetchUserProfile().getEmail()
+                            + "======== " + connection.fetchUserProfile().getUsername()
+                            + "======== " + connection.fetchUserProfile().getName()
+                            + "======== " + connection.fetchUserProfile().getFirstName()
+
+                            + "======== " + connection.getDisplayName()
+                            + "======== " + connection.getImageUrl()
+
+                            + "======== ProfileURL: " + connection.getKey().getProviderUserId()
             );
+
+
+            userAuthService.registerFacebookUser(connection);
+
+            LOGGER.debug("user saved in UserConnection");
+            return "redirect:/#/user";
+
         } else {
-            System.out.println("nothing ");
+            LOGGER.debug("nothing ");
+            return "redirect:/";
         }
-
-        return "redirect:/#/socialsignup";
-
     }
 }

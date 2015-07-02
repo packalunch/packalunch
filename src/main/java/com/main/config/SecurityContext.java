@@ -89,7 +89,7 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
             .and()
                 .apply(new SpringSocialConfigurer()
                         .alwaysUsePostLoginUrl(true)
-                        .postLoginUrl("/"))
+                        .postLoginUrl("/#/user"))
             .and()
                 .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
     }
@@ -148,8 +148,8 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(userDetailsService())
-                .passwordEncoder(passwordEncoder());
+            .userDetailsService(userDetailsService())
+            .passwordEncoder(passwordEncoder());
     }
 
     /**

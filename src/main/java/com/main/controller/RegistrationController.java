@@ -3,10 +3,8 @@ package com.main.controller;
 import com.main.fw.json.Response;
 import com.main.helper.auth.SecuritySignInAdapter;
 import com.main.model.user.User;
-import com.main.model.dto.CustomerDto;
+import com.main.model.dto.UserDto;
 import com.main.service.CustomerService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.web.ProviderSignInUtils;
@@ -26,7 +24,8 @@ import javax.transaction.Transactional;
 @Controller
 public class RegistrationController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RegistrationController.class);
+    static org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(RegistrationController.class);
+
     public static final String USER_REGISTER_FAILED = "USER_REGISTER_FAILED";
 
     private final ProviderSignInUtils providerSignInUtils;
@@ -38,14 +37,11 @@ public class RegistrationController {
     @Autowired
     private CustomerService customerService;
 
-    @Autowired
-    private SecuritySignInAdapter securitySignInAdapter;
-
 
     @Transactional
     @RequestMapping(value = "api/register", method = RequestMethod.POST)
     public @ResponseBody
-    Response registerCustomer(@RequestBody CustomerDto customerDto, WebRequest request) {
+    Response registerCustomer(@RequestBody UserDto userDto, WebRequest request) {
 
         Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
 
@@ -60,20 +56,10 @@ public class RegistrationController {
                             + "======== " + connection.getImageUrl()
             );
 
-            customerDto
-                    .setFirst_name(connection.fetchUserProfile().getFirstName())
-                    .setLast_name(connection.fetchUserProfile().getLastName());
 
-            User user = customerService.saveFacebookCustomer(customerDto);
 
-            System.out.println("customer saved " + user.getEmail()
-                    + "  ID:  " + user.getId());
 
-            securitySignInAdapter.signIn(user.getEmail(), null, null);
-
-            System.out.println("after sign in " + user.getEmail());
-
-            return new Response("success", String.valueOf(user.getId()));
+            return new Response("success", "234");
         } else {
             System.out.println("nothing ");
             return new Response("failed", USER_REGISTER_FAILED);
