@@ -22,9 +22,14 @@ app.config(function($stateProvider) {
             templateUrl:'partials/marketing/_home.html',
             controller:'HomeController'
         })
-        .state('public.registerUser',{
+        .state('public.socialRegisterUser',{
             url:'/socialsignup',
             templateUrl:'partials/socialRegistration.html',
+            controller:'RegistrationController'
+        })
+        .state('public.localregister',{
+            url:'/localRegister',
+            templateUrl:'partials/registration.html',
             controller:'RegistrationController'
         })
         .state('public.login',{

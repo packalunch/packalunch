@@ -17,9 +17,8 @@
 app.factory('Api', ['$resource',
     function($resource) {
         return {
-            User: $resource('api/customer/:id', {id:'@id'}, {
-                update: { method: 'PUT' }
-            }),
+            User: $resource('api/customer/:id', {id:'@id'}, { update: { method: 'PUT' } }),
+            LocalUser: $resource('api/localRegister/:id', {id: '@id'}),
             DinerMeal: $resource('api/dinerMeal/:id', {id: '@id'}),
             Diner: $resource('api/diner/:id', {id: '@id'}),
             DinerPayment: $resource('api/diner/:id/payment', {id: '@id'}),
