@@ -45,7 +45,7 @@ import java.io.IOException;
 @EnableWebSecurity
 public class SecurityContext extends WebSecurityConfigurerAdapter {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SecurityContext.class);
+    static org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(SecurityContext.class);
 
     @Autowired
     private UserDao userDao;
@@ -55,6 +55,7 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
         web
             .ignoring()
                 .antMatchers("/resources/**")
+                .antMatchers("/error/error")
                 .antMatchers("/partials/**");
     }
 
@@ -77,7 +78,8 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
                         "/home",
                         "/signup/**",
                         "/auth/social",
-                        "/api/register"
+                        "/api/register",
+                        "/api/localRegister"
                 )
                 .permitAll()
                 .anyRequest().authenticated()

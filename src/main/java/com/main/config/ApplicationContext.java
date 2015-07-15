@@ -13,7 +13,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 @Configuration
 @ComponentScan(basePackages = {
         "com.main.service",
-        "com.main.plugins.date",
+        "com.main.plugins",
         "com.main.helper.auth"
 })
 @Import({WebAppContext.class, PersistenceContext.class, SecurityContext.class, SocialContext.class})
