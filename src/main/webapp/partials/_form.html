@@ -2,7 +2,7 @@
     <label class="control-label" for="inputFirstName">First name:</label>
 
     <div class="controls">
-        <input type="text" name="inputFirstName" id="inputFirstName" ng-model="user.first_name" placeholder="First name" required/>
+        <input type="text" name="inputFirstName" id="inputFirstName" ng-model="user.firstName" placeholder="First name" required/>
         <br>
         <span ng-show="userForm.inputFirstName.$dirty && userForm.inputFirstName.$error.required">Required!</span>
     </div>
@@ -12,7 +12,7 @@
     <label class="control-label" for="inputLastName">Last name:</label>
 
     <div class="controls">
-        <input type="text" id="inputLastName" ng-model="user.last_name" placeholder="Last name"/>
+        <input type="text" id="inputLastName" ng-model="user.lastName" placeholder="Last name"/>
     </div>
 </div>
 

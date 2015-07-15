@@ -18,11 +18,11 @@
     <tbody>
 
         <tr ng-repeat="user in users">
-            <!--<td><a ui-sref="editUser({id:user.id})" /> {{ user.first_name }} {{ user.last_name }}</td>-->
+            <!--<td><a ui-sref="editUser({id:user.id})" /> {{ user.firstName }} {{ user.lastName }}</td>-->
 
             <td>
                 <a  ui-sref="editUser({id:user.id})">
-                    {{ user.first_name }} {{ user.last_name }}
+                    {{ user.firstName }} {{ user.lastName }}
                 </a>
             </td>
 
