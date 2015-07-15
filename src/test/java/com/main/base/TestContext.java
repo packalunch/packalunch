@@ -10,7 +10,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan(basePackages = {
         "com.main.service",
-        "com.main.plugins.date"
+        "com.main.plugins",
+        "com.main.helper"
 })
 public class TestContext {
 

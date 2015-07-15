@@ -2,6 +2,7 @@ package com.main.base;
 
 import com.main.config.PersistenceContext;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.main.config.SocialContext;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +22,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @Configuration
-@ContextConfiguration( classes = { TestContext.class, PersistenceContext.class }, loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration( classes = { TestContext.class, PersistenceContext.class, SocialContext.class }, loader = AnnotationConfigContextLoader.class)
 @TransactionConfiguration(defaultRollback=true,transactionManager="transactionManager")
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class,

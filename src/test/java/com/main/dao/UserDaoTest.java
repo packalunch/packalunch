@@ -108,7 +108,7 @@ public class UserDaoTest extends BaseTest {
 //        List<User> userList = userDao.findByUser_type("customer");
 //
 //        assertEquals(3, userList.size());
-//        assertEquals (user1.getFirst_name(), userList.get(0).getFirst_name());
+//        assertEquals (user1.getFirstName(), userList.get(0).getFirstName());
     }
 
     @Test

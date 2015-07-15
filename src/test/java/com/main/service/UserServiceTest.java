@@ -32,8 +32,8 @@ public class UserServiceTest extends BaseTest {
     @Test
     public void testSaveCustomer () {
         UserDto userDto = new UserDto();
-        userDto.setFirst_name("martin")
-                .setLast_name("heidegger")
+        userDto.setFirstName("martin")
+                .setLastName("heidegger")
                 .setEmail("martin@heidegger.com")
                 .setTelephone("111-111-1111")
                 .setAddress("being and time");
@@ -41,8 +41,8 @@ public class UserServiceTest extends BaseTest {
         User userActual = customerService.saveCustomer(userDto);
 
         assertNotNull("customer save Id is missing", userActual.getId());
-        assertEquals(userDto.getFirst_name(), userActual.getFirst_name());
-        assertEquals(userDto.getLast_name(), userActual.getLast_name());
+        assertEquals(userDto.getFirstName(), userActual.getFirst_name());
+        assertEquals(userDto.getLastName(), userActual.getLast_name());
         assertEquals(userDto.getTelephone(), userActual.getTelephone());
         assertEquals(userDto.getAddress(), userActual.getAddress());
 

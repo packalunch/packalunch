@@ -1,0 +1,12 @@
+<dataset>
+
+    <user id="1" first_name="david" last_name="gilmour" email="gilmour@email.com"  address="endless river st" user_type="customer"  telephone="456" created="2015-11-02 05:28:02" version="0"/>
+    <user id="2" first_name="roger" last_name="waters" email="waters@email.com" address="final cut st" user_type="customer"  telephone="456" created="2015-11-02 05:28:02" version="0"/>
+    <user id="3" first_name="john" last_name="locke"  email="locke@email.com" address="enlightenment st" user_type="customer"  telephone="456" created="2015-11-02 05:28:02" version="0"/>
+    <user id="4" first_name="john" last_name="admin"  email="admin@email.com" address="enlightenment st" telephone="456" user_type="supplier" created="2015-11-02 05:28:02" version="0"/>
+    <user id="5" first_name="Raju" last_name="kumar"  email="kumar@email.com" address="no none" telephone="45623423423" user_type="supplier" created="2015-11-02 05:28:02" version="0"/>
+    <user id="6" first_name="Mr. Bhadra" last_name="kumar"  email="bhadra@email.com" address="bhadra" telephone="45623423423" user_type="supplier" created="2015-11-02 05:28:02" version="0"/>
+
+    <credential id="1" user_id="1" role="ROLE_USER" sign_in_provider="FACEBOOK" salt="123qwe123" password="HASHEDPASSWORD" created="2015-11-02 05:28:02" version="0"/>
+
+</dataset>
