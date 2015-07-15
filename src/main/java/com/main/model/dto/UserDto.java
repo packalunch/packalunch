@@ -7,8 +7,8 @@ package com.main.model.dto;
 public class UserDto {
 
     private Integer id;
-    private String first_name;
-    private String last_name;
+    private String firstName;
+    private String lastName;
     private String address;
     private String telephone;
     private String email;
@@ -23,21 +23,21 @@ public class UserDto {
         return this;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public UserDto setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public UserDto setFirstName(String firstName) {
+        this.firstName = firstName;
         return this;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public UserDto setLast_name(String last_name) {
-        this.last_name = last_name;
+    public UserDto setLastName(String lastName) {
+        this.lastName = lastName;
         return this;
     }
 
@@ -71,8 +71,8 @@ public class UserDto {
     @Override
     public String toString() {
         return "UserDto{" +
-                "first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", address='" + address + '\'' +
                 ", telephone='" + telephone + '\'' +
                 '}';

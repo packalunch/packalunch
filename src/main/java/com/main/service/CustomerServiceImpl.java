@@ -85,8 +85,8 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public User updateCustomer (UserDto userDto) {
         User user = userDao.findOne(userDto.getId());
-        user.setFirst_name(userDto.getFirst_name())
-                .setLast_name(userDto.getLast_name())
+        user.setFirst_name(userDto.getFirstName())
+                .setLast_name(userDto.getLastName())
                 .setAddress(userDto.getAddress())
                 .setTelephone(userDto.getTelephone());
         userDao.save(user);
@@ -177,8 +177,8 @@ public class CustomerServiceImpl implements CustomerService {
         DinerDto diner = new DinerDto();
 
         diner.setId(user.getId());
-        diner.setFirst_name(user.getFirst_name())
-                .setLast_name(user.getLast_name())
+        diner.setFirstName(user.getFirst_name())
+                .setLastName(user.getLast_name())
                 .setAddress(user.getAddress())
                 .setTelephone(user.getTelephone());
 
@@ -227,8 +227,9 @@ public class CustomerServiceImpl implements CustomerService {
     private UserDto getCustomerDto(User user) {
         UserDto userDto = new UserDto();
         userDto.setId(user.getId())
-                .setFirst_name(user.getFirst_name())
-                .setLast_name(user.getLast_name())
+                .setFirstName(user.getFirst_name())
+                .setLastName(user.getLast_name())
+                .setEmail(user.getEmail())
                 .setAddress(user.getAddress())
                 .setTelephone(user.getTelephone());
         return userDto;
@@ -236,8 +237,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     private User getNewCustomer(UserDto userDto) {
         User user = new User();
-        user.setFirst_name(userDto.getFirst_name())
-                .setLast_name(userDto.getLast_name())
+        user.setFirst_name(userDto.getFirstName())
+                .setLast_name(userDto.getLastName())
                 .setAddress(userDto.getAddress())
                 .setEmail(userDto.getEmail())
                 .setTelephone(userDto.getTelephone());
