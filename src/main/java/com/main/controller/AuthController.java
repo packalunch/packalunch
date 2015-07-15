@@ -54,8 +54,8 @@ public class AuthController {
         Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
         DinerDto dinerDto = new DinerDto();
         if (connection != null) {
-            dinerDto.setFirst_name(connection.fetchUserProfile().getFirstName())
-                    .setLast_name(connection.fetchUserProfile().getLastName());
+            dinerDto.setFirstName(connection.fetchUserProfile().getFirstName())
+                    .setLastName(connection.fetchUserProfile().getLastName());
 
             LOGGER.debug(
                     "======== " + connection.fetchUserProfile().getEmail()

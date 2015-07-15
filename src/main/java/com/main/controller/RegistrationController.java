@@ -1,10 +1,12 @@
 package com.main.controller;
 
+import com.main.exception.user.UserEmailExistException;
+import com.main.exception.user.UserEmailInvalidException;
 import com.main.fw.json.Response;
-import com.main.helper.auth.SecuritySignInAdapter;
-import com.main.model.user.User;
 import com.main.model.dto.UserDto;
-import com.main.service.CustomerService;
+import com.main.model.user.Customer;
+import com.main.service.registration.RegistrationService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.web.ProviderSignInUtils;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 /**
@@ -24,7 +28,7 @@ import javax.transaction.Transactional;
 @Controller
 public class RegistrationController {
 
-    static org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(RegistrationController.class);
+    static Logger LOGGER = Logger.getLogger(RegistrationController.class);
 
     public static final String USER_REGISTER_FAILED = "USER_REGISTER_FAILED";
 
@@ -35,7 +39,26 @@ public class RegistrationController {
     }
 
     @Autowired
-    private CustomerService customerService;
+    private RegistrationService registrationService;
+
+
+
+    @RequestMapping(value = "api/localRegister", method = RequestMethod.POST)
+    public @ResponseBody
+    Response registerLocalCustomer(@RequestBody UserDto userDto, HttpServletResponse response) {
+        LOGGER.debug(userDto.toString());
+        try {
+            Customer customer = registrationService.registerCustomerAndLogin(userDto);
+
+            response.addCookie(new Cookie("userId", customer.getId().toString()));
+
+            return new Response("success", Integer.toString(customer.getId()));
+        } catch (UserEmailExistException ex) {
+            return new Response ("failed", ex.getMessage());
+        } catch (UserEmailInvalidException ex) {
+            return new Response ("failed", ex.getMessage());
+        }
+    }
 
 
     @Transactional
