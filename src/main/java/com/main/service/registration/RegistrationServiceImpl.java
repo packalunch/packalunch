@@ -12,6 +12,8 @@ import com.main.model.user.Customer;
 import com.main.plugins.validator.EmailValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -34,6 +36,7 @@ public class RegistrationServiceImpl  implements RegistrationService{
 
     @Autowired
     private SecuritySignInAdapter securitySignInAdapter;
+
 
     @Override
     @Transactional
@@ -60,12 +63,15 @@ public class RegistrationServiceImpl  implements RegistrationService{
         account.setUser(customer);
 
 
+        String salt = BCrypt.gensalt();
+        String password = BCrypt.hashpw(userDto.getCredentialDto().getPassword(), salt);
+
         Credential credential = new Credential();
         credential
                 .setUser(customer)
-                .setPassword(userDto.getCredentialDto().getPassword())
+                .setPassword(password)
                 .setRole(Role.ROLE_USER)
-                .setSalt("123qweasdzcx");
+                .setSalt(salt);
 
         customer.setAccount(account).setCredential(credential);
 
