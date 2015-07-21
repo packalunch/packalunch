@@ -28,7 +28,7 @@ app.config(function($stateProvider) {
             controller:'RegistrationController'
         })
         .state('public.localregister',{
-            url:'/localRegister',
+            url:'/register',
             templateUrl:'partials/registration.html',
             controller:'RegistrationController'
         })
