@@ -1,0 +1,27 @@
+{
+  "name": "main",
+  "version": "0.0.0",
+  "homepage": "https://github.com/packalunch/packalunch",
+  "authors": [
+    "Sadra <sadrayan@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "angular": "~1.4.3",
+    "angular-route": "~1.4.3",
+    "angular-resource": "~1.4.3",
+    "angular-touch": "~1.4.3",
+    "angular-ui-router": "~0.2.15",
+    "bootstrap": "~3.3.5",
+    "spring-security-csrf-token-interceptor": "~0.1.5",
+    "angular-bootstrap": "~0.13.2"
+  }
+}
