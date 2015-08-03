@@ -12,6 +12,5 @@
     "grunt-contrib-watch": "^0.6.1"
   },
   "dependencies": {
-    "angular-route": "^1.4.3"
   }
 }
